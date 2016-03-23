@@ -9,6 +9,11 @@ public class FileOperation {
 
     public static final String FILE_PATH = "/home/BankAccount/";
 
+    /**
+     * read the object from file
+     * @param accNo
+     * @return CustomerAccount
+     */
     public static CustomerAccount readObj(int accNo) {
 
         CustomerAccount customerAccount = null;
@@ -24,7 +29,7 @@ public class FileOperation {
     }
 
     /**
-     *
+     * write object to file
      * @param customerAccount
      */
     public static void writeObj(CustomerAccount customerAccount) {
@@ -39,9 +44,9 @@ public class FileOperation {
     }
 
     /**
-     *
+     * load the data form file
      */
-    public static void getload() {
+    public static void getLoad() {
         File file = new File(FILE_PATH);
         if (file.exists()) ;
         {

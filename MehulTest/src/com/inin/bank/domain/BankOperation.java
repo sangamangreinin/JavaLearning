@@ -64,18 +64,18 @@ public class BankOperation {
         System.out.println(endDate);
 
         CustomerAccount customerAccount = FileOperation.readObj(accNo);
-        ArrayList<Transaction> transactions = customerAccount.getTransactions();
         ArrayList<CustomerAccount> arrListAccount = bankService.viewTransactionHistory(startDateTime, endDateTime);
         if (!arrListAccount.isEmpty()) {
             for (CustomerAccount custAcc : arrListAccount) {
                 System.out.println(custAcc);
             }
-        } else {
-            throw new DataNotFound("Data not Found");
         }
         menuClass.displayMenu();
     }
 
+    /**
+     *
+     */
     private void viewAccDetails() {
         System.out.println("enter the account number");
         int accNo = scanner.nextInt();
@@ -122,22 +122,23 @@ public class BankOperation {
 
     }
 
+    /**
+     * Start Program
+     * @param args
+     */
     public static void main(String[] args) {
-
         menuClass = new BankOperation();
         menuClass.displayMenu();
-
     }
 
     /**
-     *
+     * create Account
      */
     private void createAccount() {
 
         System.out.println("enter the account number");
         int accNo = scanner.nextInt();
         scanner.nextLine();
-
 
         System.out.println("enter customer name");
         String name = scanner.nextLine();

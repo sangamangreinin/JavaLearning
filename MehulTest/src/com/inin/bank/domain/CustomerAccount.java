@@ -65,9 +65,9 @@ public class CustomerAccount implements Serializable {
     }
 
     /**
-     * @param accNo
-     * @param customerInfo
-     * @param transactions
+     * @param accNo  account Number
+     * @param customerInfo  customer Info
+     * @param transactions transaction object
      */
     public CustomerAccount(int accNo, CustomerInfo customerInfo, ArrayList<Transaction> transactions) {
         this(accNo, customerInfo);
