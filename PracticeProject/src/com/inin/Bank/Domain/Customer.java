@@ -44,7 +44,7 @@ public class Customer implements Serializable {
      * @param name
      * @param address
      * @param contactNo
-     * @return
+     * @return created customer object
      */
     public static Customer createUser(String name, String address, long contactNo) {
         Customer customer = new Customer(name, address, contactNo);
@@ -58,7 +58,7 @@ public class Customer implements Serializable {
      * @param address
      * @param contactNo
      * @param kycDoc
-     * @return
+     * @return created customer object
      */
     public static Customer createUser(String name, String address, long contactNo, KycInfo kycDoc) {
         Customer customer = new Customer(name, address, contactNo, kycDoc);

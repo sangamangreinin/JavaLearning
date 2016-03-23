@@ -68,7 +68,7 @@ public class Account implements Serializable {
     }
 
     /**
-     * check for balance low below 2000
+     * check for balance below 2000
      *
      * @param balance
      * @return true if balance is below 2000 & false if balance is above 2000
@@ -107,7 +107,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return  "accountNo = " + accountNo +
+        return "accountNo = " + accountNo +
                 ", balance = " + balance +
                 ", created = " + created +
                 ", customer = " + customer +

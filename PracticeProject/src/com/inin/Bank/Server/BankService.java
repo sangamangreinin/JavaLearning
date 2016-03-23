@@ -5,6 +5,7 @@ import com.inin.Bank.Domain.Customer;
 import com.inin.Bank.Domain.KycInfo;
 import com.inin.Bank.Domain.Transaction;
 import com.inin.Bank.Exceptions.BadDataException;
+import com.inin.Bank.Util.Util;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +16,11 @@ import java.util.Scanner;
  * Created by evansbelly on 23/3/16.
  */
 public class BankService {
-
+    /**
+     * Generates a valid customer object.
+     * @param scanner
+     * @return valid Customer object.
+     */
     public static Customer getCustomerInfo(Scanner scanner) {
         Customer customer = null;
         scanner.nextLine();
@@ -51,6 +56,14 @@ public class BankService {
         return customer;
     }
 
+    /**
+     *
+     * @param scanner
+     * @param customer
+     * @param flag
+     * @param accountList
+     * @return boolean value. True : Account successfully created
+     */
     public boolean accountCreateService(Scanner scanner, Customer customer, boolean flag, HashMap<Long, Account> accountList) {
         System.out.println("\nEnter the account details: \nNon zero Account Number: ");
         long accountNo = scanner.nextLong();
@@ -58,7 +71,7 @@ public class BankService {
         double balance = scanner.nextDouble();
         try {
             Account account = Account.createAccount(accountNo, balance, customer);
-            this.serializeAccount(account, accountNo);
+            Util.serializeAccount(account, accountNo);
             accountList.put(accountNo, account);
             flag = false;
         } catch (IllegalArgumentException i) {
@@ -67,15 +80,6 @@ public class BankService {
             System.out.println("Balance amount entered is below Rs. 2000/-");
         }
         return flag;
-    }
-
-    public void serializeAccount(Account account, long accountNo) {
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("ININ" + accountNo + ".ser"));
-            objectOutputStream.writeObject(account);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void optionSelection(Scanner scanner, int selection, HashMap<Long, Account> accountsList) {
@@ -107,13 +111,13 @@ public class BankService {
                             System.out.println("Balance before Withdrawal : " + indAccount.getBalance());
                             double bal = indAccount.performTransaction(1, amount);
                             System.out.println("Balance after Withdrawal : " + bal);
-                            serializeAccount(indAccount, accountNo);
+                            Util.serializeAccount(indAccount, accountNo);
                             break;
                         case 2:
                             System.out.println("Balance before Deposit : " + indAccount.getBalance());
                             bal = indAccount.performTransaction(2, amount);
                             System.out.println("Balance after Deposit : " + bal);
-                            serializeAccount(indAccount, accountNo);
+                            Util.serializeAccount(indAccount, accountNo);
                             break;
                     }
                 }
@@ -137,31 +141,4 @@ public class BankService {
         }
     }
 
-    public HashMap<Long, Account> deserializeAccounts() {
-        HashMap<Long, Account> dserList = new HashMap<>();
-        Account account = null;
-        String temp = "";
-        try {
-            String myCurrentDir = System.getProperty("user.dir");
-            File folder = new File(myCurrentDir);
-            for (File file : folder.listFiles()) {
-                temp = file.getName();
-                if (file.isFile()) {
-                    if ((temp.substring(temp.lastIndexOf('.') + 1, temp.length()).toLowerCase()).equals("ser"))
-                        System.out.println(temp);
-                    if (temp.contains(".ser")) {
-                        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(temp));
-                        account = (Account) objectInputStream.readObject();
-                        dserList.put(account.getAccountNo(), account);
-                    }
-                }
-            }
-            System.out.println(account);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return dserList;
-    }
 }
