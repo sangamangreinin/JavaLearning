@@ -1,0 +1,19 @@
+#http://gary-rowe.com/agilestack/2012/10/12/a-gitignore-file-for-intellij-and-eclipse-with-maven/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+run.sh
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+test-output/
