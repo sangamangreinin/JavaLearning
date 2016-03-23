@@ -86,8 +86,11 @@ public class Main {
             case 5:
                 operations.viewTransactionHistory();
                 break;
+            case 6:
+                operations.addKYC();
+                break;
             default:
-                throw new InputMismatchException("Allowed values are from 0-5");
+                throw new InputMismatchException("Allowed values are from 0-6");
         }
     }
 }

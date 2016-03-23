@@ -175,6 +175,9 @@ public class Operations {
 
     }
 
+    /**
+     * deposits the amount in the account
+     */
     public void depositAmount(){
 
         System.out.println("Enter Account Number: ");
@@ -268,5 +271,51 @@ public class Operations {
 
     public void viewAccount(String acc){
         loadAccountFile(acc);
+    }
+
+    private KYCConstants getKYCType(){
+
+        boolean flag = false;
+        double amount = 0;
+        KYCConstants consts = null;
+
+        while (!flag){
+            System.out.println("Enter KYC document type: (PAN, AADHAR, PASSPORT)");
+            String doc = scan.nextLine();
+            try {
+                switch (doc.toUpperCase()){
+                    case "PAN": consts = KYCConstants.PAN; flag= true;
+                        break;
+                    case "AADHAR": consts = KYCConstants.AADHAR; flag= true;
+                        break;
+                    case "PASSPORT": consts = KYCConstants.PASSPORT; flag= true;
+                        break;
+                    default: throw new InputMismatchException("");
+                }
+            }catch (InputMismatchException | NumberFormatException e){
+                System.out.println("Enter Proper KYC type");
+            }
+        }
+        return consts;
+    }
+
+    public void addKYC() {
+
+        System.out.println("Enter Account Number: ");
+        String accountNo = scan.nextLine();
+
+        KYCConstants kycType = getKYCType();
+        System.out.println("Enter unique id: ");
+        String id = scan.nextLine();
+
+        try{
+            lock.lock();
+            Account account = readAccountObject(accountNo);
+            account.addInKYC(kycType, id);
+            writeAccountObject(account);
+        }finally {
+            lock.unlock();
+        }
+
     }
 }

@@ -22,6 +22,7 @@ public class Util {
                 "3.\tDeposit to Account\n" +
                 "4.\tView details of account\n" +
                 "5.\tView transaction history of account\n" +
+                "6.\tAdd KYC\n" +
                 "0.\tQUIT (EXIT)\n"
         );
         System.out.println("Enter your option: ");
