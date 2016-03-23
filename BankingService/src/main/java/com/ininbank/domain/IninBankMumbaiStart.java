@@ -1,18 +1,24 @@
 package com.ininbank.domain;
 
-import com.ininbank.domain.Customer;
-import com.ininbank.domain.Document;
 import com.ininbank.exceptions.LessBalanceException;
 import com.ininbank.solids.SystemConstants;
 import com.ininbank.util.SerializeData;
 import com.ininbank.util.UserInput;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by root on 23/3/16.
  */
-public class IninBankMumbai implements Banking{
-    SerializeData serializeData = new SerializeData();
+public class IninBankMumbaiStart implements Banking{
+    SerializeData serializeData;
+    static ConcurrentHashMap<Integer, CustomerAccount> accountHashMap = null;
 
+    public IninBankMumbaiStart(){
+        serializeData = new SerializeData();
+    }
+    /**
+     * Creating new account with customer details and documents */
     public void createAccount(){
         String panNo = null;
         Document[] documents;
@@ -29,12 +35,23 @@ public class IninBankMumbai implements Banking{
         Customer customer = createCustomer();
         documents = getTheDocuments();
         CustomerAccount customerAccount = CustomerAccount.createAccount(initAmount, customer, documents);
-        System.out.println(customerAccount.toString());
-        serializeData.serializeAccount(customerAccount);
+        int accoutnNumber = customerAccount.getAccountNumber();
 
+        boolean isSerailizedAccount = serializeData.serializeAccount(customerAccount);
+
+        Transaction transaction = createTransaction(accoutnNumber,
+                SystemConstants.TRANSACTION_DEPOSIT, initAmount, 0);
+        boolean isSerrializedTransaction = serializeData.serializeTransaction(transaction);
+
+        if(isSerailizedAccount && isSerrializedTransaction){
+            accountHashMap.put(accoutnNumber, customerAccount);
+        }
 
     }
 
+    /**
+     * Create customer with required details.
+     * */
     Customer createCustomer(){
 
         String customerName = UserInput.acceptStringInput("Enter customer name");
@@ -45,6 +62,9 @@ public class IninBankMumbai implements Banking{
     }
 
 
+    /**
+     * get the multiple documents.
+     * */
     Document[] getTheDocuments(){
         Document[] documents = new Document[10];
         String option = UserInput.acceptStringInput("Are you providing documents? y : n");
@@ -73,10 +93,24 @@ public class IninBankMumbai implements Banking{
     }
 
 
+    /**
+     * get the document object and return it.
+     * */
     Document getDocument(){
         String documentType = UserInput.acceptStringInput("Enter Document");
         String documentPath = SystemConstants.DOCUMENTS_SER_FILE_PATH;
 
         return new Document(documentPath, documentType);
+    }
+
+    public boolean depositAmount(){
+
+        return false;
+    }
+
+    /**
+     * create the transaction on account number and the amount.*/
+    public Transaction createTransaction(int accountNumber, String type, float amtDeposit, float balance){
+        return new Transaction(accountNumber, type, amtDeposit, balance);
     }
 }

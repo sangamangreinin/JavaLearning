@@ -10,4 +10,7 @@ public class SystemConstants {
     public static final String ACCOUNT_SER_FILE_PATH = "src/main/resources/accounts/";
     public static final String DOCUMENTS_SER_FILE_PATH = "src/main/resources/documents/";
     public static final String TRANSACTION_SER_FILE_PATH = "src/main/resources/transactions/";
+    public static final String TRANSACTION_DEPOSIT = "DEPOSIT";
+    public static final String TRANSACTION_WITHDRAW = "WITHDRAW";
+
 }

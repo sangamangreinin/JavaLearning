@@ -1,4 +1,4 @@
-import com.ininbank.domain.IninBankMumbai;
+import com.ininbank.domain.IninBankMumbaiStart;
 import com.ininbank.util.UserInput;
 
 
@@ -8,17 +8,17 @@ import com.ininbank.util.UserInput;
 public class RunBank {
     public static void main(String[] args) {
         boolean run = true;
-        IninBankMumbai ininBankMumbai = new IninBankMumbai();
+        IninBankMumbaiStart ininBankMumbaiStart = new IninBankMumbaiStart();
         while(run){
             showMenu();
             int option = UserInput.acceptNumberInput("Please enter your option:");
 
             switch (option){
                 case 1:
-                    ininBankMumbai.createAccount();
+                    ininBankMumbaiStart.createAccount();
                     break;
                 case 2:
-
+                    ininBankMumbaiStart.depositAmount();
                     break;
                 case 3:
 
