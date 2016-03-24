@@ -15,7 +15,7 @@ import java.util.*;
 
 /**
  * Created by root on 23/3/16.
- *
+ * Main class performs actions (creating new account, withdraw / deposit from the account etc.) on user request
  */
 public class StartBank {
 
@@ -108,10 +108,12 @@ public class StartBank {
         Customer customer = new Customer(1,name,address,contact,kycDetails);
         Transaction transaction = null;
         if(initialBalance > 50000){
+            System.out.println("iffff");
             transaction = new Transaction("deposit", "cash",initialBalance);
         }else {
+            System.out.println("elseeee");
             if(!kycType.equals("pan")){
-                //throw new InvalidParameterException("PAN number is required if depositing balance more than Rs. 50000");
+                throw new InvalidParameterException("PAN number is required if depositing balance more than Rs. 50000");
             }
         }
 
