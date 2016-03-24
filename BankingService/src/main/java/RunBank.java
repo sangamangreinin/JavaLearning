@@ -21,19 +21,22 @@ public class RunBank {
                     ininBankMumbaiStart.depositAmount();
                     break;
                 case 3:
-
+                    ininBankMumbaiStart.withdrawAmout();
                     break;
                 case 4:
-
+                    ininBankMumbaiStart.viewAccountDetails();
                     break;
                 case 5:
-
+                    ininBankMumbaiStart.viewTransactions();
                     break;
                 case 6:
-
+                    ininBankMumbaiStart.addDocuments();
                     break;
                 case 0:
                     run = false;
+                    break;
+                default:
+                    System.out.println("Please enter proper value");
                     break;
             }
 

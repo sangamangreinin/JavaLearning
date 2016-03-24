@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
  * Created by root on 23/3/16.
  */
 public class Transaction implements Serializable {
+    private static final long serialVersionUID = 1234567891;
     private int accountNumber;
     private String type;
     private float amount;
@@ -42,4 +43,14 @@ public class Transaction implements Serializable {
         return balance;
     }
 
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "accountNumber=" + accountNumber +
+                ", type='" + type + '\'' +
+                ", amount=" + amount +
+                ", balance=" + balance +
+                ", created=" + created +
+                '}';
+    }
 }

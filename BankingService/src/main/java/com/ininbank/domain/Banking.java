@@ -5,4 +5,8 @@ package com.ininbank.domain;
  */
 public interface Banking {
     public void createAccount();
+    public void viewTransactions();
+    public void viewAccountDetails();
+    public void depositAmount();
+    public void withdrawAmout();
 }

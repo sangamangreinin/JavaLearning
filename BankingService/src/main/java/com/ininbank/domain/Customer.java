@@ -9,6 +9,7 @@ import java.time.Period;
  */
 public class Customer extends Person implements Serializable{
 
+    private static final long serialVersionUID = 1234567893;
     private int id;
 
     /**
@@ -19,5 +20,12 @@ public class Customer extends Person implements Serializable{
      * */
     public Customer(String name, String address, int contact) {
         super(name, address, contact);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                "} " + super.toString();
     }
 }
