@@ -1,7 +1,7 @@
-package bank.serialization;
+package com.inin.bank.serialization;
 
-import bank.domain.Account;
-import bank.util.Util;
+import com.inin.bank.domain.Account;
+import com.inin.bank.util.Util;
 
 import java.io.*;
 import java.util.*;
@@ -17,7 +17,7 @@ public class AccountSerialization {
         ObjectOutputStream oos = null;
            try {
                String fileName = account.getAccountNumber() + ".ser";
-               File file = Util.createFile("src/main/data/account/", fileName);
+               File file = Util.createFile("src/main/resources/account", fileName);
                if(file.length()<=0) {
                    oos = new ObjectOutputStream(new FileOutputStream(file));
                }
@@ -46,7 +46,7 @@ public class AccountSerialization {
         Account account = null;
         try{
             String fileName = accountNumber + ".ser";
-            File file = Util.createFile("src/main/data/account/", fileName);
+            File file = Util.createFile("src/main/resources/account", fileName);
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
             account = (Account) ois.readObject();
@@ -57,8 +57,8 @@ public class AccountSerialization {
         catch(IOException ie) {
             ie.printStackTrace();
         }
-        catch(ClassNotFoundException cnfe){
-            cnfe.printStackTrace();
+        catch(ClassNotFoundException ce){
+            ce.printStackTrace();
         }
         return account;
     }

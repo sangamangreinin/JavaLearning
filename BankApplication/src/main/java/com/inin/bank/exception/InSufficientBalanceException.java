@@ -1,4 +1,4 @@
-package bank.exception;
+package com.inin.bank.exception;
 
 /**
  * Created by root on 23/3/16.

@@ -1,4 +1,4 @@
-package bank.util;
+package com.inin.bank.util;
 
 import java.io.*;
 import java.util.Properties;
@@ -98,7 +98,7 @@ public class Util {
      */
     public static void writeAccountNumber(long id){
         try {
-            File fileName = createFile("src/main/data/", "account.properties");
+            File fileName = createFile("src/main/resources/properties", "account.properties");
             Properties prop = new Properties();
             prop.setProperty("accountNumber",String.valueOf(id+1));
             FileWriter writer = new FileWriter(fileName);
@@ -119,7 +119,7 @@ public class Util {
     public static long getAccountNumber(){
         long accountNumber = 1000;
         try {
-            File fileName = createFile("src/main/data/", "account.properties");
+            File fileName = createFile("src/main/resources/properties", "account.properties");
 
             if(fileName.length()>0) {
                 FileReader reader = new FileReader(fileName);

@@ -1,7 +1,8 @@
-package bank.domain;
+package com.inin.bank.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * Created by root on 23/3/16.
@@ -13,26 +14,25 @@ public class Customer implements Serializable {
     private String name;
     private String address;
     private String contact;
-    private String kycType;
-    private String KycDocPath;
+    private Set<Kyc> kycDetails;
     private LocalDateTime dateCreated;
     private LocalDateTime dateModified;
+
     /**
      * creating a new customer object
      * @param id  unique id for the customer
      * @param name name of the customer
      * @param address address  of the customer
      * @param contact contact number  of the customer
-     * @param kycType tyc type  of the customer
-     * @param kycDocPath kyc document of the  of the customer
+     * @param kycDetails Kyc object stores the details of the kyc document
      */
-    public Customer(int id, String name, String address, String contact, String kycType, String kycDocPath) {
+    public Customer(int id, String name, String address, String contact, Set<Kyc> kycDetails) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.contact = contact;
-        this.kycType = kycType;
-        this.KycDocPath = kycDocPath;
+        this.kycDetails = kycDetails;
+        this.dateCreated = this.dateModified = LocalDateTime.now();
     }
 
     @Override
@@ -42,8 +42,9 @@ public class Customer implements Serializable {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", contact='" + contact + '\'' +
-                ", kycType='" + kycType + '\'' +
-                ", KycDocPath='" + KycDocPath + '\'' +
+                ", kycDetails=" + kycDetails +
+                ", dateCreated=" + dateCreated +
+                ", dateModified=" + dateModified +
                 '}';
     }
 }

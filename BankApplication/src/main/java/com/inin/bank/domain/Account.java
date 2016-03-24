@@ -1,6 +1,6 @@
-package bank.domain;
+package com.inin.bank.domain;
 
-import bank.util.Util;
+import com.inin.bank.util.Util;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

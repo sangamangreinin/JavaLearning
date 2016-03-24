@@ -1,13 +1,10 @@
-package bank.service;
+package com.inin.bank.service;
 
-import bank.domain.Account;
-import bank.domain.Contants;
-import bank.domain.Customer;
-import bank.domain.Transaction;
-import bank.exception.InSufficientBalanceException;
-import bank.exception.TransactionNotAllowedException;
-import bank.serialization.AccountSerialization;
-import bank.util.Util;
+import com.inin.bank.domain.*;
+import com.inin.bank.exception.InSufficientBalanceException;
+import com.inin.bank.exception.TransactionNotAllowedException;
+import com.inin.bank.serialization.AccountSerialization;
+import com.inin.bank.util.Util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -104,14 +101,17 @@ public class StartBank {
         if (!Util.isValidString(name) && !(Util.isValidString(address)) && !(Util.isValidString(contact)))
             throw new InvalidParameterException("Customer name, address & contact number are compulsory.");
 
+        System.out.println("initialBalance : " + initialBalance);
         // create a new customer
-        Customer customer = new Customer(1,name,address,contact,kycType,kycPath);
+        Set<Kyc> kycDetails = new HashSet<Kyc>();
+        kycDetails.add(new Kyc(kycType, kycPath));
+        Customer customer = new Customer(1,name,address,contact,kycDetails);
         Transaction transaction = null;
         if(initialBalance > 50000){
             transaction = new Transaction("deposit", "cash",initialBalance);
         }else {
             if(!kycType.equals("pan")){
-                throw new InvalidParameterException("PAN number is required if depositing balance more than Rs. 50000");
+                //throw new InvalidParameterException("PAN number is required if depositing balance more than Rs. 50000");
             }
         }
 
@@ -210,7 +210,7 @@ public class StartBank {
     }
 
     public void getAccountDetailsFromMemory(){
-        File file = new File("src/main/data/account");
+        File file = new File("src/main/resources/account");
         File[] files = file.listFiles();
         for (File file1 : files){
             try {

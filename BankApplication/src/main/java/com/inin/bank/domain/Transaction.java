@@ -1,4 +1,4 @@
-package bank.domain;
+package com.inin.bank.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
