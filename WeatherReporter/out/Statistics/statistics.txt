@@ -1,0 +1,1 @@
+Year: 1903 Max Temperature:23 Stations: [3307]Year: 1904 Max Temperature:26 Stations: [3310]Year: 1905 Max Temperature:27 Stations: [3308]Year: 1906 Max Temperature:26 Stations: [3309]Year: 1900 Max Temperature:28 Stations: [3305]Year: 1901 Max Temperature:30 Stations: [3307]Year: 1903 Max Temperature:23 Stations: [3307]
