@@ -6,6 +6,6 @@ package com.inin.domian;
  */
 public class Appointment {
     private String appointmentNo;
-    
+
     Patient patient;
 }
