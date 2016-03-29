@@ -27,23 +27,25 @@ public class Medication {
     /**
      * How long this medicine taken
      */
-    private String despense;
+    private String dispense;
     /**
      * Created Date
      */
     private LocalDateTime dateCreated;
     /**
-     *
+     * Create new Medication
      * @param name
      * @param strength
      * @param amount
      * @param frequency
+     * @param dispense
      */
-    public Medication(String name, String strength, String amount, String frequency) {
+    public Medication(String name, String strength, String amount, String frequency, String dispense) {
         this.name = name;
         this.strength = strength;
         this.amount = amount;
         this.frequency = frequency;
+        this.dispense = dispense;
         this.dateCreated = LocalDateTime.now();
     }
 
@@ -77,6 +79,14 @@ public class Medication {
      */
     public String getFrequency() {
         return frequency;
+    }
+
+    /**
+     * Return the dispense of medication
+     * @return
+     */
+    public String getDispense() {
+        return dispense;
     }
 
     /**

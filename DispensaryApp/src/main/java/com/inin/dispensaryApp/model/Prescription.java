@@ -47,6 +47,44 @@ public class Prescription {
     }
 
     /**
+     * Add medication into the prescription
+     * @param medication
+     * @return boolean
+     */
+    public boolean addMedication(Medication medication){
+        if(medication == null)
+            throw new IllegalArgumentException("Medication should not be null");
+        return medications.add(medication);
+    }
+
+    /**
+     * Remove medication from the prescription
+     * @param name
+     * @return Medication
+     */
+    public Medication removeMedication(String name){
+        if(name == null || name.isEmpty())
+            throw new IllegalArgumentException("Medication name should not be null or empty");
+        Medication medication = null;
+        for (Medication medication1 : medications){
+            if(medication1.getName().equals(name))
+            {
+                medication = medication1;
+                medications.remove(medication);
+            }
+        }
+        return medication;
+    }
+
+    /**
+     * Return the prescription Id
+     * @return
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
      * Return details about prescription
      * @return details
      */
