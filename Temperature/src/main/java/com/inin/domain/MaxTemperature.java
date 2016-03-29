@@ -58,9 +58,6 @@ public class MaxTemperature {
                 }
 
                 System.out.println(yearTempMap);
-
-                String maxTempAndStation = "Max Temperature : " + maxTemperature + "  Max Station : " + maxTemperatureStation + "\n";
-
             }
         }
 

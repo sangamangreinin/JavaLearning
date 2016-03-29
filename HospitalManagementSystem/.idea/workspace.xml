@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="450a32d5-0669-4a63-95ab-afd89479819e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/domian/Appointment.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/domian/Appointment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/util/Util.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/util/Util.java" />
-    </list>
+    <list default="true" id="450a32d5-0669-4a63-95ab-afd89479819e" name="Default" comment="" />
     <ignored path="HospitalManagementSystem.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -858,12 +855,12 @@
       <option name="number" value="Default" />
       <updated>1459165888330</updated>
       <workItem from="1459165891446" duration="2778000" />
-      <workItem from="1459227656726" duration="9400000" />
+      <workItem from="1459227656726" duration="9781000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12178000" />
+    <option name="totallyTimeSpent" value="12559000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="73" y="27" width="1847" height="1053" extended-state="6" />
