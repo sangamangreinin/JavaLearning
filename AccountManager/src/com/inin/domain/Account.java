@@ -46,7 +46,7 @@ public class Account
 
     private List<KYCDocs> kycs;
 
-    public Account(String name, String address, double balance){
+    private Account(String name, String address, double balance){
         customer = Customer.createCustomer(name,address);
         this.balance = balance;
 

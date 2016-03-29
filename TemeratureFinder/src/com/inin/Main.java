@@ -1,15 +1,10 @@
 package com.inin;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -18,13 +13,13 @@ import java.util.TreeMap;
  */
 public class Main {
 
-    static Map<Integer, String> entries;
+    static Map<Integer, Integer> entries;
 
     public static void main(String[] args) throws IOException {
         System.out.println("Temperature Finder");
 
         //reading temperature file
-        try(BufferedReader fIn = new BufferedReader(new FileReader("resources/temperatureRecord.txt"))){
+        try(BufferedReader fIn = new BufferedReader(new FileReader("resources/1900.txt"))){
 
             String line;
             entries = new TreeMap<>();
@@ -55,7 +50,7 @@ public class Main {
 
         entries.forEach((k,v)->{
             String[] values = v.split("|");
-            
+
         });
     }
 }
