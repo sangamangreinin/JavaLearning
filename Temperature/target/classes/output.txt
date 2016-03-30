@@ -1,0 +1,16 @@
+===================== File Name src/main/resources/temperature/temprature2.txt =====================
+Maximum Temperature : 37  And station number : 4402
+Year wise Maximum temperature :: 
+Year : 2001 Maximum temperature : 35
+Year : 2002 Maximum temperature : 37
+Year : 2003 Maximum temperature : 35
+===================== File Name src/main/resources/temperature/temprature1.txt =====================
+Maximum Temperature : 40  And station number : 4401
+Year wise Maximum temperature :: 
+Year : 2001 Maximum temperature : 35
+Year : 2002 Maximum temperature : 37
+Year : 2003 Maximum temperature : 35
+Year : 2004 Maximum temperature : 31
+Year : 2005 Maximum temperature : 30
+Year : 2006 Maximum temperature : 40
+================================================================================
