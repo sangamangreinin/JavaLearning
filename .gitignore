@@ -11,4 +11,10 @@ HMS/.idea/*.*
 AccountManager/*.iml
 TemeratureFinder/*.iml
 HMS/*.iml
+TaskManager/.idea/
+TaskManager/*.iml
+TaskManager/.idea/*.*
+/TaskManager/.idea/
+/TaskManager/*.iml
+/TaskManager/.idea/*.*
 
