@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: taskmanager
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: virendradubey
+Implementation-Vendor-Id: com.inin.taskmanager
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_77
+Main-Class: ${start-class}
+
