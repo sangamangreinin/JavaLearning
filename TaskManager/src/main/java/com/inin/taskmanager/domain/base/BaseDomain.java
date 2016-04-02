@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * BaseDomain class.
  * Abstract class containing common properties of all domains.
  */
-public class BaseDomain implements Serializable{
+public class BaseDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,24 +16,35 @@ public class BaseDomain implements Serializable{
      * createdDate stores the date of creation for the domain which
      * extends the BaseDomain
      */
-    protected LocalDateTime createDate;
+
+//    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+//    @JsonFormat
+    protected LocalDateTime createdDate;
     /**
      * modifiedDate stores the date of modification for the domain which
      * extends the BaseDomain
      */
+
+//    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+//    @JsonFormat
     protected LocalDateTime modifiedDate;
 
-    /**
-     * gets the
-     * @return
-     */
-    public LocalDateTime getCreateDate() {
-        return this.createDate;
+    public BaseDomain() {
     }
 
     /**
+     * gets the create time of the object
      *
-     * @return
+     * @return LocalDateTime object
+     */
+    public LocalDateTime getCreatedDate() {
+        return this.createdDate;
+    }
+
+    /**
+     * gets the modified time of the object
+     *
+     * @return LocalDateTime object
      */
     public LocalDateTime getModifiedDate() {
         return this.modifiedDate;

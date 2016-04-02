@@ -95,6 +95,9 @@ public class TaskController {
         } catch (IOException e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
             response = new ResponseEntity(status);
+        } catch (IllegalAccessException e) {
+            status = HttpStatus.BAD_REQUEST;
+            response = new ResponseEntity(status);
         }
 
         return response;
@@ -116,8 +119,8 @@ public class TaskController {
 
     /**
      * gets the comments made on the task object
-     * @param taskId
-     * @return
+     * @param taskId task id
+     * @return ResponseEntity
      */
     @RequestMapping(method = RequestMethod.GET, path = "{taskId}/comments")
     public ResponseEntity comments(@PathVariable String taskId){

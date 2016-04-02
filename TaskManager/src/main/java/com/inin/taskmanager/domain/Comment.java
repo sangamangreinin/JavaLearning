@@ -1,8 +1,10 @@
 package com.inin.taskmanager.domain;
 
 import com.inin.taskmanager.domain.base.BaseDomain;
+import com.inin.taskmanager.utils.Util;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * Created by virendra on 1/4/16.
@@ -27,6 +29,9 @@ public class Comment extends BaseDomain implements Serializable {
      * user object who makes the comment
      */
     private User commentBy;
+
+    public Comment() {
+    }
 
     /**
      * get comment id
@@ -55,4 +60,26 @@ public class Comment extends BaseDomain implements Serializable {
         return commentBy;
     }
 
+    /**
+     * sets the user entry who makes the comment
+     */
+    public void setCommentBy(User commentBy) {
+        this.commentBy = commentBy;
+    }
+
+    /**
+     * saves the new Comment entry
+     */
+    public void save() {
+        commentId = Util.getMasterCommentId();
+        createdDate = LocalDateTime.now();
+        modifiedDate = LocalDateTime.now();
+    }
+
+    /**
+     * updates details of existing Comment entry
+     */
+    public void update() {
+        modifiedDate = LocalDateTime.now();
+    }
 }

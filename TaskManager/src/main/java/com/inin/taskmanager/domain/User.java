@@ -1,8 +1,10 @@
 package com.inin.taskmanager.domain;
 
 import com.inin.taskmanager.domain.base.BaseDomain;
+import com.inin.taskmanager.utils.Util;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * Created by virendra on 1/4/16.
@@ -26,6 +28,9 @@ public class User extends BaseDomain implements Serializable {
      * address of the user
      */
     private String address;
+
+    public User() {
+    }
 
     /**
      * gets the address of the user
@@ -52,5 +57,22 @@ public class User extends BaseDomain implements Serializable {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * saves the new user entry
+     */
+    public void save() {
+
+        userId = Util.getMasterUserId();
+        createdDate = LocalDateTime.now();
+        modifiedDate = LocalDateTime.now();
+    }
+
+    /**
+     * updates details of existing user entry
+     */
+    public void update() {
+        modifiedDate = LocalDateTime.now();
     }
 }

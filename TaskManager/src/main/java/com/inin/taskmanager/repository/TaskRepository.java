@@ -2,6 +2,7 @@ package com.inin.taskmanager.repository;
 
 import com.inin.taskmanager.domain.Comment;
 import com.inin.taskmanager.domain.Task;
+import com.inin.taskmanager.domain.dao.TaskQueryRequest;
 import org.springframework.stereotype.Repository;
 
 import java.io.EOFException;
@@ -57,14 +58,20 @@ public class TaskRepository {
         }
     }
 
-
     /**
      * connects the input stream and output stream to
      *
      * @throws IOException if application fails to connect file to streams
      */
-    private void connectStream() throws IOException {
+    private void connectReader() throws IOException {
         oIn = new ObjectInputStream(new FileInputStream(TASK_FILE));
+    }
+    /**
+     * connects the input stream and output stream to
+     *
+     * @throws IOException if application fails to connect file to streams
+     */
+    private void connectWriter() throws IOException {
         oOut = new ObjectOutputStream(new FileOutputStream(TASK_FILE));
     }
 
@@ -73,8 +80,15 @@ public class TaskRepository {
      *
      * @throws IOException if there is problem in closing the stream
      */
-    private void disconnectStream() throws IOException {
+    private void disconnectReader() throws IOException {
         if (oIn!= null)     oIn.close();
+    }
+    /**
+     * closes the connection of the streams from the file
+     *
+     * @throws IOException if there is problem in closing the stream
+     */
+    private void disconnectWriter() throws IOException {
         if (oOut!= null)    oOut.close();
     }
 
@@ -86,9 +100,9 @@ public class TaskRepository {
      */
     private void writeObject(Map<String, Task> objects) throws IOException {
         if (objects.size() > 0) {
-            connectStream();
+            connectWriter();
             oOut.writeObject(objects);
-            disconnectStream();
+            disconnectWriter();
         }
     }
 
@@ -100,12 +114,12 @@ public class TaskRepository {
      */
     private void readObject() throws IOException, ClassNotFoundException {
         try{
-            connectStream();
+            connectReader();
             this.tasks = (Map<String, Task>) oIn.readObject();
         }catch (EOFException e){
             this.tasks = new HashMap();
         }finally {
-            disconnectStream();
+            disconnectReader();
         }
     }
 
@@ -117,6 +131,7 @@ public class TaskRepository {
      * @throws IOException if application encounters the problem in connecting to file
      */
     public Task save(Task task) throws IOException {
+        task.save();
         tasks.put(task.getTaskId(), task);
         writeObject(tasks);
         return task;
@@ -130,6 +145,7 @@ public class TaskRepository {
      * @throws IOException if application encounters the problem in connecting to file
      */
     public Task update(Task task) throws IOException {
+        task.update();
         tasks.put(task.getTaskId(), task);
         writeObject(tasks);
         return task;
@@ -174,9 +190,12 @@ public class TaskRepository {
      * @return List of task objects
      * @throws IOException            if application encounters the problem in connecting to file
      * @throws ClassNotFoundException when the objects are not found the file
+     * @param request
      */
-    public List<Task> search() throws IOException, ClassNotFoundException {
-        return findAll();
+    public List<Task> search(TaskQueryRequest request) throws IOException, ClassNotFoundException {
+        readObject();
+        List<Task> obj = tasks.values().stream().filter(i->i.getStatus().equals(request.getStatus())).collect(Collectors.toList());
+        return obj;
     }
 
     public List<Comment> getComments(String id) throws IOException, ClassNotFoundException {

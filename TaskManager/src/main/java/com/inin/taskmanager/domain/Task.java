@@ -1,7 +1,10 @@
 package com.inin.taskmanager.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.inin.taskmanager.constants.TaskStatus;
 import com.inin.taskmanager.domain.base.BaseDomain;
+import com.inin.taskmanager.utils.Util;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -46,7 +49,12 @@ public class Task extends BaseDomain implements Serializable {
     /**
      * end date of the task
      */
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+    @JsonFormat
     private LocalDateTime endDate;
+
+    public Task() {
+    }
 
     /**
      * gets the user object whom the task is assigned
@@ -93,6 +101,10 @@ public class Task extends BaseDomain implements Serializable {
         return taskId;
     }
 
+    public void setTaskId(String taskId){
+        this.taskId = taskId;
+    }
+
     /**
      * gets the title of the task
      *
@@ -118,5 +130,22 @@ public class Task extends BaseDomain implements Serializable {
      */
     public User getCreatedBy() {
         return createdBy;
+    }
+
+    /**
+     * saves the task in the application
+     */
+    public void save() {
+        taskId = Util.getMasterTaskId();
+        this.createdDate = LocalDateTime.now();
+        this.modifiedDate = LocalDateTime.now();
+
+    }
+
+    /**
+     * updates the existing task object
+     */
+    public void update() {
+        this.modifiedDate = LocalDateTime.now();
     }
 }

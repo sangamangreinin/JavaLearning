@@ -41,6 +41,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.inin.integration</groupId>
+			<artifactId>inin-integration-core</artifactId>
+			<version>0.6.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
