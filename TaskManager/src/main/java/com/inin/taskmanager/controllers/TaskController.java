@@ -1,5 +1,6 @@
 package com.inin.taskmanager.controllers;
 
+import com.inin.taskmanager.domain.Comment;
 import com.inin.taskmanager.domain.Task;
 import com.inin.taskmanager.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(
-        path = "/tasks",
-        consumes = "application/json",
+        path = "/taskmanager/api/tasks",
         produces = "application/json"
     )
 public class TaskController {
@@ -37,54 +36,108 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
+    /**
+     * gets the taks list
+     * @return ResponseEntity
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getTasks(){
-        List<Task> tasks = new ArrayList<>();
         HttpStatus status = HttpStatus.OK;
+        ResponseEntity response;
         try{
-            tasks = taskService.getTasks();
-        } catch (ClassNotFoundException e) {
+            List<Task> tasks = taskService.getTasks();
+            response = new ResponseEntity(tasks, status);
+        } catch (ClassNotFoundException |IOException e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
-        } catch (IOException e) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            response = new ResponseEntity(status);
         }
-        return new ResponseEntity(tasks, status);
+        return response;
     }
 
+    /**
+     * gets the task by the supplied task id
+     * @param taskId String task id
+     * @return ResponseEntity
+     */
     @RequestMapping(method = RequestMethod.GET, path = "/{taskId}")
     public ResponseEntity getTask(@PathVariable String taskId){
+        HttpStatus status = HttpStatus.OK;
+        ResponseEntity response;
+        try{
+            Task task = taskService.getTask(taskId);
+            if (task == null){
+                status = HttpStatus.NOT_FOUND;
+                response = new ResponseEntity(status);
+            }else
+                response = new ResponseEntity(task, status);
 
-        return new ResponseEntity(HttpStatus.OK);
+        } catch (ClassNotFoundException |IOException e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            response = new ResponseEntity(status);
+        }
+        return response;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    /**
+     * creates the new task in the application
+     * @param task Task Object representation
+     * @return ResponseEntity
+     */
+    @RequestMapping(consumes = "application/json",
+            method = RequestMethod.POST)
     public ResponseEntity createTask(@RequestBody Task task){
+        HttpStatus status = HttpStatus.OK;
+        ResponseEntity response;
 
-        return new ResponseEntity(HttpStatus.OK);
+        try {
+            Task taskObj = taskService.createTask(task);
+            response = new ResponseEntity(taskObj, status);
+        } catch (IOException e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            response = new ResponseEntity(status);
+        }
+
+        return response;
     }
 
-    @RequestMapping(method = RequestMethod.PUT ,path = "/{taskId}")
+    /**
+     * updates the task object
+     * @param taskId task object
+     * @return Task object
+     */
+    @RequestMapping(consumes = "application/json",
+            method = RequestMethod.PUT ,path = "/{taskId}")
     public ResponseEntity updateTask(@PathVariable String taskId){
+        HttpStatus status = HttpStatus.OK;
+        ResponseEntity response;
 
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * gets the comments made on the task object
+     * @param taskId
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET, path = "{taskId}/comments")
     public ResponseEntity comments(@PathVariable String taskId){
+        HttpStatus status = HttpStatus.OK;
+        ResponseEntity response;
+        List<Comment> comments;
 
-        return new ResponseEntity(HttpStatus.OK);
+        try {
+            comments = taskService.getComments(taskId);
+            if (comments == null){
+                status = HttpStatus.NOT_FOUND;
+                response = new ResponseEntity(status);
+            }else
+                response = new ResponseEntity(comments, status);
+        } catch (IOException | ClassNotFoundException e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            response = new ResponseEntity(status);
+        }
+
+        return response;
     }
-
-    @RequestMapping(method = RequestMethod.GET, path = "{taskId}/comments/{commentId}")
-    public ResponseEntity getComment(@PathVariable String taskId,
-                                     @PathVariable String commentId){
-
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-
-
-
-
 
 }

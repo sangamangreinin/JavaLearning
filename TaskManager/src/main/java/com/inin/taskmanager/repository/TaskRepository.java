@@ -1,8 +1,11 @@
 package com.inin.taskmanager.repository;
 
+import com.inin.taskmanager.domain.Comment;
 import com.inin.taskmanager.domain.Task;
 import org.springframework.stereotype.Repository;
 
+import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,7 +15,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 /**
  * Created by virendra on 1/4/16.
@@ -24,7 +28,7 @@ import java.util.TreeMap;
 @Repository
 public class TaskRepository {
 
-    public static final String TASK_FILE = "resources/tasks.ser";
+    public static final String TASK_FILE = "src/main/resources/tasks.ser";
     /**
      * ObjectInputStream is used to read objects from serialized file
      */
@@ -42,7 +46,15 @@ public class TaskRepository {
      * default constructor
      */
     public TaskRepository() {
-        tasks = new TreeMap<>();
+        tasks = new HashMap<>();
+        File file = new File(TASK_FILE);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -52,10 +64,8 @@ public class TaskRepository {
      * @throws IOException if application fails to connect file to streams
      */
     private void connectStream() throws IOException {
-
         oIn = new ObjectInputStream(new FileInputStream(TASK_FILE));
         oOut = new ObjectOutputStream(new FileOutputStream(TASK_FILE));
-
     }
 
     /**
@@ -64,8 +74,8 @@ public class TaskRepository {
      * @throws IOException if there is problem in closing the stream
      */
     private void disconnectStream() throws IOException {
-        oIn.close();
-        oOut.close();
+        if (oIn!= null)     oIn.close();
+        if (oOut!= null)    oOut.close();
     }
 
     /**
@@ -89,9 +99,14 @@ public class TaskRepository {
      * @throws ClassNotFoundException when the objects are not found the file
      */
     private void readObject() throws IOException, ClassNotFoundException {
-        connectStream();
-        this.tasks = (Map<String, Task>) oIn.readObject();
-        disconnectStream();
+        try{
+            connectStream();
+            this.tasks = (Map<String, Task>) oIn.readObject();
+        }catch (EOFException e){
+            this.tasks = new HashMap();
+        }finally {
+            disconnectStream();
+        }
     }
 
     /**
@@ -150,7 +165,7 @@ public class TaskRepository {
      */
     public List<Task> findAll() throws IOException, ClassNotFoundException {
         readObject();
-        return Collections.unmodifiableList((List<Task>) tasks.values());
+        return Collections.unmodifiableList(tasks.values().stream().collect(Collectors.toList()));
     }
 
     /**
@@ -164,4 +179,8 @@ public class TaskRepository {
         return findAll();
     }
 
+    public List<Comment> getComments(String id) throws IOException, ClassNotFoundException {
+        Task task = find(id);
+        return Collections.unmodifiableList(task.getComments());
+    }
 }

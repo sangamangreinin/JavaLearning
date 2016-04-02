@@ -1,0 +1,11 @@
+com/inin/taskmanager/domain/base/BaseDomain.class
+com/inin/taskmanager/domain/Comment.class
+com/inin/taskmanager/ServletInitializer.class
+com/inin/taskmanager/domain/User.class
+com/inin/taskmanager/TaskManagerApplication.class
+com/inin/taskmanager/controllers/TaskController.class
+com/inin/taskmanager/service/TaskService.class
+com/inin/taskmanager/constants/TaskStatus.class
+com/inin/taskmanager/domain/Task.class
+com/inin/taskmanager/utils/Util.class
+com/inin/taskmanager/repository/TaskRepository.class
