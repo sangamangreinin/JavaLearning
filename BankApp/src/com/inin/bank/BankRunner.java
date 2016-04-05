@@ -1,4 +1,4 @@
-package com.inin.bank.service;
+package com.inin.bank;
 
 import com.inin.bank.domain.Account;
 

@@ -31,13 +31,19 @@ public class Account implements Serializable {
     public Account(double initialBalance, String name, String phone) {
         validateAccount(initialBalance);
         this.accountNo = Integer.toUnsignedLong(UUID.randomUUID().hashCode());
-        this.balance = initialBalance;
+        // this.balance = initialBalance;
         this.customer = new Customer(name, phone);
         this.dateCreated = LocalDateTime.now();
         transactions = new ArrayList<>();
+        this.deposit(initialBalance,null,0);
         putAccount();
     }
 
+    /**
+     * Validates a new account at the time of creation.
+     * @param initialBalance initial balance to be deposited in account as opening balance.
+     * @throws InvalidParameterException If initial deposit balance is lower than ₹2000/-
+     */
     private static void validateAccount(double initialBalance) {
         if (initialBalance < 2000) {
             throw new InvalidParameterException("Minimum amount required to open an account is: ₹2000/-");
@@ -49,8 +55,8 @@ public class Account implements Serializable {
      *
      * @param accountNo Account Number for which details needs to be fetched
      * @return Account Object retrieved from File
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException If file related to account can not be opened due to some reason (access denied or file not found.
+     * @throws ClassNotFoundException If Object from serialized object cannot be
      */
     public static Account getAccount(long accountNo) throws IOException, ClassNotFoundException {
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File(Constants.ACCOUNTS_BASE_PATH + accountNo + ".ser")));
@@ -65,6 +71,7 @@ public class Account implements Serializable {
      * @param amount       Amount to be withdrawn
      * @param chequeNumber cheque number is transferring by Cheque
      * @return Available Amount after the withdrawal/transfer
+     * @throws InvalidParameterException When account have insufficient balance to withdraw.
      */
     public double withdrawal(double amount, long chequeNumber) {
         synchronized (this) {
@@ -89,6 +96,7 @@ public class Account implements Serializable {
      * @param panNumber    Pan Number (Mandatory for amount>=₹50000
      * @param chequeNumber Cheque Number if deposited by Cheque (Can be null)
      * @return Return available balance after deposit
+     * @throws InvalidParameterException When transaction of more than ₹50000/- is performed and PAN Card is not provided.
      */
     public double deposit(double amount, String panNumber, long chequeNumber) {
         if (amount > 50000 && (panNumber.trim().equals("") || panNumber == null))
@@ -134,8 +142,12 @@ public class Account implements Serializable {
      */
     public String toString() {
         StringBuffer buffer = new StringBuffer("Account Number:" + accountNo + " Balance:" + balance + " DateCreated:" + dateCreated + customer);
+        buffer.append("das");
         if (transactions.size() > 0) {
-            transactions.forEach(transaction -> buffer.append(transaction));
+            transactions.forEach(transaction -> {
+                buffer.append(transaction);
+//                buffer = null;
+            });
         }
         return buffer.toString();
     }

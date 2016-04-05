@@ -18,7 +18,7 @@ public class Customer implements Serializable{
 
     /**
      * Constructor to Create a customer object
-     * @param name Name of Customer
+     * @param name Name of CustomerkycDocument.toString()
      * @param phone Phone Number of Customer
      */
     public Customer(String name, String phone){
