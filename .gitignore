@@ -1,0 +1,25 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+run.sh
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+test-output/
+
+WeatherReporter/
+Dispensary/
+BankApp/
+taskmanager/.idea/
+taskmanager/*.iml
+taskmanager/out/
+
