@@ -1,4 +1,4 @@
-package com.inin.taskmanager.domain.dao;
+package com.inin.taskmanager.dao;
 
 import com.inin.taskmanager.constants.TaskStatus;
 

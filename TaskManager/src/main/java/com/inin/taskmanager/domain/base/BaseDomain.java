@@ -1,7 +1,13 @@
 package com.inin.taskmanager.domain.base;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.joda.ser.LocalDateTimeSerializer;
+import org.joda.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Created by virendra on 1/4/16.
@@ -16,17 +22,18 @@ public class BaseDomain implements Serializable {
      * createdDate stores the date of creation for the domain which
      * extends the BaseDomain
      */
-
-//    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-//    @JsonFormat
+    @DateTimeFormat(pattern = "dd-MM-yyyy''HH:mm:ss")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     protected LocalDateTime createdDate;
     /**
      * modifiedDate stores the date of modification for the domain which
      * extends the BaseDomain
      */
 
-//    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-//    @JsonFormat
+    @DateTimeFormat(pattern = "dd-MM-yyyy''HH:mm:ss")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     protected LocalDateTime modifiedDate;
 
     public BaseDomain() {

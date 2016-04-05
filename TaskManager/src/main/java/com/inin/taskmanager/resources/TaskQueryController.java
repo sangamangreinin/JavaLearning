@@ -1,7 +1,7 @@
-package com.inin.taskmanager.controllers;
+package com.inin.taskmanager.resources;
 
+import com.inin.taskmanager.dao.TaskQueryRequest;
 import com.inin.taskmanager.domain.Task;
-import com.inin.taskmanager.domain.dao.TaskQueryRequest;
 import com.inin.taskmanager.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -4,7 +4,7 @@ import com.inin.taskmanager.domain.base.BaseDomain;
 import com.inin.taskmanager.utils.Util;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import org.joda.time.LocalDateTime;
 
 /**
  * Created by virendra on 1/4/16.
@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class Comment extends BaseDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final String TABLE_NAME = "comments";
 
     /**
      * comment id for the comment

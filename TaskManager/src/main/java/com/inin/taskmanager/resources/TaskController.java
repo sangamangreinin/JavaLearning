@@ -1,10 +1,11 @@
-package com.inin.taskmanager.controllers;
+package com.inin.taskmanager.resources;
 
 import com.inin.taskmanager.domain.Comment;
 import com.inin.taskmanager.domain.Task;
 import com.inin.taskmanager.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping(
         path = "/taskmanager/api/tasks",
-        produces = "application/json"
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
 public class TaskController {
 
@@ -37,7 +38,7 @@ public class TaskController {
     TaskService taskService;
 
     /**
-     * gets the taks list
+     * gets the task list
      * @return ResponseEntity
      */
     @RequestMapping(method = RequestMethod.GET)
