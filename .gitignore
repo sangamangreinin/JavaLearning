@@ -1,5 +1,23 @@
-BankApp/.idea/
-BankApp/BankApp.iml
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+run.sh
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+test-output/
+
+WeatherReporter/
 Dispensary/
-Dispensary/.idea
-Dispensary/Dispensary.iml
+BankApp/.idea/
+BankApp/*.iml
+BankApp/out/
