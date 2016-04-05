@@ -18,6 +18,7 @@ test-output/
 
 WeatherReporter/
 BankApp/
+taskmanager/
 Dispensary/.idea/
 Dispensary/*.iml
 Dispensary/out/
