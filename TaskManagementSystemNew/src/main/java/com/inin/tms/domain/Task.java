@@ -6,18 +6,14 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 
 /**
  * Created by root on 2/4/16.
  * Defines the behaviour of the Task class
  */
-public class Task implements Serializable {
-    private static final long serialVersionUID = 1L;
-
-    /**
+public class Task extends BaseDomain{
+       /**
      * A unique Task id
      */
     private int id;
@@ -36,10 +32,6 @@ public class Task implements Serializable {
     /**
      * comments on a task.
      */
-    private List<Comment> comments;
-    /**
-     * Task created by (Who creates the task)
-     */
     private int createdBy;
     /**
      * Who is going to do a task i.e task assigned to a user
@@ -51,36 +43,34 @@ public class Task implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate dueDate;
-    /**
-     * created date of a task
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate creadted;
-    /**
-     * Last modified date of a task
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate modified;
+    private LocalDateTime dueDate;
 
+    /**
+     * Assigned date of a task
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDateTime assignedDate;
+
+    /**
+     * No argument constructor
+     */
     public Task() {
     }
 
-    public Task(int id, String title, String description, String status, int createdBy, int assignedTo) {
+    public Task(int id, String title, String description, String status, int createdBy, int assignedTo, LocalDateTime dueDate, LocalDateTime assignedDate,
+                LocalDateTime created, LocalDateTime modified) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
-       // this.comments = comments;
         this.createdBy = createdBy;
         this.assignedTo = assignedTo;
-        //this.dueDate = dueDate;
-       // this.creadted = creadted;
-       // this.modified = modified;
+        this.dueDate = dueDate;
+        this.assignedDate = assignedDate;
+        this.created = created;
+        this.modified = modified;
     }
 
     public int getId() {
@@ -99,14 +89,6 @@ public class Task implements Serializable {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
     public int getCreatedBy() {
         return createdBy;
     }
@@ -115,8 +97,32 @@ public class Task implements Serializable {
         return assignedTo;
     }
 
-    public LocalDate getDueDate() {
+    public LocalDateTime getDueDate() {
         return dueDate;
+    }
+
+    public LocalDateTime getAssignedDate() {
+        return assignedDate;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+        this.modified = LocalDateTime.now();
+    }
+
+    public void setAssignedTo(int assignedTo) {
+        this.assignedTo = assignedTo;
+        this.modified = LocalDateTime.now();
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
+        this.modified = LocalDateTime.now();
+    }
+
+    public void setAssignedDate(LocalDateTime assignedDate) {
+        this.assignedDate = assignedDate;
+        this.modified = LocalDateTime.now();
     }
 
     public void setCreatedBy(int createdBy) {
@@ -124,37 +130,10 @@ public class Task implements Serializable {
     }
 
     /**
-     * To set the unique id, created date & modified date
-     */
-    public void save() {
-        this.creadted = LocalDate.now();
-        this.modified = LocalDate.now();
-    }
-
-    /**
      * To set the modified date
      */
     public void update() {
-        this.modified = LocalDate.now();
+        this.modified = LocalDateTime.now();
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
-                ", comment=" + comments +
-                ", createdBy=" + createdBy +
-                ", assignedTo=" + assignedTo +
-                ", dueDate=" + dueDate +
-                ", creadted=" + creadted +
-                ", modified=" + modified +
-                '}';
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

@@ -34,17 +34,14 @@ public class TaskService extends BaseService{
      * @return Task object
      * @throws IllegalArgumentException if task data is invalid.
      */
-    public Task create(Task task, int userId) {
+    public int create(Task task, int userId) {
         if(task == null){
-            throw  new IllegalArgumentException("Task object passed cant be null.");
+            throw  new IllegalArgumentException("Task object passed can't be null.");
         }
         validate(task.getTitle(), "title");
         validate(userId, "userId");
-        Task prepareTask = taskValidation.prepareTask(task);
-        prepareTask.setCreatedBy(userId);
-        int taskId = taskDao.save(prepareTask);
-        prepareTask.setId(taskId);
-        return prepareTask;
+        task.setCreatedBy(userId);
+        return taskDao.save(task);
     }
 
     /**
@@ -54,7 +51,11 @@ public class TaskService extends BaseService{
      * @throws ResourceNotFoundException if task mis not present in the system.
      */
     public Task getTask(int id){
+        if(id<=0)
+            throw new IllegalArgumentException("Task id is invalid, it must be integer number.");
+
         Task task = taskDao.find(id);
+
         if(task == null)
             throw new ResourceNotFoundException("Task " + id + " is not present in the system");
 
@@ -62,12 +63,31 @@ public class TaskService extends BaseService{
     }
 
     /**
+     * Get all tasks
+     * @return List of all task objects
+     */
+    public List<Task> getTasks() {
+        List<Task> tasks = taskDao.findAll();
+
+        if(tasks == null)
+            throw new ResourceNotFoundException("No asks are in the system");
+
+        return tasks;
+    }
+
+
+    /**
      *  Get all tasks (or specific user task's)
+     * @param id User id to get all tasks
      * @return List of all tasks Object
      * @throws ResourceNotFoundException if No tasks are present in the system
      */
-    public List<Task> getTasks(int id) {
-        List<Task> tasks = taskDao.findAll(id);
+    public List<Task> getTasksById(int id) {
+        if(id <= 0)
+            throw  new IllegalArgumentException("user id is invalid, it must be integer number.");
+
+        List<Task> tasks = taskDao.findAllById(id);
+
         if(tasks == null)
             throw new ResourceNotFoundException("No asks are in the system");
 
@@ -127,18 +147,18 @@ public class TaskService extends BaseService{
      * @throws BadRequestException if comment data is invalid
      * @throws ResourceNotFoundException if provided task id is not present in the system
      */
-    public Comment comment(Comment comment, int userId, int taskId) {
-        validate(userId , " user id ");
-        validate(taskId , " task id ");
+    public int comment(Comment comment, int userId, int taskId) {
+        if(comment == null){
+            throw  new IllegalArgumentException("Task object passed can't be null.");
+        }
+
+        if(userId <= 0 || taskId <= 0)
+            throw  new IllegalArgumentException("user or task id is invalid, they must be integer number.");
 
         Task task = taskDao.find(taskId);
         if (task != null) {
             validate(comment.getComment(),"task comment");
-            comment.setCommentBy(userId);
-            comment.setTaskId(taskId);
-            int commentId = taskDao.addComment(comment);
-            comment.setId(commentId);
-            return comment;
+            return taskDao.addComment(comment, userId, taskId);
         }
         else{
             throw new ResourceNotFoundException("No Task Found.");
@@ -153,14 +173,15 @@ public class TaskService extends BaseService{
      * @throws ResourceNotFoundException if provided task id is not present in the system
      */
     public List<Comment> getComments(int id) {
-        validate(id , " task id ");
+        if(id <= 0)
+            throw  new IllegalArgumentException("task id is invalid, it must be integer number.");
 
         Task task = taskDao.find(id);
         if (task != null) {
             return taskDao.getComment(id);
         }
         else{
-            throw new ResourceNotFoundException("No Task Found.");
+            throw new ResourceNotFoundException("No Comments are found on the Task " + id);
         }
     }
 }

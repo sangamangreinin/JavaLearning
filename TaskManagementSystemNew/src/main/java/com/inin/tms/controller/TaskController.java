@@ -1,9 +1,3 @@
-/**
- * need to do following points
- * get task by status as draft
- * handle date
- */
-
 package com.inin.tms.controller;
 
 import com.inin.tms.domain.Comment;
@@ -40,8 +34,8 @@ public class TaskController {
     public ResponseEntity create(@RequestBody final Task task, @PathVariable String userId) {
          try {
             int id = Integer.parseInt(userId);
-            Task newTask = taskService.create(task, id);
-            return new ResponseEntity(newTask, HttpStatus.CREATED);
+            int taskId = taskService.create(task, id);
+            return new ResponseEntity("Task " + taskId + " is created successfully!", HttpStatus.CREATED);
          }
         catch (IllegalArgumentException e) {
             return  new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -60,7 +54,10 @@ public class TaskController {
             int taskId = Integer.parseInt(id);
             Task task = taskService.getTask(taskId);
             return new ResponseEntity(task, HttpStatus.OK);
-        }catch(ResourceNotFoundException e) {
+        }catch (IllegalArgumentException e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        catch(ResourceNotFoundException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
@@ -73,7 +70,7 @@ public class TaskController {
     @RequestMapping(method = RequestMethod.GET, path = "/tasks", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getTasks(){
         try {
-            List<Task> tasks = taskService.getTasks(0);
+            List<Task> tasks = taskService.getTasks();
             return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
         }catch (ResourceNotFoundException e){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -81,7 +78,7 @@ public class TaskController {
     }
 
     /**
-     * Get all tasks of particular user
+     * Get all tasks of specified user
      * @return List of all task of a user
      * @throws ResourceNotFoundException if no task's are present in the system
      */
@@ -89,10 +86,13 @@ public class TaskController {
     public ResponseEntity getTaskByUserId(@PathVariable String userId){
         try {
             int id = Integer.parseInt(userId);
-            List<Task> tasks = taskService.getTasks(id);
+            List<Task> tasks = taskService.getTasksById(id);
             ResponseEntity<List<Task>> responseEntity = new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
             return responseEntity;
-        }catch (ResourceNotFoundException e){
+        }catch (IllegalArgumentException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        catch (ResourceNotFoundException e){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
@@ -122,10 +122,13 @@ public class TaskController {
     @RequestMapping(method = RequestMethod.PUT, path = "/users/{userId}/tasks/{taskId}/comments", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity comment(@RequestBody Comment comment, @PathVariable String userId, @PathVariable String taskId){
         try{
-            Comment newComment = taskService.comment(comment, Integer.parseInt(userId), Integer.parseInt(taskId));
-            ResponseEntity responseEntity = new ResponseEntity(newComment, HttpStatus.ACCEPTED);
+            taskService.comment(comment, Integer.parseInt(userId), Integer.parseInt(taskId));
+            ResponseEntity responseEntity = new ResponseEntity("Comment added on task " + taskId + " successfully", HttpStatus.ACCEPTED);
             return responseEntity;
-        }catch (BadRequestException | ResourceNotFoundException e){
+        }catch (BadRequestException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        catch (ResourceNotFoundException e){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
@@ -142,7 +145,10 @@ public class TaskController {
         try {
             List<Comment> comments = taskService.getComments(Integer.parseInt(taskId));
             return new ResponseEntity(comments, HttpStatus.OK);
-        }catch (BadRequestException | ResourceNotFoundException e){
+        }catch (BadRequestException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        catch (ResourceNotFoundException e){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }

@@ -80,6 +80,7 @@ public class TaskRepository {
      */
     public List<Comment> getComments(String id) {
         Task task = get(id);
-        return Collections.unmodifiableList(task.getComments());
+       // return Collections.unmodifiableList(task.getComments());
+        return null;
     }
 }

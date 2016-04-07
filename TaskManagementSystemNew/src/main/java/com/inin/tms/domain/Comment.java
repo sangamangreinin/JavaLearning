@@ -4,64 +4,39 @@ import java.time.LocalDateTime;
 
 /**
  * Created by root on 3/4/16.
- *
+ * Defines the behaviour of comment class
  */
-public class Comment {
+public class Comment extends BaseDomain{
     private int id;
     private int taskId;
     private String comment;
     private int commentBy;
-    private LocalDateTime created;
 
-    public Comment(int id, int taskId, String comment, int commentBy) {
+    public Comment() {
+    }
+
+    public Comment(int id, int taskId, String comment, int commentBy, LocalDateTime created) {
         this.id = id;
         this.taskId = taskId;
         this.comment = comment;
         this.commentBy = commentBy;
+        this.created = created;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getTaskId() {
         return taskId;
-    }
-
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
     }
 
     public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public int getCommentBy() {
         return commentBy;
-    }
-
-    public void setCommentBy(int commentBy) {
-        this.commentBy = commentBy;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public void save(){
-        this.created = LocalDateTime.now();
     }
 
     @Override
