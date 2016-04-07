@@ -1,6 +1,8 @@
 package com.inin.tms.service;
 
 import com.inin.tms.domain.User;
+import com.inin.tms.repositary.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -11,14 +13,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService extends BaseService {
 
+    @Autowired
+    private UserRepository userRepository;
     /**
-     *
-     * @param user
-     * @return
+     * Creating a new user
+     * @param user User Object
+     * @return User Object
      */
     public User createUser(User user){
         validateNotNull(user.getFirstName(), "firstName");
+        validateNotNull(user.getEmail(), "email id");
+        return userRepository.save(user);
+    }
 
-        return null;
+    /**
+     *  Update the user
+     * @param user User Object
+     * @return User Object
+     */
+    public User updateUser(User user) {
+        validateNotNull(user.getId(), "User Id");
+        return userRepository.update(user);
     }
 }

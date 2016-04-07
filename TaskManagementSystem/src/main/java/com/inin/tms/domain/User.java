@@ -2,33 +2,29 @@ package com.inin.tms.domain;
 
 /**
  * Created by root on 2/4/16.
- * Defines the behaviour of the User class
+ * Defines the User
  */
 public class User {
     /**
-     *
+     * A unique id of the user
      */
     private String id;
-    private String firstName;
-    private String lastName;
-    private String gender;
-    private String email;
-
     /**
-     *
-     * @param id
-     * @param firstName
-     * @param lastName
-     * @param gender
-     * @param email
+     * First name of the user
      */
-    public User(String id, String firstName, String lastName, String gender, String email) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.email = email;
-    }
+    private String firstName;
+    /**
+     * Laste name of the user
+     */
+    private String lastName;
+    /**
+     * gender of the user
+     */
+    private String gender;
+    /**
+     * email id  of the user
+     */
+    private String email;
 
     public String getId() {
         return id;
@@ -36,14 +32,6 @@ public class User {
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getGender() {
-        return gender;
     }
 
     public String getEmail() {
