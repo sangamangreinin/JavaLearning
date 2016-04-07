@@ -105,9 +105,14 @@ public class TaskController {
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity update(@RequestBody Task task, @PathVariable String id){
-        Task updatedTask = taskService.update(id, task);
-        ResponseEntity<Task> responseEntity = new ResponseEntity<Task>(updatedTask, HttpStatus.ACCEPTED);
-        return responseEntity;
+        try {
+            Task updatedTask = taskService.update(Integer.parseInt(id), task);
+            ResponseEntity<Task> responseEntity = new ResponseEntity<Task>(updatedTask, HttpStatus.ACCEPTED);
+            return responseEntity;
+        }catch (IllegalArgumentException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     /**

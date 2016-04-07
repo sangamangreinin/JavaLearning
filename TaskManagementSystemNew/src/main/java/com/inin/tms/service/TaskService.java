@@ -102,14 +102,12 @@ public class TaskService extends BaseService{
      * @throws ResourceNotFoundException if task is not present in the system.
      * @throws BadRequestException Throws if data given for update is incorrect
      */
-    public Task update(String id, Task updateTask) {
-        validate(id , " task id ");
-        Task task = taskRepository.get(id);
-        if (task != null) {
-            if(!id.equals(task.getId())) {
-                throw new BadRequestException("Bad Request.");
-            }
+    public Task update(int id, Task updateTask) {
+        if(id <= 0)
+            throw  new IllegalArgumentException("task id is invalid, it must be integer number.");
 
+        Task task = taskDao.find(id);
+        if (task != null) {
             Class<?> classTicketSource = updateTask.getClass();
             Class<?> classTicketActual = task.getClass();
 
@@ -129,9 +127,7 @@ public class TaskService extends BaseService{
                     Nsf.printStackTrace();
                 }
             }
-            Task updatedTask = taskValidation.prepareTask(task);
-            taskRepository.update(updatedTask);
-            return updatedTask;
+            return taskRepository.update(task);
         }
         else{
             throw new ResourceNotFoundException("No Ticket Found.");
