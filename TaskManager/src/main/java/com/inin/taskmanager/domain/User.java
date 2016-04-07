@@ -1,11 +1,10 @@
 package com.inin.taskmanager.domain;
 
 import com.inin.taskmanager.domain.base.BaseDomain;
-import com.inin.taskmanager.utils.Util;
+import com.inin.taskmanager.util.Util;
 
 import java.io.Serializable;
-
-import org.joda.time.LocalDateTime;
+import java.time.LocalDateTime;
 
 /**
  * Created by virendra on 1/4/16.
@@ -14,18 +13,15 @@ import org.joda.time.LocalDateTime;
  */
 public class User extends BaseDomain implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-
     /**
      * table name
      */
     public static final String TABLE_NAME = "users";
-
+    private static final long serialVersionUID = 1L;
     /**
      * user id
      */
-    private String userId;
+    private long userId;
 
     /**
      * name of the user
@@ -47,6 +43,15 @@ public class User extends BaseDomain implements Serializable {
         this.modifiedDate = LocalDateTime.now();
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
     /**
      * gets the address of the user
      *
@@ -61,7 +66,7 @@ public class User extends BaseDomain implements Serializable {
      *
      * @return String user id
      */
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -75,28 +80,14 @@ public class User extends BaseDomain implements Serializable {
     }
 
     /**
-     * saves the new user entry
+     * inner class implementing Builder pattern to create User Object
      */
-    public void save() {
-
-        userId = Util.getMasterUserId();
-        createdDate = LocalDateTime.now();
-        modifiedDate = LocalDateTime.now();
-    }
-
-    /**
-     * updates details of existing user entry
-     */
-    public void update() {
-        modifiedDate = LocalDateTime.now();
-    }
-
     public static class Builder {
 
         /**
          * user id
          */
-        private String userId;
+        private long userId;
 
         /**
          * name of the user
@@ -106,10 +97,21 @@ public class User extends BaseDomain implements Serializable {
          * address of the user
          */
         private String address;
-
+        private LocalDateTime createdDate;
+        private LocalDateTime modifiedDate;
 
         public Builder(String name) {
             this.name = name;
+        }
+
+        public Builder setCreatedDate(LocalDateTime createdDate) {
+            this.createdDate = createdDate;
+            return this;
+        }
+
+        public Builder setModifiedDate(LocalDateTime modifiedDate) {
+            this.modifiedDate = modifiedDate;
+            return this;
         }
 
         public Builder setAddress(String address) {
@@ -117,7 +119,7 @@ public class User extends BaseDomain implements Serializable {
             return this;
         }
 
-        public Builder setUserId(String userId) {
+        public Builder setUserId(long userId) {
             this.userId = userId;
             return this;
         }

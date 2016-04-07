@@ -1,17 +1,20 @@
 package com.inin.taskmanager.service;
 
-import com.inin.taskmanager.constants.TaskStatus;
+import com.inin.taskmanager.constant.TaskStatus;
+import com.inin.taskmanager.controller.dto.TaskQueryRequest;
 import com.inin.taskmanager.domain.Comment;
 import com.inin.taskmanager.domain.Task;
 import com.inin.taskmanager.domain.User;
+import com.inin.taskmanager.exception.RecordNotCreatedException;
 import com.inin.taskmanager.repository.TaskRepository;
-import com.inin.taskmanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -24,12 +27,15 @@ public class TaskServiceImpl implements TaskService {
      * taskRepository property stores TaskRepository object instance .
      */
     @Autowired
-    TaskRepository taskRepository;
+    private TaskRepository taskRepository;
     /**
      * userRepository property stores UserRepository object instance .
      */
     @Autowired
-    UserRepository userRepository;
+    private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
     /**
      * default constructor for ticket service
@@ -45,112 +51,138 @@ public class TaskServiceImpl implements TaskService {
      * @return Task object
      * @throws IOException
      * @throws ClassNotFoundException
-     *//*
-    public Task getTask(String taskId) throws IOException, ClassNotFoundException {
+     */
+    @Override
+    public Task getTask(String taskId) {
         return taskRepository.find(taskId);
-    }*/
+    }
 
     /**
      * creates the new task in the application
      * @param task Task object
      * @return Task object
+     * @throws IllegalAccessException
      */
-    public int createTask(Task task) {
-        User creatorObj = task.getCreatedBy();
-        if (creatorObj == null){
-            throw new IllegalArgumentException("creator is required. Please refer to documentation for proper format.");
-        }else
-            userRepository.save(task.getCreatedBy());
+    @Override
+    public Long createTask(Task task) throws IllegalAccessException {
 
-        User assignedToObj = task.getAssignedTo();
-        TaskStatus statusObj = task.getStatus();
+        //validate creator
+        task.setCreatedBy(modifyUser(task.getCreatedBy()));
 
+        // set end date
+        if (!task.getStatus().equals(TaskStatus.DRAFT))
+            task.setAssignedTo(modifyUser(task.getAssignedTo()));
+
+        //check for comments
+        List<Comment> comments = task.getComments();
+
+        if (comments != null){
+            task.setComments(modifyCommentObjects(task, comments));
+        }
         return taskRepository.save(task);
     }
 
     /**
-     * formats data in proper way to be stored
+     * modifies the comment object sent by the caller
      * @param task Task object
-     * @throws IllegalAccessException
+     * @param comments List of comments object
+     * @return List of modified comments
+     * @throws IllegalAccessException when comment is not added
      */
-    private void setValue(Task task) throws IllegalAccessException {
+    private List<Comment> modifyCommentObjects( Task task, List<Comment> comments)
+            throws IllegalAccessException {
 
-        Class clazz = task.getClass();
-        Field[] fields = clazz.getDeclaredFields();
-        for (Field field : fields){
+        List<Comment> returnList = new ArrayList<>();
 
-            field.setAccessible(true);
-            switch (field.getName().toLowerCase()){
-                case "createdby":
-                case "assignedto":
-                    User user = (User) field.get(task);
-                    if(user.getUserId() == null) user.save();
-                    else user.update();
-                    field.set(task, user);
-                    break;
-                case "comments":
-                    List<Comment> temp = (List<Comment>)field.get(task);
-                    for (Comment c: temp){
-                        if (c.getCommentId() == null) {
-                            c.setCommentBy(task.getCreatedBy());
-                            c.save();
-                        }
-                        else c.update();
-                    }
-                    field.set(task, temp);
-                    break;
-                case "endDate":
-                    break;
+        if (!comments.isEmpty()){
+
+            for (int i = 0 ; i<comments.size();i++){
+                Comment tempObj = comments.get(i);
+                tempObj.setCommentBy(task.getCreatedBy());
+                Long id;
+
+                if (tempObj == null){
+                    throw new IllegalArgumentException("comment details cannot be blank. " +
+                            "Please refer to documentation for proper format.");
+                }else {
+                    id = commentService.saveComment(tempObj);
+                    returnList.add(i,commentService.findComment(id.toString()));
+                }
             }
+        }
+        return returnList;
+    }
+
+    /**
+     * modifies the user object sent by the caller
+     * @param object User object
+     * @return Modified User object
+     * @throws IllegalAccessException when name of the user is not supplied by the caller
+     */
+    private User modifyUser(User object)
+            throws IllegalAccessException {
+
+        Long id;
+        if (object == null){
+            throw new IllegalArgumentException("user entry is required. " +
+                    "Please refer to documentation for proper format.");
+        }else {
+            try{
+                User obj = userService.search(object.getName());
+                return obj;
+            }catch (DataAccessException e){
+
+            }
+            id = userService.createUser(object);
+        }
+
+        if (id == 0 )
+            throw new RecordNotCreatedException("Something went wrong!! Cannot create task");
+        else {
+            return userService.find(id.toString());
         }
 
     }
 
     /**
-     * validates the input
-     * @param task Task object
-     * @return boolean flag
-     * @throws IllegalAccessException if the
-     */
-    private boolean validateInput(Task task) throws IllegalAccessException {
-
-        List<String> required = Arrays.asList("title", "description", "createdBy", "status");
-        boolean flag = true;
-
-        Class clazz = task.getClass();
-        Field[] fields = clazz.getDeclaredFields();
-        for (Field field : fields){
-            field.setAccessible(true);
-            if (required.contains(field.getName()) && field.get(task) == null){
-                flag = false;
-                break;
-            }
-        }
-
-        return flag;
-    }
-
-
-
-
-    /*
-
-    *//**
      * gets the task list present in the application
      * @return List of task objects
      * @throws IOException
      * @throws ClassNotFoundException
-     *//*
-    public List<Task> getTasks() throws IOException, ClassNotFoundException {
-        try {
-            List<Task> entries = taskRepository.findAll();
-            return entries;
-        } catch (IOException | ClassNotFoundException e) {
-            throw e;
-        }
+     */
+    @Override
+    public List<Task> getTasks(){
+        return taskRepository.findAll();
     }
 
-    *//**
+    @Override
+    public List<Task> getTasksForUser(String userId) {
+        return taskRepository.search(new TaskQueryRequest.Builder().withCreatorId(userId).build());
+    }
+
+    @Override
+    public List<Comment> searchComments(TaskQueryRequest request) {
+        Task task  = taskRepository.find(request.getTaskId().toString());
+        return commentService.getComments(task);
+    }
+
+    @Override
+    public Long addComment(Long taskId, Comment comment) throws IllegalAccessException {
+        Task task = taskRepository.find(taskId.toString());
+        comment.setCommentBy(task.getCreatedBy());
+        Long id = commentService.saveComment(comment);
+        Iterator itr = task.getComments().iterator();
+        List<Comment> comments = new ArrayList<>();
+        while (itr.hasNext()){
+            comments.add((Comment)itr.next());
+        }
+        comments.add(commentService.findComment(id.toString()));
+
+        taskRepository.updateCommentIds(task, taskRepository.getCommentIds(comments));
+        return id;
+    }
+
+    /**
      * retrieves the comment form the task
      * @param id task id for which comments need to be retrieved
      * @return List of comments
@@ -165,7 +197,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     public List<Task> query(TaskQueryRequest request) throws IOException, ClassNotFoundException {
-        return taskRepository.search(request);
+        return taskRepository.searchComments(request);
     }
     */
 }

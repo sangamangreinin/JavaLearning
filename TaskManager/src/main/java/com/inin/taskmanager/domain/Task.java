@@ -1,19 +1,15 @@
 package com.inin.taskmanager.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.joda.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.joda.ser.LocalDateSerializer;
-import com.inin.taskmanager.constants.TaskStatus;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.inin.taskmanager.constant.TaskStatus;
 import com.inin.taskmanager.domain.base.BaseDomain;
-import com.inin.taskmanager.utils.Util;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-
-import org.joda.time.LocalDateTime;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,7 +26,7 @@ public class Task extends BaseDomain implements Serializable {
     /**
      * unique task id for the task
      */
-    private String taskId;
+    private Long taskId;
     /**
      * title of the task
      */
@@ -43,7 +39,6 @@ public class Task extends BaseDomain implements Serializable {
      * createdBy stores the user object who creates the task
      */
     private User createdBy;
-
     /**
      * assignedTo store the reference to User object to whom task si assigned
      */
@@ -59,11 +54,14 @@ public class Task extends BaseDomain implements Serializable {
     /**
      * end date of the task
      */
-    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDateTime endDate;
 
+    /**
+     * default constructor
+     */
     public Task() {
     }
 
@@ -89,6 +87,11 @@ public class Task extends BaseDomain implements Serializable {
         return assignedTo;
     }
 
+
+    public void setAssignedTo(User assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
     /**
      * gets the current status of the task
      *
@@ -96,6 +99,10 @@ public class Task extends BaseDomain implements Serializable {
      */
     public TaskStatus getStatus() {
         return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 
     /**
@@ -107,6 +114,10 @@ public class Task extends BaseDomain implements Serializable {
         return comments;
     }
 
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     /**
      * gets the end date for the task
      *
@@ -116,16 +127,20 @@ public class Task extends BaseDomain implements Serializable {
         return endDate;
     }
 
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
     /**
      * gets the task id for the task
      *
      * @return String unique task id
      */
-    public String getTaskId() {
+    public Long getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(Long taskId) {
         this.taskId = taskId;
     }
 
@@ -138,6 +153,10 @@ public class Task extends BaseDomain implements Serializable {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     /**
      * gets the description of the task
      *
@@ -145,6 +164,10 @@ public class Task extends BaseDomain implements Serializable {
      */
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -156,14 +179,16 @@ public class Task extends BaseDomain implements Serializable {
         return createdBy;
     }
 
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
     /**
      * saves the task in the application
      */
     public void save() {
-        taskId = Util.getMasterTaskId();
         this.createdDate = LocalDateTime.now();
         this.modifiedDate = LocalDateTime.now();
-
     }
 
     /**
@@ -174,11 +199,14 @@ public class Task extends BaseDomain implements Serializable {
     }
 
 
+    /**
+     * inner class implementing Builder pattern to create Task Object
+     */
     public static class Builder {
         /**
          * unique task id for the task
          */
-        private String taskId;
+        private Long taskId;
         /**
          * title of the task
          */
@@ -207,16 +235,10 @@ public class Task extends BaseDomain implements Serializable {
         /**
          * end date of the task
          */
-        @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-        @JsonFormat
         private LocalDateTime endDate;
 
-        @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-        @JsonFormat
         private LocalDateTime createdDate;
 
-        @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-        @JsonFormat
         private LocalDateTime modifiedDate;
 
         public Builder(String title, String description) {
@@ -229,7 +251,7 @@ public class Task extends BaseDomain implements Serializable {
             return this;
         }
 
-        public Builder setTaskId(String taskId) {
+        public Builder setTaskId(Long taskId) {
             this.taskId = taskId;
             return this;
         }

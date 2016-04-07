@@ -1,18 +1,11 @@
 package com.inin.taskmanager.service;
 
-import com.inin.taskmanager.dao.TaskQueryRequest;
-import com.inin.taskmanager.domain.Comment;
-import com.inin.taskmanager.domain.Task;
-import com.inin.taskmanager.domain.User;
 import com.inin.taskmanager.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by virendra on 1/4/16.
@@ -155,6 +148,6 @@ public class TaskServiceOld {
     }
 
     public List<Task> query(TaskQueryRequest request) throws IOException, ClassNotFoundException {
-        return taskRepository.search(request);
+        return taskRepository.searchComments(request);
     }*/
 }

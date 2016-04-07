@@ -1,10 +1,9 @@
 package com.inin.taskmanager.domain;
 
 import com.inin.taskmanager.domain.base.BaseDomain;
-import com.inin.taskmanager.utils.Util;
 
 import java.io.Serializable;
-import org.joda.time.LocalDateTime;
+import java.time.LocalDateTime;
 
 /**
  * Created by virendra on 1/4/16.
@@ -14,13 +13,12 @@ import org.joda.time.LocalDateTime;
 
 public class Comment extends BaseDomain implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     public static final String TABLE_NAME = "comments";
-
+    private static final long serialVersionUID = 1L;
     /**
      * comment id for the comment
      */
-    private String commentId;
+    private Long commentId;
 
     /**
      * comment content
@@ -34,12 +32,29 @@ public class Comment extends BaseDomain implements Serializable {
     public Comment() {
     }
 
+    public Comment(Builder builder) {
+        this.commentBy = builder.commentBy;
+        this.commentId = builder.commentId;
+        this.comment = builder.comment;
+        this.createdDate = builder.createdDate;
+        this.modifiedDate = builder.modifiedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "commentId=" + commentId +
+                ", comment='" + comment + '\'' +
+                ", commentBy=" + commentBy +
+                '}';
+    }
+
     /**
      * get comment id
      *
      * @return String comment id
      */
-    public String getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
@@ -69,18 +84,38 @@ public class Comment extends BaseDomain implements Serializable {
     }
 
     /**
-     * saves the new Comment entry
+     * inner class implementing Builder patterns to create Comment object
      */
-    public void save() {
-        commentId = Util.getMasterCommentId();
-        createdDate = LocalDateTime.now();
-        modifiedDate = LocalDateTime.now();
-    }
+    public static class Builder {
+        private Long commentId;
+        private String comment;
+        private User commentBy;
 
-    /**
-     * updates details of existing Comment entry
-     */
-    public void update() {
-        modifiedDate = LocalDateTime.now();
+        private LocalDateTime createdDate;
+        private LocalDateTime modifiedDate;
+
+        public Builder(String comment, User commentBy) {
+            this.comment = comment;
+            this.commentBy = commentBy;
+        }
+
+        public Builder setCommentId(Long commentId) {
+            this.commentId = commentId;
+            return this;
+        }
+
+        public Builder setCreatedDate(LocalDateTime createdDate) {
+            this.createdDate = createdDate;
+            return this;
+        }
+
+        public Builder setModifiedDate(LocalDateTime modifiedDate) {
+            this.modifiedDate = modifiedDate;
+            return this;
+        }
+
+        public Comment create() {
+            return new Comment(this);
+        }
     }
 }
