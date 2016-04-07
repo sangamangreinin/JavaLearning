@@ -48,7 +48,7 @@ public class FileOperation {
      */
     public static void getLoad() {
         File file = new File(FILE_PATH);
-        if (file.exists()) ;
+        if (file.exists())
         {
             String[] fileList = file.list();
             for (String name : fileList) {

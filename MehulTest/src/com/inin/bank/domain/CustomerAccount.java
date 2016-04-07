@@ -39,11 +39,6 @@ public class CustomerAccount implements Serializable {
     // it contains the all Transaction Details
     private ArrayList<Transaction> transactions;
 
-    private Lock lock = new ReentrantLock();
-
-    public CustomerAccount() {
-
-    }
 
     /**
      * @param accNo
@@ -80,7 +75,7 @@ public class CustomerAccount implements Serializable {
     }
 
     public void setAccNo(int accNo) {
-        this.accNo = accNo;
+                                                                                                                                                                        this.accNo = accNo;
     }
 
     public double getBalance() {

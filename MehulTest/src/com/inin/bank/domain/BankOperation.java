@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class BankOperation {
 
     Scanner scanner = new Scanner(System.in);
-    static BankOperation menuClass;
 
+    static BankOperation menuClass;
     static BankService bankService = new BankService();
 
     public BankOperation() {
