@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
  * This domain model class of system, which represents the Comments given on particular task in system.
  */
 public class Comment {
+
+    private int id;
     /**
      * Comment made on particular task.
      * */
@@ -34,6 +36,10 @@ public class Comment {
 
     public Comment(){
         this.created = LocalDateTime.now();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getMessage() {

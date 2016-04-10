@@ -3,6 +3,7 @@ package com.inin.controller;
 import com.inin.domain.SystemUser;
 import com.inin.service.SystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,12 +53,20 @@ public class SystemUserController {
      * */
     @RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = "application/json")
     public ResponseEntity<SystemUser> get(@PathVariable("id") int userId){
-        SystemUser systemUser = userService.get(userId);
+        /*SystemUser systemUser = userService.get(userId);
         if(systemUser == null){
             return new ResponseEntity<SystemUser>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<SystemUser>(systemUser, HttpStatus.OK);
+        return new ResponseEntity<SystemUser>(systemUser, HttpStatus.OK);*/
+
+        try{
+            SystemUser systemUser = userService.get(userId);
+            return new ResponseEntity<SystemUser>(systemUser, HttpStatus.OK);
+        }
+        catch (DataAccessException e){
+            return new ResponseEntity("Invalid user Id",HttpStatus.NOT_FOUND);
+        }
     }
 
 
@@ -69,10 +78,10 @@ public class SystemUserController {
     public ResponseEntity<SystemUser> update(@PathVariable("id") int userId, @RequestBody SystemUser systemUser){
         SystemUser systemUser1 = userService.update(userId, systemUser);
 
-        if(systemUser == null){
+        if(systemUser1 == null){
             return new ResponseEntity<SystemUser>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<SystemUser>(systemUser, HttpStatus.ACCEPTED);
+        return new ResponseEntity<SystemUser>(systemUser1, HttpStatus.ACCEPTED);
     }
 }

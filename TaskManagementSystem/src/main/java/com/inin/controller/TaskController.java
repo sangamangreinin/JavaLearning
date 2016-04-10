@@ -4,6 +4,7 @@ import com.inin.domain.Comment;
 import com.inin.domain.Task;
 import com.inin.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,8 @@ public class TaskController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Task> create(@RequestBody Task task){
-        taskService.createTask(task);
-        ResponseEntity<Task> responseEntity = new ResponseEntity<Task>(task, HttpStatus.CREATED);
+
+        ResponseEntity<Task> responseEntity = new ResponseEntity<Task>(taskService.createTask(task), HttpStatus.CREATED);
         return responseEntity;
     }
 
@@ -52,12 +53,14 @@ public class TaskController {
     @RequestMapping(method = RequestMethod.GET, path = "/{taskId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Task> get(@PathVariable int taskId){
 
-        Task task = taskService.get(taskId);
-        if(task == null){
-            return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
+        try {
+            Task task = taskService.get(taskId);
+            return new ResponseEntity<Task>(task, HttpStatus.OK);
+        }
+        catch (DataAccessException e){
+            return new ResponseEntity("Invalid task Id",HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
 
 
@@ -67,10 +70,16 @@ public class TaskController {
      * */
     @RequestMapping(method = RequestMethod.PUT, path = "/{tid}/comments", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Task> addComments(@PathVariable int tid, @RequestBody Comment comment){
+    public ResponseEntity addComments(@PathVariable int tid, @RequestBody Comment comment){
 
-        ResponseEntity<Task> responseEntity = new ResponseEntity(taskService.addComment(comment, tid), HttpStatus.ACCEPTED);
-        return responseEntity;
+        int cid = taskService.addComment(comment, tid);
+
+        if(cid > 0) {
+            ResponseEntity responseEntity = new ResponseEntity("Comment added successful Id : "+cid , HttpStatus.ACCEPTED);
+            return responseEntity;
+        }
+
+        return new ResponseEntity("Failed to add comments", HttpStatus.NOT_ACCEPTABLE);
     }
 
 
@@ -83,7 +92,17 @@ public class TaskController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Task> update(@PathVariable int tid, @RequestBody Task task, @RequestHeader(value = "userId") int userId){
 
-        ResponseEntity<Task> responseEntity = new ResponseEntity(taskService.updateTask(tid, userId, task), HttpStatus.ACCEPTED);
-        return responseEntity;
+        try {
+            taskService.updateTask(tid, userId, task);
+            return new ResponseEntity("updated successfuly", HttpStatus.OK);
+        }
+        catch (DataAccessException e){
+            return new ResponseEntity("update failed",HttpStatus.NOT_FOUND);
+        }
     }
+
+
+    /**
+     * This is controller method to search the Task as per status provide.
+     * */
 }

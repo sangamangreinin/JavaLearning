@@ -57,10 +57,31 @@ public class Task {
     /** This is List of task events happened on task in system. like assign or comment or mark complete. */
     private List<TaskEvent> taskEvents = new ArrayList<>();
 
+    private int assignerId;
+    private int assigneeId;
+    private String status;
+
 
     public Task(){
         this.currentStatus = Status.CREATED;
         this.created = LocalDateTime.now();
+    }
+
+
+    public Task(int id, SystemUser assigner, SystemUser assignee, String title, String description,
+                Status currentStatus, LocalDateTime created, LocalDateTime assingDate,
+                LocalDateTime dueDate, List<Comment> comments, List<TaskEvent> taskEvents) {
+        this.id = id;
+        this.assigner = assigner;
+        this.assignee = assignee;
+        this.title = title;
+        this.description = description;
+        this.currentStatus = currentStatus;
+        this.created = created;
+        this.assingDate = assingDate;
+        this.dueDate = dueDate;
+        this.comments = comments;
+        this.taskEvents = taskEvents;
     }
 
 
@@ -128,6 +149,22 @@ public class Task {
         this.description = description;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAssignerId() {
+        return assignerId;
+    }
+
+    public int getAssigneeId() {
+        return assigneeId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -143,4 +180,20 @@ public class Task {
                 ", taskEvents=" + taskEvents +
                 '}';
     }
+
+
+    public Task(int id, int assignerId, int assigneeId, String title, String description,
+                String status, LocalDateTime created, LocalDateTime assingDate,
+                LocalDateTime dueDate) {
+        this.id = id;
+        this.assignerId = assignerId;
+        this.assigneeId = assigneeId;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.created = created;
+        this.assingDate = assingDate;
+        this.dueDate = dueDate;
+    }
+
 }

@@ -25,7 +25,7 @@ public class UserComponent extends BaseComponent {
     /**
      * This is responsible to check equality of user information passed
      * */
-    public boolean checkUser(SystemUser systemUser1, SystemUser systemUser2){
+    public boolean checkSameUsers(SystemUser systemUser1, SystemUser systemUser2){
         return systemUser1.equals(systemUser2);
     }
 }

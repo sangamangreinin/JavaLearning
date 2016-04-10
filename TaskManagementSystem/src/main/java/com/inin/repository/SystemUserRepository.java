@@ -1,5 +1,6 @@
 package com.inin.repository;
 
+import com.inin.dao.UserDao;
 import com.inin.domain.SystemUser;
 import com.inin.serialize.Serialize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class SystemUserRepository {
     @Autowired
     private Serialize serialize;
 
+    @Autowired
+    private UserDao userDao;
+
     private static Map<Integer, SystemUser> systemUserMap;
 
     public SystemUserRepository(){
@@ -34,15 +38,11 @@ public class SystemUserRepository {
     /**
      * This is responsible for add the user in repository.
      * */
-    public void add(SystemUser systemUser) {
-        /*File file = new File(Constatnts.USER_SER_FILE_PATH.concat(Constatnts.USER_SER_FILE_NAME));
-        if (serialize.serialisedObject(systemUser, file, true)){
-            systemUserList.add(systemUser);
-        }else {
-            throw new RuntimeException("Failed to serialize the User data.");
-        }*/
+    public int add(SystemUser systemUser) {
+       // systemUserMap.put(systemUser.getId(), systemUser);
 
-        systemUserMap.put(systemUser.getId(), systemUser);
+        return userDao.insert(systemUser);
+
     }
 
 
@@ -50,8 +50,10 @@ public class SystemUserRepository {
      * This is responsible to get all the user in repository.
      * */
     public List<SystemUser> getAllUsers(){
-        return systemUserMap.values().stream()
-                .collect(Collectors.toList());
+        /*return systemUserMap.values().stream()
+                .collect(Collectors.toList());*/
+
+        return userDao.getAllUsers();
     }
 
 
@@ -59,7 +61,7 @@ public class SystemUserRepository {
      * This is responsible to get the user from repository on the basis of id provided.
      * */
     public SystemUser getUser(int userId){
-        Optional<SystemUser> userOptional = systemUserMap.values().stream()
+        /*Optional<SystemUser> userOptional = systemUserMap.values().stream()
                 .filter(systemUser -> systemUser.getId() == userId)
                 .findAny();
 
@@ -67,7 +69,9 @@ public class SystemUserRepository {
             return userOptional.get();
         }
 
-        return null;
+        return null;*/
+
+        return userDao.getUser(userId);
     }
 
 
@@ -75,7 +79,7 @@ public class SystemUserRepository {
      * This is responsible for update user information in repository, on the basis of user id provided
      * */
     public SystemUser updateUser(int userId, SystemUser systemUser){
-        SystemUser systemUser1 = getUser(userId);
+       /* SystemUser systemUser1 = getUser(userId);
 
         if(systemUser1 != null){
             systemUser1.setName(systemUser.getName());
@@ -83,7 +87,12 @@ public class SystemUserRepository {
             systemUser1.setPassword(systemUser.getPassword());
         }
 
-        return systemUser1;
+        return systemUser1;*/
 
+        int update = userDao.updateUser(userId, systemUser);
+        if(update == 1)
+            return systemUser;
+        else
+            return null;
     }
 }

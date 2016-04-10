@@ -1,8 +1,10 @@
 package com.inin.repository;
 
+import com.inin.dao.TaskDao;
 import com.inin.domain.Comment;
 import com.inin.domain.Status;
 import com.inin.domain.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -19,14 +21,19 @@ import java.util.stream.Collectors;
 @Repository
 public class TaskRepository {
 
+    @Autowired
+    private TaskDao taskDao;
+
     private Map<Integer, Task> taskHashMap = new HashMap<>();
 
-    public void add(Task task){
-        taskHashMap.put(task.getId(), task);
+    public int add(Task task){
+        //taskHashMap.put(task.getId(), task);
+        return taskDao.insert(task);
     }
 
     public List<Task> getAllTask(){
-        return taskHashMap.values().stream().collect(Collectors.toList());
+        //return taskHashMap.values().stream().collect(Collectors.toList());
+        return taskDao.getAll();
     }
 
 
@@ -34,34 +41,47 @@ public class TaskRepository {
      * This is responsible to get the task from repository on the basis of id provided.
      * */
     public Task getTask(int taskId){
-        Optional<Task> taskOptional = taskHashMap.values().stream()
+        /*Optional<Task> taskOptional = taskHashMap.values().stream()
                 .filter(task -> task.getId() == taskId)
                 .findAny();
 
         if(taskOptional.isPresent()){
            return taskOptional.get();
-        }
+        }*/
 
-        return null;
+        return taskDao.get(taskId);
+
     }
 
 
     /**
      * This is resoponsible to add the comment on task in repository.
      * */
-    public Task saveComments(Comment comment, int tid){
+    public int saveComments(Comment comment, int tid){
 
-        Task task = taskHashMap.get(tid);
+/*        Task task = taskHashMap.get(tid);
         task.getComments().add(comment);
-        return task;
+        return task;*/
+
+        return taskDao.addComments(comment, tid);
+
     }
 
 
     /**
      * This is responsible to update the status of task
      * */
-    public void updateStatus(int tid, Status status){
+/*    public void updateStatus(int tid, Status status){
 
         taskHashMap.get(tid).setCurrentStatus(status);
+    }*/
+
+
+    /**
+     * This is responsible to update task
+     * */
+    public int update(int tid, Task updatedTask){
+        //return taskHashMap.put(tid, updatedTask);     // updating the task
+        return taskDao.update(tid, updatedTask);
     }
 }

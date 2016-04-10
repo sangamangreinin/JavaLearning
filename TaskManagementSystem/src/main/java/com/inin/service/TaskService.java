@@ -36,15 +36,18 @@ public class TaskService {
      * This service method to create task in system
      * @param task is object passed to store in system.
      * */
-    public void createTask(Task task){
+    public Task createTask(Task task){
 
         taskComponent.validateTask(task);
         SystemUser systemUser = getTaskUser(task.getAssigner().getId());
 
         if(!taskComponent.validateTaskUser(systemUser, task.getAssigner()))
-            throw new InvalidInputException("User information does not match with the record!");
+            throw new InvalidInputException("Task Assigner information does not match with the record!");
 
-        taskRepository.add(task);
+        int taskId = taskRepository.add(task);
+        task.setId(taskId);
+
+        return task;
     }
 
 
@@ -71,7 +74,7 @@ public class TaskService {
      * @param comment is comment object to be stored on the task.
      * @param tid is unique id of task in system, on which comment has to made.
      * */
-    public Task addComment(Comment comment, int tid) {
+    public int addComment(Comment comment, int tid) {
         Task task = get(tid);
         if(task == null){
             throw new InvalidInputException("Invalid task given");
@@ -80,15 +83,14 @@ public class TaskService {
         taskComponent.validateComments(comment);
 
         // only Assigner or Assignee can do the comments
-        if((taskComponent.validateTaskUser(task.getAssigner(), comment.getCommenter()))
+/*        if((taskComponent.validateTaskUser(task.getAssigner(), comment.getCommenter()))
                 || (taskComponent.validateTaskUser(task.getAssignee(), comment.getCommenter()))){
 
-            return taskRepository.saveComments(comment, tid);
-
         }else {
-
             throw new InvalidInputException("Unauthorised user");
-        }
+        }*/
+
+        return taskRepository.saveComments(comment, tid);
 
     }
 
@@ -105,45 +107,53 @@ public class TaskService {
      * @param tid is unique task id.
      * @param userId id user id who is trying ot update the status.
      * @param task is updated task object */
-    public Task updateTask(int tid, int userId, Task task){
+    public int updateTask(int tid, int userId, Task task){
 
         taskComponent.validateTask(task);
         SystemUser user = userService.get(userId);
         Task updatingTask = get(tid);
 
-        // updating status allowed to Assigner only.
-        if(task.getCurrentStatus() != null && updatingTask.getCurrentStatus() != task.getCurrentStatus()){
-            if(taskComponent.validateTaskUser(updatingTask.getAssigner(), user)){
+
+        // things that can update by Assigner.
+        if(taskComponent.validateTaskUser(updatingTask.getAssigner(), user)){
+
+            if(task.getCurrentStatus() != null){
 
                 // update assign date.
                 if(updatingTask.getCurrentStatus() == Status.CREATED && task.getCurrentStatus() == Status.ASSIGNED){
+
                     updatingTask.setAssingDate(LocalDateTime.now());
                 }
 
                 updatingTask.setCurrentStatus(task.getCurrentStatus());
+            }
 
+            if(task.getAssignee() != null){
+
+                updatingTask.setAssignee(task.getAssignee());
             }
-            else{
-                throw new InvalidInputException("Invalid Assigner");
+
+            if(task.getDescription() != null) {
+
+                updatingTask.setDescription(task.getDescription());
             }
+
+            return taskRepository.update(tid, updatingTask);
         }
 
-        // update due date of task
-        if(task.getDueDate() != null && updatingTask.getDueDate() != task.getDueDate()){
-            if(taskComponent.validateTaskUser(updatingTask.getAssignee(), user)){
 
+        // fields that can update by assignee.
+        if(taskComponent.validateTaskUser(updatingTask.getAssignee(), user)){
+
+            if(task.getDueDate() != null) {
                 updatingTask.setDueDate(task.getDueDate());
             }
-            else{
-                System.out.println();
-                throw new InvalidInputException("Invalid Assignee");
-            }
+
+            return taskRepository.update(tid, updatingTask);
         }
 
-        updatingTask.setAssignee(task.getAssignee());
-        updatingTask.setDescription(task.getDescription());
+        throw new InvalidInputException("Unauthorised Access!");
 
-        return updatingTask;
     }
 
 }

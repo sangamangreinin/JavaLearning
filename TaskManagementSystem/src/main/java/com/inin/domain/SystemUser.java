@@ -25,8 +25,14 @@ public class SystemUser {
     private String password;
 
 
-    public SystemUser(){
-        this.id = Utility.generateUserId();
+    public SystemUser(){}
+
+    public SystemUser(int id, String name, String email, String username, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
     }
 
     public int getId() {
@@ -49,6 +55,9 @@ public class SystemUser {
         return password;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -86,4 +95,5 @@ public class SystemUser {
         result = 31 * result + password.hashCode();
         return result;
     }
+
 }

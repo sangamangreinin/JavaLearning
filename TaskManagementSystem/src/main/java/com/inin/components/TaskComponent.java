@@ -48,7 +48,7 @@ public class TaskComponent extends BaseComponent{
         if(systemUser == null)
             throw new InvalidInputException("Invalid user information");
 
-        return userComponent.checkUser(systemUser, taskUser);
+        return userComponent.checkSameUsers(systemUser, taskUser);
     }
 
 
