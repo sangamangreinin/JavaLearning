@@ -4,6 +4,7 @@ import com.inin.dao.TaskDao;
 import com.inin.domain.Comment;
 import com.inin.domain.Status;
 import com.inin.domain.Task;
+import com.inin.exceptions.InvalidInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -83,5 +84,16 @@ public class TaskRepository {
     public int update(int tid, Task updatedTask){
         //return taskHashMap.put(tid, updatedTask);     // updating the task
         return taskDao.update(tid, updatedTask);
+    }
+
+
+    public List<Comment> getAllComments(int tid){
+        Task task = getTask(tid);
+
+        if(task == null){
+            throw new InvalidInputException("Invalid task given");
+        }
+
+        return taskDao.getAllComments(tid);
     }
 }

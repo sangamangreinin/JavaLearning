@@ -113,15 +113,11 @@ public class TaskService {
         SystemUser user = userService.get(userId);
         Task updatingTask = get(tid);
 
-
-        // things that can update by Assigner.
-        if(taskComponent.validateTaskUser(updatingTask.getAssigner(), user)){
-
+        if(userId == updatingTask.getAssignerId()){
             if(task.getCurrentStatus() != null){
 
                 // update assign date.
-                if(updatingTask.getCurrentStatus() == Status.CREATED && task.getCurrentStatus() == Status.ASSIGNED){
-
+                if(updatingTask.getAssingDate() == null && task.getCurrentStatus() == Status.ASSIGNED){
                     updatingTask.setAssingDate(LocalDateTime.now());
                 }
 
@@ -139,11 +135,11 @@ public class TaskService {
             }
 
             return taskRepository.update(tid, updatingTask);
+
         }
 
-
-        // fields that can update by assignee.
-        if(taskComponent.validateTaskUser(updatingTask.getAssignee(), user)){
+        if(userId == updatingTask.getAssigneeId()){
+            updatingTask.setCurrentStatus(task.getCurrentStatus());
 
             if(task.getDueDate() != null) {
                 updatingTask.setDueDate(task.getDueDate());
@@ -154,6 +150,12 @@ public class TaskService {
 
         throw new InvalidInputException("Unauthorised Access!");
 
+    }
+
+
+    public List<Comment> getAllComments(int tid){
+
+        return taskRepository.getAllComments(tid);
     }
 
 }

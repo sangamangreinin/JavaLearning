@@ -25,6 +25,8 @@ public class Comment {
      * */
     private SystemUser commenter;
 
+    private int taskId;
+    private int commenterId;
     /**
      * This is date and time of comment made on task.
      * */
@@ -36,6 +38,14 @@ public class Comment {
 
     public Comment(){
         this.created = LocalDateTime.now();
+    }
+
+    public Comment(int id, int taskId, int commenterId, String message, LocalDateTime created) {
+        this.id = id;
+        this.taskId = taskId;
+        this.commenterId = commenterId;
+        this.created = created;
+        this.message = message;
     }
 
     public int getId() {

@@ -65,9 +65,6 @@ public class TaskDao {
 
 
     public List<Task> getAll() {
-
-
-
         return jdbcTemplate.query("select * from inin_task", (resultSet, i) -> {
             return new Task(resultSet.getInt("id"), resultSet.getInt("assigner_id"), resultSet.getInt("assignee_id"),
                     resultSet.getString("title"), resultSet.getString("description"),
@@ -117,17 +114,28 @@ public class TaskDao {
     public int update(int id, Task newTask){
 
         String dueDate = newTask.getDueDate() == null ? null : newTask.getDueDate().toString().replace('T', ' ').substring(0, 19);
+
         String assignDate = newTask.getAssingDate() == null ? null : newTask.getAssingDate().toString().replace('T', ' ').substring(0, 19);
 
-/*        jdbcTemplate.update("UPDATE inin_task SET assigner_id = ?, assignee_id = ?,  title = ?, " +
-                "description = ?, current_status = ?, due_date = ?, assign_date = ? WHERE  id = ?",
-                newTask.getAssignerId(),newTask.getAssigneeId(),newTask.getTitle(),newTask.getDescription(),
-                newTask.getCurrentStatus().name(), dueDate,assignDate);*/
+        int assigneeId = newTask.getAssigneeId();
 
-        return jdbcTemplate.update("UPDATE inin_task SET assigner_id = ?, assignee_id = ?,  title = ?, " +
+        return jdbcTemplate.update("UPDATE inin_task SET assignee_id = ?,  title = ?, " +
                         "description = ?, current_status = ?, due_date = ?, assign_date = ? WHERE  id = ?",
-                newTask.getAssigner().getId(),newTask.getAssignee().getId(),newTask.getTitle(),newTask.getDescription(),
-                newTask.getCurrentStatus().name(), dueDate,assignDate);
+                assigneeId ,newTask.getTitle(),newTask.getDescription(),
+                newTask.getCurrentStatus().name(), dueDate,assignDate, id);
+    }
+
+
+    public List<Comment> getAllComments(int tid){
+        return jdbcTemplate.query("SELECT * FROM inin_comments WHERE task_id = ?",new Object[]{tid},(rs, rowNum) -> {
+            return new Comment(
+                    rs.getInt("id"),
+                    rs.getInt("task_id"),
+                    rs.getInt("user_id"),
+                    rs.getString("message"),
+                    LocalDateTime.parse(rs.getString("created"), formatter)
+            );
+        });
     }
 
 }

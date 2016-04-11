@@ -168,19 +168,22 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
+                "id=" + id +
                 ", assigner=" + assigner +
                 ", assignee=" + assignee +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", currentStatus=" + currentStatus +
                 ", created=" + created +
-                ", dueDate=" + dueDate +
                 ", assingDate=" + assingDate +
+                ", dueDate=" + dueDate +
                 ", comments=" + comments +
                 ", taskEvents=" + taskEvents +
+                ", assignerId=" + assignerId +
+                ", assigneeId=" + assigneeId +
+                ", status='" + status + '\'' +
                 '}';
     }
-
 
     public Task(int id, int assignerId, int assigneeId, String title, String description,
                 String status, LocalDateTime created, LocalDateTime assingDate,

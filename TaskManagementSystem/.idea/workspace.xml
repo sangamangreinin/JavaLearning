@@ -31,19 +31,19 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/controller/TaskController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="95" column="31" selection-start-line="95" selection-start-column="31" selection-end-line="95" selection-end-column="31" />
+              <caret line="95" column="30" selection-start-line="95" selection-start-column="30" selection-end-line="95" selection-end-column="30" />
               <folding>
-                <element signature="e#1104#1110#0" expanded="true" />
+                <element signature="e#4172#4187#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TaskService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/service/TaskService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4338118">
-              <caret line="112" column="39" selection-start-line="112" selection-start-column="39" selection-end-line="112" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="136" column="38" selection-start-line="136" selection-start-column="38" selection-end-line="136" selection-end-column="38" />
               <folding>
                 <element signature="e#1773#1774#0" expanded="true" />
                 <element signature="e#1826#1827#0" expanded="true" />
@@ -62,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseComponent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/components/BaseComponent.java">
+      <file leaf-file-name="UserComponent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/components/UserComponent.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+              <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -76,14 +76,14 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/domain/Task.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="165" column="5" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
+              <caret line="139" column="16" selection-start-line="139" selection-start-column="16" selection-end-line="139" selection-end-column="16" />
               <folding>
-                <element signature="e#4536#4537#0" expanded="true" />
-                <element signature="e#4569#4570#0" expanded="true" />
-                <element signature="e#4603#4604#0" expanded="true" />
-                <element signature="e#4636#4637#0" expanded="true" />
-                <element signature="e#4669#4670#0" expanded="true" />
-                <element signature="e#4698#4699#0" expanded="true" />
+                <element signature="e#3540#3541#0" expanded="true" />
+                <element signature="e#3576#3577#0" expanded="true" />
+                <element signature="e#4108#4109#0" expanded="true" />
+                <element signature="e#4146#4147#0" expanded="true" />
+                <element signature="e#4205#4206#0" expanded="true" />
+                <element signature="e#4249#4250#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,7 +93,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/dao/UserDao.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <caret line="64" column="22" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <marker date="1460122772648" expanded="true" signature="799:876" placeholder="INSERT INTO inin_system_user..." />
@@ -106,20 +106,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskDao.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TaskDao.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/dao/TaskDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="126" column="15" selection-start-line="126" selection-start-column="15" selection-end-line="126" selection-end-column="15" />
+            <state vertical-scroll-proportion="0.4338118">
+              <caret line="113" column="15" selection-start-line="113" selection-start-column="15" selection-end-line="113" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1460316915634" expanded="true" signature="1009:1169" placeholder="INSERT INTO inin_task..." />
-                <marker date="1460316915634" expanded="true" signature="2318:2341" placeholder="select * fro..inin_task..." />
-                <marker date="1460316915634" expanded="true" signature="3086:3163" placeholder="INSERT INTO inin_comments..." />
-                <marker date="1460316915634" expanded="true" signature="3864:3900" placeholder="SELECT * fro..inin_task..." />
-                <marker date="1460316915634" expanded="true" signature="4959:5127" placeholder="UPDATE inin_..." />
-                <marker date="1460316915634" expanded="true" signature="4959:5129" placeholder="UPDATE inin_..." />
-                <marker date="1460316915634" expanded="true" signature="5350:5526" placeholder="UPDATE inin_..." />
+                <marker date="1460359756450" expanded="true" signature="1009:1169" placeholder="INSERT INTO inin_task..." />
+                <marker date="1460359756450" expanded="true" signature="2315:2338" placeholder="select * fro..inin_task..." />
+                <marker date="1460359756450" expanded="true" signature="3083:3160" placeholder="INSERT INTO inin_comments..." />
+                <marker date="1460359756450" expanded="true" signature="3861:3897" placeholder="SELECT * fro..inin_task..." />
+                <marker date="1460359756450" expanded="true" signature="5013:5171" placeholder="UPDATE inin_..." />
+                <marker date="1460359756450" expanded="true" signature="5013:5172" placeholder="UPDATE inin_..." />
+                <marker date="1460359756450" expanded="true" signature="5417:5462" placeholder="SELECT * FRO..comment..." />
               </folding>
             </state>
           </provider>
@@ -129,7 +129,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/service/SystemUserService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
+              <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
               <folding>
                 <element signature="e#1545#1546#0" expanded="true" />
                 <element signature="e#1604#1605#0" expanded="true" />
@@ -151,8 +151,8 @@
       <file leaf-file-name="TaskRepository.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/repository/TaskRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="82" column="14" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="14" />
+            <state vertical-scroll-proportion="-4.2181816">
+              <caret line="85" column="27" selection-start-line="85" selection-start-column="27" selection-end-line="85" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -194,7 +194,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/inin/domain/Status.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/domain/TaskEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/components/UserComponent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/inin/components/TaskComponent.java" />
         <option value="/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/java/sql/Connection.class" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/domain/SystemUser.java" />
@@ -202,13 +201,14 @@
         <option value="$PROJECT_DIR$/src/main/java/com/inin/controller/SystemUserController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/dao/UserDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/inin/domain/Comment.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/repository/SystemUserRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/domain/Comment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/components/TaskComponent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/repository/TaskRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/controller/TaskController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/domain/Task.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/dao/TaskDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/service/TaskService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/inin/repository/TaskRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/inin/controller/TaskController.java" />
       </list>
     </option>
   </component>
@@ -285,9 +285,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -640,6 +639,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1094,12 +1094,13 @@
       <workItem from="1460003266166" duration="15110000" />
       <workItem from="1460026279993" duration="11569000" />
       <workItem from="1460095050546" duration="12166000" />
-      <workItem from="1460306351455" duration="9466000" />
+      <workItem from="1460306351455" duration="9745000" />
+      <workItem from="1460349441948" duration="10104000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133562000" />
+    <option name="totallyTimeSpent" value="143945000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -1157,7 +1158,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="110" column="16" selection-start-line="110" selection-start-column="16" selection-end-line="110" selection-end-column="16" />
-          <folding />
+          <folding>
+            <element signature="e#3540#3541#0" expanded="true" />
+            <element signature="e#3576#3577#0" expanded="true" />
+            <element signature="e#4108#4109#0" expanded="true" />
+            <element signature="e#4146#4147#0" expanded="true" />
+            <element signature="e#4205#4206#0" expanded="true" />
+            <element signature="e#4249#4250#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1173,7 +1181,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#1545#1546#0" expanded="true" />
+            <element signature="e#1604#1605#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1182,7 +1193,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1104#1110#0" expanded="true" />
+            <element signature="e#4172#4187#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1232,7 +1243,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="e#1545#1546#0" expanded="true" />
+            <element signature="e#1604#1605#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1240,7 +1254,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="62" column="24" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
-          <folding />
+          <folding>
+            <element signature="e#3540#3541#0" expanded="true" />
+            <element signature="e#3576#3577#0" expanded="true" />
+            <element signature="e#4108#4109#0" expanded="true" />
+            <element signature="e#4146#4147#0" expanded="true" />
+            <element signature="e#4205#4206#0" expanded="true" />
+            <element signature="e#4249#4250#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1286,7 +1307,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1104#1110#0" expanded="true" />
+            <element signature="e#4172#4187#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1306,7 +1327,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-          <folding />
+          <folding>
+            <element signature="e#3540#3541#0" expanded="true" />
+            <element signature="e#3576#3577#0" expanded="true" />
+            <element signature="e#4108#4109#0" expanded="true" />
+            <element signature="e#4146#4147#0" expanded="true" />
+            <element signature="e#4205#4206#0" expanded="true" />
+            <element signature="e#4249#4250#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1321,7 +1349,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="54" column="43" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="e#1545#1546#0" expanded="true" />
+            <element signature="e#1604#1605#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1447,14 +1478,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/components/UserComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1468,17 +1491,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/domain/Comment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding>
-            <element signature="e#1172#1173#0" expanded="true" />
-            <element signature="e#1197#1198#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1498,57 +1510,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/dao/UserDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/domain/Comment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <caret line="42" column="72" selection-start-line="42" selection-start-column="72" selection-end-line="42" selection-end-column="72" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1460122772648" expanded="true" signature="799:876" placeholder="INSERT INTO inin_system_user..." />
-            <marker date="1460122772648" expanded="true" signature="1605:1635" placeholder="select * fro..inin_system_user..." />
-            <marker date="1460122772648" expanded="true" signature="2065:2108" placeholder="SELECT * fro..inin_system_user..." />
-            <marker date="1460122772648" expanded="true" signature="2575:2656" placeholder="UPDATE inin_..." />
-            <marker date="1460122772648" expanded="true" signature="2581:2656" placeholder="INSERT INTO inin_system_user..." />
+            <element signature="e#1149#1150#0" expanded="true" />
+            <element signature="e#1199#1200#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/domain/Task.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/components/UserComponent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="165" column="5" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
-          <folding>
-            <element signature="e#4536#4537#0" expanded="true" />
-            <element signature="e#4569#4570#0" expanded="true" />
-            <element signature="e#4603#4604#0" expanded="true" />
-            <element signature="e#4636#4637#0" expanded="true" />
-            <element signature="e#4669#4670#0" expanded="true" />
-            <element signature="e#4698#4699#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/dao/TaskDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="15" selection-start-line="126" selection-start-column="15" selection-end-line="126" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1460316915634" expanded="true" signature="1009:1169" placeholder="INSERT INTO inin_task..." />
-            <marker date="1460316915634" expanded="true" signature="2318:2341" placeholder="select * fro..inin_task..." />
-            <marker date="1460316915634" expanded="true" signature="3086:3163" placeholder="INSERT INTO inin_comments..." />
-            <marker date="1460316915634" expanded="true" signature="3864:3900" placeholder="SELECT * fro..inin_task..." />
-            <marker date="1460316915634" expanded="true" signature="4959:5127" placeholder="UPDATE inin_..." />
-            <marker date="1460316915634" expanded="true" signature="4959:5129" placeholder="UPDATE inin_..." />
-            <marker date="1460316915634" expanded="true" signature="5350:5526" placeholder="UPDATE inin_..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/repository/TaskRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="82" column="14" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="14" />
+          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1561,12 +1537,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/controller/TaskController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/dao/UserDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="95" column="31" selection-start-line="95" selection-start-column="31" selection-end-line="95" selection-end-column="31" />
+          <caret line="64" column="22" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
           <folding>
-            <element signature="e#1104#1110#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <marker date="1460122772648" expanded="true" signature="799:876" placeholder="INSERT INTO inin_system_user..." />
+            <marker date="1460122772648" expanded="true" signature="1605:1635" placeholder="select * fro..inin_system_user..." />
+            <marker date="1460122772648" expanded="true" signature="2065:2108" placeholder="SELECT * fro..inin_system_user..." />
+            <marker date="1460122772648" expanded="true" signature="2575:2656" placeholder="UPDATE inin_..." />
+            <marker date="1460122772648" expanded="true" signature="2581:2656" placeholder="INSERT INTO inin_system_user..." />
           </folding>
         </state>
       </provider>
@@ -1582,7 +1563,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/service/SystemUserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
+          <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
           <folding>
             <element signature="e#1545#1546#0" expanded="true" />
             <element signature="e#1604#1605#0" expanded="true" />
@@ -1590,13 +1571,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/domain/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="139" column="16" selection-start-line="139" selection-start-column="16" selection-end-line="139" selection-end-column="16" />
+          <folding>
+            <element signature="e#3540#3541#0" expanded="true" />
+            <element signature="e#3576#3577#0" expanded="true" />
+            <element signature="e#4108#4109#0" expanded="true" />
+            <element signature="e#4146#4147#0" expanded="true" />
+            <element signature="e#4205#4206#0" expanded="true" />
+            <element signature="e#4249#4250#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/controller/TaskController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="95" column="30" selection-start-line="95" selection-start-column="30" selection-end-line="95" selection-end-column="30" />
+          <folding>
+            <element signature="e#4172#4187#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/service/TaskService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4338118">
-          <caret line="112" column="39" selection-start-line="112" selection-start-column="39" selection-end-line="112" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="136" column="38" selection-start-line="136" selection-start-column="38" selection-end-line="136" selection-end-column="38" />
           <folding>
             <element signature="e#1773#1774#0" expanded="true" />
             <element signature="e#1826#1827#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/repository/TaskRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.2181816">
+          <caret line="85" column="27" selection-start-line="85" selection-start-column="27" selection-end-line="85" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/dao/TaskDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4338118">
+          <caret line="113" column="15" selection-start-line="113" selection-start-column="15" selection-end-line="113" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1460359756450" expanded="true" signature="1009:1169" placeholder="INSERT INTO inin_task..." />
+            <marker date="1460359756450" expanded="true" signature="2315:2338" placeholder="select * fro..inin_task..." />
+            <marker date="1460359756450" expanded="true" signature="3083:3160" placeholder="INSERT INTO inin_comments..." />
+            <marker date="1460359756450" expanded="true" signature="3861:3897" placeholder="SELECT * fro..inin_task..." />
+            <marker date="1460359756450" expanded="true" signature="5013:5171" placeholder="UPDATE inin_..." />
+            <marker date="1460359756450" expanded="true" signature="5013:5172" placeholder="UPDATE inin_..." />
+            <marker date="1460359756450" expanded="true" signature="5417:5462" placeholder="SELECT * FRO..comment..." />
           </folding>
         </state>
       </provider>

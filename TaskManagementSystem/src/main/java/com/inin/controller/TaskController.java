@@ -97,12 +97,25 @@ public class TaskController {
             return new ResponseEntity("updated successfuly", HttpStatus.OK);
         }
         catch (DataAccessException e){
-            return new ResponseEntity("update failed",HttpStatus.NOT_FOUND);
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
 
 
     /**
-     * This is controller method to search the Task as per status provide.
+     * This is controller method to get the comments on task.
      * */
+
+    @RequestMapping(method = RequestMethod.GET, path = "/{tid}/comments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Comment>> getComments(@PathVariable int tid){
+
+        try {
+
+            ResponseEntity<List<Comment>> entity = new ResponseEntity<List<Comment>>(taskService.getAllComments(tid), HttpStatus.OK);
+            return entity;
+        }
+        catch (DataAccessException e){
+            return new ResponseEntity("Invalid task id",HttpStatus.NOT_FOUND);
+        }
+    }
 }

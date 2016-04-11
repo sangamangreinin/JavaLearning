@@ -45,6 +45,7 @@ public class TaskComponent extends BaseComponent{
      * @param systemUser is user information stored with the id which passed task object
      * @param taskUser is actual user information passed with task object. */
     public boolean validateTaskUser(SystemUser systemUser, SystemUser taskUser){
+
         if(systemUser == null)
             throw new InvalidInputException("Invalid user information");
 
