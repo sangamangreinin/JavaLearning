@@ -7,16 +7,34 @@ import java.time.LocalDateTime;
  */
 
 public class Comment {
+    //Task Comment for the task
     private String comment;
+    // created date for the task
     private LocalDateTime created;
+    //comment by userId
     private long userId;
+    //taskId for this is comment
     private long taskId;
 
     public long getTaskId() {
         return taskId;
     }
 
-    public Comment(){}
+    /**
+     * @param comment
+     * @param created
+     * @param userId
+     * @param taskId
+     */
+    public Comment(String comment, LocalDateTime created, long userId, long taskId) {
+        this.comment = comment;
+        this.created = created;
+        this.userId = userId;
+        this.taskId = taskId;
+    }
+
+    public Comment() {
+    }
 
     public String getComment() {
         return comment;

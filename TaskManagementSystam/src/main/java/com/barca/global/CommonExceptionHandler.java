@@ -1,7 +1,7 @@
 package com.barca.global;
 
 import com.barca.Error;
-import com.barca.exception.UserIdAlreadyExistException;
+import com.barca.exception.TaskNotFound;
 import com.barca.exception.UserNotFoundException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -24,14 +24,21 @@ public class CommonExceptionHandler {
         return new Error(102, e.getMessage());
     }
 
-    @ExceptionHandler(UserIdAlreadyExistException.class)
+
+    @ExceptionHandler(TaskNotFound.class)
     @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
     @ResponseBody
-    public Error handleUserIdAlreadyExistException(Exception e) {
-        return new Error(100, e.getMessage());
+    public Error handleTaskNotFoundException(Exception e) {
+        return new Error(105, e.getMessage());
     }
 
 
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
+    @ResponseBody
+    public Error handleUserNotFoundException(Exception e) {
+        return new Error(103, e.getMessage());
+    }
 
     @ExceptionHandler(DataAccessException.class)
     @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
