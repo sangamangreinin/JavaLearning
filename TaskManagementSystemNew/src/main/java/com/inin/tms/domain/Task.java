@@ -124,11 +124,6 @@ public class Task extends BaseDomain{
         this.assignedDate = assignedDate;
         this.modified = LocalDateTime.now();
     }
-
-    public void setCreatedBy(int createdBy) {
-        this.createdBy = createdBy;
-    }
-
     /**
      * To set the modified date
      */

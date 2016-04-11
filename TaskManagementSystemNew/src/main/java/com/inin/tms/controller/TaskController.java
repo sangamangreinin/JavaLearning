@@ -29,6 +29,7 @@ public class TaskController {
      * @param task Task object with all task data
      * @return Task object in json format
      * @throws IllegalArgumentException Task data is invalid.
+     * @throws ResourceCreationFailedException if task is not created into the system
      */
     @RequestMapping(method = RequestMethod.POST, path = "/users/{userId}/tasks" ,
                 produces = MediaType.APPLICATION_JSON_UTF8_VALUE,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -52,10 +53,9 @@ public class TaskController {
      * @throws ResourceNotFoundException if no task's are present in the system
      */
     @RequestMapping(method = RequestMethod.GET, path = "/users/{userId}/tasks/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity getTask(@PathVariable String id){
+    public ResponseEntity getTask(@PathVariable int id){
         try {
-            int taskId = Integer.parseInt(id);
-            Task task = taskService.getTask(taskId);
+            Task task = taskService.getTask(id);
             return new ResponseEntity(task, HttpStatus.OK);
         }catch (IllegalArgumentException e){
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -106,9 +106,9 @@ public class TaskController {
      * @return Updated task object
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/users/{userId}/tasks/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity update(@RequestBody Task task, @PathVariable String id){
+    public ResponseEntity update(@RequestBody Task task, @PathVariable int id){
         try {
-            Task updatedTask = taskService.update(task, Integer.parseInt(id));
+            Task updatedTask = taskService.update(task, id);
             ResponseEntity<Task> responseEntity = new ResponseEntity<Task>(updatedTask, HttpStatus.ACCEPTED);
             return responseEntity;
         }catch (IllegalArgumentException e) {
@@ -127,9 +127,9 @@ public class TaskController {
      * @throws ResourceNotFoundException if provided task id is not present in the system
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/users/{userId}/tasks/{taskId}/comments", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity comment(@RequestBody Comment comment, @PathVariable String userId, @PathVariable String taskId){
+    public ResponseEntity comment(@RequestBody Comment comment, @PathVariable int userId, @PathVariable int taskId){
         try{
-            taskService.comment(comment, Integer.parseInt(userId), Integer.parseInt(taskId));
+            taskService.comment(comment, userId, taskId);
             ResponseEntity responseEntity = new ResponseEntity("Comment added on task " + taskId + " successfully", HttpStatus.ACCEPTED);
             return responseEntity;
         }catch (BadRequestException e) {
@@ -148,9 +148,9 @@ public class TaskController {
      * @throws ResourceNotFoundException if provided task id is not present in the system
      */
     @RequestMapping(method = RequestMethod.GET , path = "/tasks/{taskId}/comments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity comments(@PathVariable String taskId){
+    public ResponseEntity comments(@PathVariable int taskId){
         try {
-            List<Comment> comments = taskService.getComments(Integer.parseInt(taskId));
+            List<Comment> comments = taskService.getComments(taskId);
             return new ResponseEntity(comments, HttpStatus.OK);
         }catch (BadRequestException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

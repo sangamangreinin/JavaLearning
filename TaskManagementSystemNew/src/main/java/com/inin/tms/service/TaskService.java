@@ -6,7 +6,6 @@ import com.inin.tms.domain.Task;
 import com.inin.tms.exception.BadRequestException;
 import com.inin.tms.exception.ResourceCreationFailedException;
 import com.inin.tms.exception.ResourceNotFoundException;
-import com.inin.tms.repositary.TaskRepository;
 import com.inin.tms.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,15 +19,8 @@ import java.util.List;
  */
 @Service
 public class TaskService extends BaseService{
-
-    @Autowired
-    private TaskRepository taskRepository;
-
     @Autowired
     private TaskDao taskDao;
-
-    @Autowired
-    private TaskValidation taskValidation;
 
     /**
      * Creating a new task

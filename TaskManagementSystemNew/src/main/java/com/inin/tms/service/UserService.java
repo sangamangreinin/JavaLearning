@@ -3,7 +3,6 @@ package com.inin.tms.service;
 import com.inin.tms.dao.UserDao;
 import com.inin.tms.domain.User;
 import com.inin.tms.exception.ResourceCreationFailedException;
-import com.inin.tms.repositary.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService extends BaseService {
-
-
-    @Autowired
-    private UserRepository userRepository;
-
     @Autowired
     private UserDao userDao;
     /**

@@ -23,6 +23,7 @@ public class UserController {
      * Creating a new User
      * @param user User object
      * @return User id with CREATED status code
+     * @throws ResourceCreationFailedException if user is not created into the system
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public ResponseEntity createUser(@RequestBody User user ){
