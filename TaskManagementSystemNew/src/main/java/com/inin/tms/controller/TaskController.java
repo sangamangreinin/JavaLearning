@@ -3,6 +3,7 @@ package com.inin.tms.controller;
 import com.inin.tms.domain.Comment;
 import com.inin.tms.domain.Task;
 import com.inin.tms.exception.BadRequestException;
+import com.inin.tms.exception.ResourceCreationFailedException;
 import com.inin.tms.exception.ResourceNotFoundException;
 import com.inin.tms.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,16 @@ public class TaskController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/users/{userId}/tasks" ,
                 produces = MediaType.APPLICATION_JSON_UTF8_VALUE,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity create(@RequestBody final Task task, @PathVariable String userId) {
+    public ResponseEntity create(@RequestBody final Task task, @PathVariable int userId) {
          try {
-            int id = Integer.parseInt(userId);
-            int taskId = taskService.create(task, id);
+            int taskId = taskService.create(task, userId);
             return new ResponseEntity("Task " + taskId + " is created successfully!", HttpStatus.CREATED);
          }
         catch (IllegalArgumentException e) {
             return  new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        catch (ResourceCreationFailedException e){
+            return  new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -79,14 +82,13 @@ public class TaskController {
 
     /**
      * Get all tasks of specified user
-     * @return List of all task of a user
+     * @return List of all tasks of a user
      * @throws ResourceNotFoundException if no task's are present in the system
      */
     @RequestMapping(method = RequestMethod.GET, path = "/users/{userId}/tasks", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity getTaskByUserId(@PathVariable String userId){
+    public ResponseEntity getTasks(@PathVariable int userId, @RequestParam(value = "status", required = false) String status){
         try {
-            int id = Integer.parseInt(userId);
-            List<Task> tasks = taskService.getTasksById(id);
+            List<Task> tasks = taskService.getTasksByIdOrStatus(userId, status);
             ResponseEntity<List<Task>> responseEntity = new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
             return responseEntity;
         }catch (IllegalArgumentException e) {
@@ -98,15 +100,15 @@ public class TaskController {
     }
 
     /**
-     *  Update the task.
+     *  Update the task with status, assigned to & due_date
      * @param task Task object to update
      * @param id  Unique task id to update the task
      * @return Updated task object
      */
-    @RequestMapping(method = RequestMethod.PUT, path = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, path = "/users/{userId}/tasks/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity update(@RequestBody Task task, @PathVariable String id){
         try {
-            Task updatedTask = taskService.update(Integer.parseInt(id), task);
+            Task updatedTask = taskService.update(task, Integer.parseInt(id));
             ResponseEntity<Task> responseEntity = new ResponseEntity<Task>(updatedTask, HttpStatus.ACCEPTED);
             return responseEntity;
         }catch (IllegalArgumentException e) {
@@ -115,7 +117,7 @@ public class TaskController {
 
     }
 
-    /**
+     /**
      *  Adding comment on the ticket
      * @param comment Comment to add on ticket
      * @param userId User id which is going to add comment on the task

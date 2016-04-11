@@ -83,12 +83,18 @@ public class TaskDao {
      * find all tasks of a user
      * @return List of all tasks.
      */
-    public List<Task> findAllById(int id ) {
+    public List<Task> findAllByIdOrStatus(int id, String status ) {
         List<Task> tasks;
-        tasks = jdbcTemplate.query("select * from tms_task where createdBy = ?",new Object[]{id}, (resultSet, rownum) -> {
-            return prepareTask(resultSet);
-        });
-
+        if(status.isEmpty()) {
+            tasks = jdbcTemplate.query("select * from tms_task where createdBy = ?",new Object[]{id}, (resultSet, rownum) -> {
+                return prepareTask(resultSet);
+            });
+        }
+        else {
+            tasks = jdbcTemplate.query("select * from tms_task where createdBy = ? And status = ?",new Object[]{id,status}, (resultSet, rownum) -> {
+                return prepareTask(resultSet);
+            });
+        }
         if(tasks.isEmpty())
             return null;
 
@@ -163,5 +169,27 @@ public class TaskDao {
             return null;
 
         return comments;
+    }
+
+    public Task update(Task task, int id) {
+        Task existingTask = find(id);
+        if(!task.getStatus().isEmpty()){
+            existingTask.setStatus(task.getStatus());
+            if(task.getStatus().equals("assigned")){
+                existingTask.setAssignedDate(LocalDateTime.now());
+            }
+        }
+        if(task.getAssignedTo() > 0) {
+            existingTask.setAssignedTo(task.getAssignedTo());
+        }
+        if(task.getDueDate() != null){
+            existingTask.setDueDate(task.getDueDate());
+        }
+
+        jdbcTemplate.update("UPDATE tms_task SET status = ?, assigned_to = ?,  assignedDate = ?, dueDate = ?, modified = ? WHERE  id = ?",
+                existingTask.getStatus(), existingTask.getAssignedTo(),existingTask.getAssignedDate(), existingTask.getDueDate(),LocalDateTime.now(),id);
+
+        return existingTask;
+
     }
 }

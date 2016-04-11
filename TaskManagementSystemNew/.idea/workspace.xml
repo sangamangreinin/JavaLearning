@@ -4,8 +4,13 @@
     <list default="true" id="5bbf0a8e-a703-4638-87b8-1c7545e4f049" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/tms/controller/TaskController.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/tms/controller/TaskController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/tms/domain/Task.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/tms/domain/Task.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/tms/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/tms/controller/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/tms/dao/TaskDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/tms/dao/TaskDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/tms/domain/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/tms/domain/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/tms/service/BaseService.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/tms/service/BaseService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/tms/service/TaskService.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/tms/service/TaskService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/tms/service/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/tms/service/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inin/tms/util/Util.java" afterPath="$PROJECT_DIR$/src/main/java/com/inin/tms/util/Util.java" />
     </list>
     <ignored path="TaskManagmentSystem.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,23 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BaseDomain.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/BaseDomain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Task.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/Task.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+              <caret line="53" column="38" selection-start-line="53" selection-start-column="26" selection-end-line="53" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TaskController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/controller/TaskController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="111" column="40" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.80942184">
+              <caret line="43" column="71" selection-start-line="43" selection-start-column="71" selection-end-line="43" selection-end-column="71" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -65,14 +58,79 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/TaskService.java">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7494647">
-              <caret line="129" column="47" selection-start-line="129" selection-start-column="47" selection-end-line="129" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserDao.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/dao/UserDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1460365948061" expanded="true" signature="680:796" placeholder="insert into tms_user..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResourceNotFoundException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/exception/ResourceNotFoundException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="51" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+              <folding>
+                <element signature="e#539#540#0" expanded="true" />
+                <element signature="e#575#576#0" expanded="true" />
+                <element signature="e#607#608#0" expanded="true" />
+                <element signature="e#642#643#0" expanded="true" />
+                <element signature="e#673#674#0" expanded="true" />
+                <element signature="e#706#707#0" expanded="true" />
+                <element signature="e#735#736#0" expanded="true" />
+                <element signature="e#767#768#0" expanded="true" />
+                <element signature="e#795#796#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TaskService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/TaskService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="47" column="54" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="54" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/UserService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,27 +139,19 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/dao/TaskDao.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1460049613031" expanded="true" signature="956:1112" placeholder="insert into tms_task..." />
-                <marker date="1460049613031" expanded="true" signature="2287:2309" placeholder="select * fro..tms_task..." />
-                <marker date="1460049613031" expanded="true" signature="2665:2687" placeholder="select * fro..tms_task..." />
-                <marker date="1460049613031" expanded="true" signature="2665:2707" placeholder="select * fro..tms_task..." />
-                <marker date="1460049613031" expanded="true" signature="3106:3141" placeholder="select * fro..tms_task..." />
-                <marker date="1460049613031" expanded="true" signature="4395:4466" placeholder="insert into tms_task..." />
-                <marker date="1460049613031" expanded="true" signature="5036:5078" placeholder="select * fro..tms_task..." />
+                <marker date="1460364429933" expanded="true" signature="956:1112" placeholder="insert into tms_task..." />
+                <marker date="1460364429933" expanded="true" signature="2287:2309" placeholder="select * fro..tms_task..." />
+                <marker date="1460364429933" expanded="true" signature="2723:2745" placeholder="select * fro..tms_task..." />
+                <marker date="1460364429933" expanded="true" signature="2723:2765" placeholder="select * fro..tms_task..." />
+                <marker date="1460364429933" expanded="true" signature="2938:2995" placeholder="select * fro..tms_task..." />
+                <marker date="1460364429933" expanded="true" signature="3418:3453" placeholder="select * fro..tms_task..." />
+                <marker date="1460364429933" expanded="true" signature="4707:4778" placeholder="insert into tms_task..." />
+                <marker date="1460364429933" expanded="true" signature="5348:5390" placeholder="select * fro..tms_task..." />
+                <marker date="1460364429933" expanded="true" signature="6443:6550" placeholder="UPDATE task ..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Comment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/Comment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -111,29 +161,10 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="17" column="47" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TaskValidation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/TaskValidation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#712#713#0" expanded="true" />
+                <element signature="e#764#765#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TaskRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/repositary/TaskRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="83" column="20" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -159,8 +190,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/exception/BadRequestException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/util/Util.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/domain/User.java" />
         <option value="$PROJECT_DIR$/src/main/resources/data/tasks.ser" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/exception/ResourceNotFoundException.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
@@ -168,14 +197,21 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/serialization/TaskSerialization.java" />
         <option value="/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/java/sql/PreparedStatement.class" />
-        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/service/BaseService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/domain/BaseDomain.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/repositary/TaskRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/dao/TaskDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/domain/Comment.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/domain/Task.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/controller/TaskController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/service/BaseService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/util/Util.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/dao/TaskDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/domain/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/exception/ResourceCreationException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/exception/ResourceCreationFailedException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/dao/UserDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/service/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/service/TaskService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/inin/tms/controller/TaskController.java" />
       </list>
     </option>
   </component>
@@ -198,9 +234,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="73" />
-    <option name="y" value="-5" />
+    <option name="y" value="27" />
     <option name="width" value="1847" />
-    <option name="height" value="1085" />
+    <option name="height" value="1053" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -227,7 +263,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -331,6 +369,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TaskManagmentSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TaskManagementSystemNew" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -486,8 +554,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -950,15 +1016,18 @@
       <workItem from="1459914488039" duration="12665000" />
       <workItem from="1460000769499" duration="21430000" />
       <workItem from="1460042495162" duration="7296000" />
-      <workItem from="1460054787676" duration="522000" />
+      <workItem from="1460054787676" duration="870000" />
+      <workItem from="1460140171201" duration="1408000" />
+      <workItem from="1460220092966" duration="3172000" />
+      <workItem from="1460363489674" duration="2623000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68221000" />
+    <option name="totallyTimeSpent" value="75772000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="73" y="-5" width="1847" height="1085" extended-state="6" />
+    <frame x="73" y="27" width="1847" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1002,59 +1071,21 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/BaseDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/controller/TaskController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="141" column="7" selection-start-line="141" selection-start-column="7" selection-end-line="141" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/TaskService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="187" column="0" selection-start-line="187" selection-start-column="0" selection-end-line="187" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/dao/TaskDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1460049613031" expanded="true" signature="956:1112" placeholder="insert into tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="2287:2309" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="2665:2687" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="2665:2707" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="3106:3141" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="4395:4466" placeholder="insert into tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="5036:5078" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="956:1112" placeholder="insert into tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2287:2309" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2723:2745" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2723:2765" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2938:2995" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="3418:3453" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="4707:4778" placeholder="insert into tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="5348:5390" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="6443:6550" placeholder="UPDATE task ..." />
           </folding>
         </state>
       </provider>
@@ -1071,7 +1102,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="47" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="47" />
-          <folding />
+          <folding>
+            <element signature="e#712#713#0" expanded="true" />
+            <element signature="e#764#765#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1137,13 +1171,15 @@
           <caret line="117" column="5" selection-start-line="117" selection-start-column="5" selection-end-line="117" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1460049613031" expanded="true" signature="956:1112" placeholder="insert into tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="2287:2309" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="2665:2687" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="2665:2707" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="3106:3141" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="4395:4466" placeholder="insert into tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="5036:5078" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="956:1112" placeholder="insert into tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2287:2309" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2723:2745" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2723:2765" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2938:2995" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="3418:3453" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="4707:4778" placeholder="insert into tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="5348:5390" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="6443:6550" placeholder="UPDATE task ..." />
           </folding>
         </state>
       </provider>
@@ -1160,7 +1196,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-          <folding />
+          <folding>
+            <element signature="e#712#713#0" expanded="true" />
+            <element signature="e#764#765#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1250,14 +1289,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="55" column="14" selection-start-line="55" selection-start-column="14" selection-end-line="55" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/util/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -1331,21 +1362,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/exception/ResourceNotFoundException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/util/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1358,7 +1374,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1376,14 +1391,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/repositary/TaskRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1392,28 +1399,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/BaseDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/Comment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/BaseService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="47" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -1428,27 +1417,144 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/dao/TaskDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/util/Util.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1460049613031" expanded="true" signature="956:1112" placeholder="insert into tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="2287:2309" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="2665:2687" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="2665:2707" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="3106:3141" placeholder="select * fro..tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="4395:4466" placeholder="insert into tms_task..." />
-            <marker date="1460049613031" expanded="true" signature="5036:5078" placeholder="select * fro..tms_task..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/BaseDomain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="36" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/BaseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="47" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="47" />
+          <folding>
+            <element signature="e#712#713#0" expanded="true" />
+            <element signature="e#764#765#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/repositary/UserRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="15" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/Task.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <caret line="53" column="38" selection-start-line="53" selection-start-column="26" selection-end-line="53" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/domain/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+          <folding>
+            <element signature="e#539#540#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#607#608#0" expanded="true" />
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#673#674#0" expanded="true" />
+            <element signature="e#706#707#0" expanded="true" />
+            <element signature="e#735#736#0" expanded="true" />
+            <element signature="e#767#768#0" expanded="true" />
+            <element signature="e#795#796#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/dao/TaskDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1460364429933" expanded="true" signature="956:1112" placeholder="insert into tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2287:2309" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2723:2745" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2723:2765" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="2938:2995" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="3418:3453" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="4707:4778" placeholder="insert into tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="5348:5390" placeholder="select * fro..tms_task..." />
+            <marker date="1460364429933" expanded="true" signature="6443:6550" placeholder="UPDATE task ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/exception/ResourceCreationFailedException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11563169">
+          <caret line="6" column="42" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="42" />
+          <folding>
+            <element signature="e#197#198#0" expanded="true" />
+            <element signature="e#221#222#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/dao/UserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1460365948061" expanded="true" signature="680:796" placeholder="insert into tms_user..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/exception/ResourceNotFoundException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="51" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/TaskService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="54" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1457,18 +1563,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/controller/TaskController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="40" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inin/tms/service/TaskService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7494647">
-          <caret line="129" column="47" selection-start-line="129" selection-start-column="47" selection-end-line="129" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.80942184">
+          <caret line="43" column="71" selection-start-line="43" selection-start-column="71" selection-end-line="43" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

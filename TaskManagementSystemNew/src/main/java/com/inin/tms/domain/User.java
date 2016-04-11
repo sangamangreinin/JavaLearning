@@ -1,13 +1,10 @@
 package com.inin.tms.domain;
 
-import java.io.Serializable;
-
 /**
  * Created by root on 2/4/16.
  * Defines the User
  */
-public class User implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class User extends BaseDomain{
     /**
      * A unique id of the user
      */
@@ -35,6 +32,14 @@ public class User implements Serializable{
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public String getEmail() {

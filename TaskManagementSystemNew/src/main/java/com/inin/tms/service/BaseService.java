@@ -17,4 +17,8 @@ public abstract class BaseService {
         if(value == null || value == "")
             throw new InvalidParameterException("The value for "+ argumentName +" is not set");
     }
+
+    protected boolean isValidString(String str) {
+        return str != null && !str.isEmpty();
+    }
 }

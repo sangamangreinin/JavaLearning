@@ -4,12 +4,14 @@ import com.inin.tms.dao.TaskDao;
 import com.inin.tms.domain.Comment;
 import com.inin.tms.domain.Task;
 import com.inin.tms.exception.BadRequestException;
+import com.inin.tms.exception.ResourceCreationFailedException;
 import com.inin.tms.exception.ResourceNotFoundException;
 import com.inin.tms.repositary.TaskRepository;
+import com.inin.tms.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
+import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
@@ -40,8 +42,12 @@ public class TaskService extends BaseService{
         }
         validate(task.getTitle(), "title");
         validate(userId, "userId");
-        task.setCreatedBy(userId);
-        return taskDao.save(task);
+        int id = taskDao.save(task);
+
+        if(id == 0)
+            throw  new ResourceCreationFailedException("Task Creation failed due to internal server error");
+
+        return id;
     }
 
     /**
@@ -82,11 +88,15 @@ public class TaskService extends BaseService{
      * @return List of all tasks Object
      * @throws ResourceNotFoundException if No tasks are present in the system
      */
-    public List<Task> getTasksById(int id) {
+    public List<Task> getTasksByIdOrStatus(int id, String status) {
         if(id <= 0)
             throw  new IllegalArgumentException("user id is invalid, it must be integer number.");
 
-        List<Task> tasks = taskDao.findAllById(id);
+        if(!isValidString(status) && !Util.isValidTaskStatus(status)){
+            throw new InvalidParameterException("Invalid task status");
+        }
+
+        List<Task> tasks = taskDao.findAllByIdOrStatus(id, status);
 
         if(tasks == null)
             throw new ResourceNotFoundException("No asks are in the system");
@@ -95,42 +105,32 @@ public class TaskService extends BaseService{
     }
 
     /**
-     *
+     * @param task Task object to update
      * @param id Unique ticket id
-     * @param updateTask Task object for update
      * @return updated Task object
      * @throws ResourceNotFoundException if task is not present in the system.
      * @throws BadRequestException Throws if data given for update is incorrect
      */
-    public Task update(int id, Task updateTask) {
+    public Task update(Task task, int id) {
         if(id <= 0)
             throw  new IllegalArgumentException("task id is invalid, it must be integer number.");
 
-        Task task = taskDao.find(id);
-        if (task != null) {
-            Class<?> classTicketSource = updateTask.getClass();
-            Class<?> classTicketActual = task.getClass();
+        if (task == null){
+            throw  new IllegalArgumentException("Task object passed can't be null.");
+        }
 
-            Field[] fields = classTicketSource.getDeclaredFields();
-            for (Field field : fields) {
-                try {
-                    Field fieldSource = classTicketSource.getDeclaredField(field.getName());
-                    Field fieldDestination = classTicketActual.getDeclaredField(field.getName());
-
-                    Object object = fieldSource.get(updateTask);
-                    if(object != null) {
-                        fieldDestination.setAccessible(true);
-                        fieldDestination.set(task, object);
-                    }
-
-                } catch (NoSuchFieldException | IllegalAccessException Nsf) {
-                    Nsf.printStackTrace();
+        if (taskDao.find(id) != null) {
+            if (!isValidString(task.getStatus()) && task.getAssignedTo() <= 0 && task.getDueDate() == null)
+                throw new IllegalArgumentException("At least one of parameters status, taskDoerId or dueDate  required to update the task");
+            if(!task.getStatus().isEmpty()){
+                if(!Util.isValidTaskStatus(task.getStatus())){
+                    throw new InvalidParameterException("Invalid task status"); //
                 }
             }
-            return taskRepository.update(task);
+            return taskDao.update(task, id);
         }
         else{
-            throw new ResourceNotFoundException("No Ticket Found.");
+            throw new ResourceNotFoundException("You are updating task but that is not found in the system.");
         }
     }
 

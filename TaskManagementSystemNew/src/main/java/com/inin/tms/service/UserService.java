@@ -1,6 +1,8 @@
 package com.inin.tms.service;
 
+import com.inin.tms.dao.UserDao;
 import com.inin.tms.domain.User;
+import com.inin.tms.exception.ResourceCreationFailedException;
 import com.inin.tms.repositary.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,26 +15,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService extends BaseService {
 
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserDao userDao;
     /**
      * Creating a new user
      * @param user User Object
-     * @return User Object
+     * @return User id
      */
-    public User createUser(User user){
+    public int createUser(User user){
+        if(user == null)
+            throw new IllegalArgumentException("User object cant be null");
+
         validate(user.getFirstName(), "firstName");
         validate(user.getEmail(), "email id");
-        return userRepository.save(user);
-    }
 
-    /**
-     *  Update the user
-     * @param user User Object
-     * @return User Object
-     */
-    public User updateUser(User user) {
-        validate(user.getId(), "User Id");
-        return userRepository.update(user);
+        int id = userDao.save(user);
+        if(id == 0 )
+         throw  new ResourceCreationFailedException("User Creation failed");
+        return id;
     }
 }
