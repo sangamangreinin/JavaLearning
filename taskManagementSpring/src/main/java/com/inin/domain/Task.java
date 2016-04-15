@@ -1,7 +1,6 @@
 package com.inin.domain;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -56,29 +55,18 @@ public class Task {
      */
     private LocalDate taskStartDate;
 
-    public Task(int id, String name,String taskDescription, int taskStatus, int assignee, int assignedTo, LocalDate taskCreatedDate, LocalDate taskStartDate) {
-        this.taskId = id;
-        this.taskName = name;
-        this.taskDescription  = taskDescription;
-        this.taskStatus = taskStatus;
-        this.assignee = assignee;
-        this.assignedTo = assignedTo;
-        this.taskCreatedDate = taskCreatedDate;
-        this.taskStartDate = taskStartDate;
+
+
+    public Task(int id, String name, String taskDescription, int taskStatus, int assignee, int assignedTo, LocalDate taskStartDate, LocalDate taskCreatedDate) {
+        this.taskId             = id;
+        this.taskName           = name;
+        this.taskDescription    = taskDescription;
+        this.taskStatus         = taskStatus;
+        this.assignee           = assignee;
+        this.assignedTo         = assignedTo;
+        this.taskCreatedDate    = taskCreatedDate;
+        this.taskStartDate      = taskStartDate;
     }
-
-   /*public Task(int taskId, String taskName, String taskDescription, int taskStatus, int assignee, int assignedTo, List<Comment> comments, LocalDate taskCreatedDate, LocalDate taskStartDate) {
-        this.taskId = taskId;
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
-        this.taskStatus = taskStatus;
-        this.assignee = assignee;
-        this.assignedTo = assignedTo;
-        this.comments = comments;
-        this.taskCreatedDate = taskCreatedDate;
-        this.taskStartDate = taskStartDate;
-    }*/
-
 
     public static int getINPROGRESS() {
         return INPROGRESS;

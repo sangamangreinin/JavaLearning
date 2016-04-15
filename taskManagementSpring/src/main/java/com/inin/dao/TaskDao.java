@@ -13,9 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -23,12 +20,14 @@ import java.util.List;
  */
 @Repository
 public class TaskDao {
-
+    /**
+     * get bean of jdbcTemplate for DB connection
+     */
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * insert a new task
+     * insert/create a new task
      * @param task
      */
     public int insert(Task task){
@@ -53,8 +52,12 @@ public class TaskDao {
         return newTaskId;
     }
 
+    /**
+     * find all task for a particular user
+     * @param id
+     * @return
+     */
     public List<Task> findAllTaskByUserId(int id){
-        System.out.println("in function");
         return jdbcTemplate.query("Select * from tasks where assignedId = ?", new Object[] {id}, (resultSet, rownum) -> {
             return new Task(
                     resultSet.getInt("id"),
@@ -63,10 +66,53 @@ public class TaskDao {
                     resultSet.getInt("taskStatus"),
                     resultSet.getInt("assigneeId"),
                     resultSet.getInt("assignedId"),
-                    resultSet.getObject("startDate"),
+                    resultSet.getDate("startDate").toLocalDate(),
+                    resultSet.getDate("createdDate").toLocalDate()
             );
         });
     }
 
+    /**
+     * find all Draft task
+     * @return
+     */
+    public List<Task> getListOfAllDraftTask(){
+        return jdbcTemplate.query("Select * from tasks where assignedId = 0",  (resultSet, rownum) -> {
+            return new Task(
+                    resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("description"),
+                    resultSet.getInt("taskStatus"),
+                    resultSet.getInt("assigneeId"),
+                    resultSet.getInt("assignedId"),
+                    resultSet.getDate("startDate").toLocalDate(),
+                    resultSet.getDate("createdDate").toLocalDate()
+            );
+        });
+    }
 
+    /**
+     * check if the particular task exist or not
+     * @param id
+     * @return
+     */
+    public boolean isTaskExist(int id) {
+       int count = jdbcTemplate.queryForObject("Select count(*) from tasks where id = ?", new Object[]{id}, Integer.class);
+        if(count > 0){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * update task status and postpone date
+     * @param taskId
+     * @param task
+     * @return
+     */
+    public void updateTask(int taskId, Task task) {
+        jdbcTemplate.update("UPDATE tasks SET taskStatus = ?, startDate = ?  WHERE  id = ? ",
+                task.getTaskStatus(), task.getTaskStartDate(), taskId);
+
+    }
 }

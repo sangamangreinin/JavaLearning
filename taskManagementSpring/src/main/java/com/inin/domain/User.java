@@ -1,17 +1,8 @@
 package com.inin.domain;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 
-/**
- * Created by root on 6/4/16.
- */
-
-/**
- *
- */
 public class User {
     /**
      * id of the user
@@ -30,6 +21,10 @@ public class User {
     public User() {
     }
 
+    /**
+     * get created date
+     * @return
+     */
     public LocalDate getCreatedDate() {
         return createdDate;
     }
@@ -38,6 +33,11 @@ public class User {
         return userId;
     }
 
+    /**
+     * initialize the user object
+     * @param userId
+     * @param name
+     */
     public User(int userId, String name) {
         this.userId = userId;
         this.name = name;
@@ -45,16 +45,11 @@ public class User {
     }
 
     /**
-     * list of task
+     * get user name
+     * @return
      */
-    List<Task> doerTasks;
-
     public String getName() {
         return name;
-    }
-
-    public List<Task> getDoerTasks() {
-        return doerTasks;
     }
 
     @Override
@@ -63,7 +58,6 @@ public class User {
                 "userId=" + userId +
                 ", name='" + name + '\'' +
                 ", createdDate=" + createdDate +
-                ", doerTasks=" + doerTasks +
                 '}';
     }
 }

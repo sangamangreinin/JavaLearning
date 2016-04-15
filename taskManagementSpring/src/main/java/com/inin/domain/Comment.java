@@ -1,5 +1,6 @@
 package com.inin.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -21,13 +22,20 @@ public class Comment {
     /**
      * comment done by which user
      */
-    User commentedBy;
+    int commentedBy;
     /**
      * Date and time when comment was made on task
      */
     LocalDateTime commentDateTime;
 
     public Comment() {
+    }
+
+    public Comment(int commentId, String description, int commentedBy, LocalDateTime commentDateTime ) {
+        this.commentId = commentId;
+        this.description = description;
+        this.commentedBy = commentedBy;
+        this.commentDateTime = commentDateTime;
     }
 
     public int getCommentId() {
@@ -38,12 +46,12 @@ public class Comment {
         return description;
     }
 
-    public User getCommentedBy() {
+    public int getCommentedBy() {
         return commentedBy;
     }
 
-    public LocalDateTime getCommentDateTime() {
-        return commentDateTime;
+    public LocalDate getCommentDateTime() {
+        return LocalDate.now();
     }
 
     @Override

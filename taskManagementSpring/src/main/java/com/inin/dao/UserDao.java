@@ -12,10 +12,13 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 
 /**
- * This class deals with all the DB related operations for user
+ * This class consist of all the DB related operations for user
  */
 @Repository
 public class UserDao {
+    /**
+     * get bean of jdbcTemplate for DB connection
+     */
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
