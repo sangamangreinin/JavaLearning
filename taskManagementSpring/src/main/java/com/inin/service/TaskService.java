@@ -6,10 +6,8 @@ package com.inin.service;
 
 import com.inin.dao.CommentDao;
 import com.inin.dao.TaskDao;
-import com.inin.dao.UserDao;
 import com.inin.domain.Comment;
 import com.inin.domain.Task;
-import com.inin.domain.User;
 import com.inin.exceptions.TaskDoesNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * This class consist of all the service related to task , user and comments
+ * This class consist of all the service related to task  and comments
  */
 @Service
 public class TaskService {
@@ -29,47 +27,16 @@ public class TaskService {
     private TaskDao taskDao;
 
     /**
-     * get bean of user dao
-     */
-    @Autowired
-    private UserDao userDao;
-
-    /**
      * get bean of comment dao
      */
     @Autowired
-    private CommentDao  commentDao;
-
-    /**
-     * create a new user
-     * @param user
-     * @return an id of newly created user
-     */
-
-    public int createUser(User user){
-        if(user == null){
-            throw new IllegalArgumentException("User object passed was null");
-        }
-        return userDao.insert(user);
-    }
-
-    /**
-     * get user by id
-     * @param id
-     * @return the user object
-     */
-
-    public User findUserById(int id){
-        if(id <= 0 ){
-            throw new IllegalArgumentException("User Id cannot be 0 or less than 0");
-        }
-        return userDao.findById(id);
-    }
+    private CommentDao commentDao;
 
     /**
      * craete a new task
      * @param task
      * @return id of newly created task
+     * @throws IllegalArgumentException if the task object passed is null
      */
     public int createTask(Task task){
         if(task == null){
@@ -81,7 +48,8 @@ public class TaskService {
     /**
      * get list of task for a particular user
      * @param id
-     * @return
+     * @return the list of task assigned to a particular user
+     * @throws IllegalArgumentException if the user id passed is negative or 0
      */
     public List<Task> getListOfTaskByUserId(int id){
         if(id <= 0 ){
@@ -101,12 +69,14 @@ public class TaskService {
      * add comment to task
      * @param taskId
      * @param comment
+     * @throws IllegalArgumentException if the comment object passed was null
      */
 
     public void addCommentToTask(int taskId, Comment comment){
         if(comment == null){
             throw new IllegalArgumentException("Comment object passed was null");
         }
+        isTaskExist(taskId);
         commentDao.insert(taskId, comment);
     }
 
@@ -114,6 +84,7 @@ public class TaskService {
      * check if task exist or not
      * @param id
      * @return true if exist else false
+     * @throws TaskDoesNotExistException if the specified does not exist
      */
     public boolean isTaskExist(int id){
          if(!(taskDao.isTaskExist(id))){
@@ -122,11 +93,13 @@ public class TaskService {
         return true;
     }
 
-
     /**
      * get list of comments on a particular task
+     * @param taskId
+     * @return the list of comments
      */
     public List<Comment> getListOfComments(int taskId){
+        isTaskExist(taskId);
         return commentDao.findAll(taskId);
     }
 
@@ -134,9 +107,9 @@ public class TaskService {
      * update task status and postpone task
      * @param taskId
      * @param task
-     * @return
      */
     public void updateTask(int taskId, Task task){
+        isTaskExist(taskId);
         taskDao.updateTask(taskId, task);
     }
 }

@@ -55,7 +55,20 @@ public class Task {
      */
     private LocalDate taskStartDate;
 
+    public Task() {
+    }
 
+    /**
+     * Initialize the task object
+     * @param id
+     * @param name
+     * @param taskDescription
+     * @param taskStatus
+     * @param assignee
+     * @param assignedTo
+     * @param taskStartDate
+     * @param taskCreatedDate
+     */
 
     public Task(int id, String name, String taskDescription, int taskStatus, int assignee, int assignedTo, LocalDate taskStartDate, LocalDate taskCreatedDate) {
         this.taskId             = id;
@@ -66,14 +79,6 @@ public class Task {
         this.assignedTo         = assignedTo;
         this.taskCreatedDate    = taskCreatedDate;
         this.taskStartDate      = taskStartDate;
-    }
-
-    public static int getINPROGRESS() {
-        return INPROGRESS;
-    }
-
-    public static int getCOMPLETE() {
-        return COMPLETE;
     }
 
     /**
@@ -142,7 +147,7 @@ public class Task {
 
     /**
      * get task created date
-     * @return
+     * @return the current date
      */
     public LocalDate getTaskCreatedDate() {
         return LocalDate.now();

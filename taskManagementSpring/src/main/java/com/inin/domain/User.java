@@ -1,7 +1,6 @@
 package com.inin.domain;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class User {
     /**
@@ -23,7 +22,7 @@ public class User {
 
     /**
      * get created date
-     * @return
+     * @return the localdate
      */
     public LocalDate getCreatedDate() {
         return createdDate;
@@ -46,7 +45,7 @@ public class User {
 
     /**
      * get user name
-     * @return
+     * @return the string
      */
     public String getName() {
         return name;

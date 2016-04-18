@@ -7,7 +7,6 @@ package com.inin.controllers;
 import com.inin.Error;
 import com.inin.domain.Comment;
 import com.inin.domain.Task;
-import com.inin.domain.User;
 import com.inin.exceptions.TaskDoesNotExistException;
 import com.inin.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,70 +31,36 @@ public class TasksController {
     TaskService taskService;
 
     /**
-     * Common exception for task controller, The illegal argument exception will get caught here
-     * @param e
-     * @return
-     */
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Error handleCommonIllegalArgumentExceptions(Exception e){
-        return new Error(100, e.getMessage());
-    }
-
-    /**
      * Common exception for task controller, The task does not exist exception will get caught here
      * @param e
-     * @return
+     * @return error response code for TaskDoesNotExistException
      */
     @ExceptionHandler(TaskDoesNotExistException.class)
     @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
     @ResponseBody
-    public Error handleUserDoesNotExistException(Exception e){
+    public Error handleTaskDoesNotExistException(Exception e){
         return new Error(101, e.getMessage());
-    }
-
-    /**
-     * Create user
-     * @param user
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.POST, path = "/users", consumes = "application/json")
-    public ResponseEntity createUser(@RequestBody User user){
-        int id = taskService.createUser(user);
-        return new ResponseEntity(id, HttpStatus.CREATED);
-    }
-
-    /**
-     * Get user by Id
-     * @param id
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/users/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity getUserById(@PathVariable("id") int id){
-        try {
-            User foundUser = taskService.findUserById(id);
-            return new ResponseEntity(foundUser, HttpStatus.OK);
-        }catch (DataAccessException d){
-            //if the user object not found then throw 404 error
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
     }
 
     /**
      * Create Task / Draft task(if assignedId is not present) for user
      * @param task
-     * @return
+     * @return the id of the newly created task
      */
     @RequestMapping(method = RequestMethod.POST, path = "/tasks", consumes = "application/json")
     public ResponseEntity createTask(@RequestBody Task task){
-        int id = taskService.createTask(task);
-        return new ResponseEntity(id, HttpStatus.CREATED);
+        try{
+            int id = taskService.createTask(task);
+            return new ResponseEntity(id, HttpStatus.CREATED);
+        }catch (DataAccessException e){
+            return new ResponseEntity("Database server disconnected", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
      * Get list of all task for a particular user
      * @param id
-     * @return
+     * @return the list of task by user id
      */
     @RequestMapping(method = RequestMethod.GET, path = "/users/{id}/tasks", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getListOfTaskByUserId(@PathVariable int id){
@@ -103,32 +68,38 @@ public class TasksController {
             List<Task> tasks = taskService.getListOfTaskByUserId(id);
             return new ResponseEntity(tasks, HttpStatus.OK);
         }catch (DataAccessException d){
-            //if the user object not found then throw 404 error
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Invalid userId",HttpStatus.NOT_FOUND);
         }
     }
 
     /**
      * Get list of all Draft task
-     * @return
+     * @return the list of all draft task
      */
     @RequestMapping(method = RequestMethod.GET, path = "/tasks", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getListOfDraftTask(){
-        List<Task> tasks = taskService.getListOfAllDraftTask();
-        return new ResponseEntity(tasks, HttpStatus.OK);
+        try {
+            List<Task> tasks = taskService.getListOfAllDraftTask();
+            return new ResponseEntity(tasks, HttpStatus.OK);
+        }catch (DataAccessException e){
+            return new ResponseEntity("No Draft Task found", HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
      * add comment to a task
      * @param comment
      * @param taskId
-     * @return
+     * @return the httpstatus if comment added successfully
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/tasks/{taskId}/comments", consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity addCommentToTask(@RequestBody Comment comment, @PathVariable int taskId){
-        taskService.isTaskExist(taskId);
-        taskService.addCommentToTask(taskId, comment);
-        return new ResponseEntity(HttpStatus.OK);
+        try {
+            taskService.addCommentToTask(taskId, comment);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (DataAccessException e){
+            return new ResponseEntity("Database server disconnected", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -138,19 +109,27 @@ public class TasksController {
      */
     @RequestMapping(method = RequestMethod.GET, path = "/tasks/{taskId}/comments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getListOfComments(@PathVariable int taskId){
-        taskService.isTaskExist(taskId);
-        List<Comment> comments = taskService.getListOfComments(taskId);
-        return new ResponseEntity(comments, HttpStatus.OK);
+        try {
+            List<Comment> comments = taskService.getListOfComments(taskId);
+            return new ResponseEntity(comments, HttpStatus.OK);
+        }catch (DataAccessException e){
+            return new ResponseEntity("No comments found", HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
      * Update task status and postpone task date
+     * @param task
+     * @param taskId
+     * @return the httpstatus if task updated successfully
      */
-
     @RequestMapping(method = RequestMethod.PUT, path = "/tasks/{taskId}", consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity updateTask(@RequestBody Task task, @PathVariable int taskId){
-        taskService.isTaskExist(taskId);
-        taskService.updateTask(taskId, task);
-        return new ResponseEntity(HttpStatus.OK);
+        try{
+            taskService.updateTask(taskId, task);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (DataAccessException e){
+            return new ResponseEntity("Database server disconnected", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
