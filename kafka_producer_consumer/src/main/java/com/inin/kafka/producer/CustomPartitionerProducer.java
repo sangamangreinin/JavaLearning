@@ -9,7 +9,7 @@ import java.util.Properties;
 import java.util.Random;
 
 /**
- * Created by root on 18/4/16.
+ * Producer class which is responsible to create custom partitions & sending the messages on the custom partitions of the topic.
  *
  */
 public class CustomPartitionerProducer {
@@ -37,6 +37,7 @@ public class CustomPartitionerProducer {
 
         ProducerConfig producerConfig = new ProducerConfig(properties);
 
+        // Initialize the producer with required properties
         Producer<String, String> producer = new Producer<String, String>(producerConfig);
 
         for(long i=0; i<10; i++){
@@ -48,11 +49,12 @@ public class CustomPartitionerProducer {
             //Creating a KeyedMessage instance
             KeyedMessage<String, String> data = new KeyedMessage<String, String>("newticket", randomNum, msg);
             System.out.println("data : " + data);
-            // Publish the message
+            // Publish the message  to brokers
             producer.send(data);
             System.out.println("Message sent successfully on topic partition " + randomNum);
             //data = null;
         }
+        // Closing the connection between broker and producer
         producer.close();
     }
 }

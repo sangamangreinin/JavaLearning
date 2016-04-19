@@ -14,7 +14,7 @@ public class SimplePartitioner implements Partitioner {
     }
 
     /**
-     * The method takes the key, which	in this	case is	the	random number, and does	a modulo operation on the number of	partitions	defined	within
+     * This method takes the key, which	is the random number, and does a modulo operation on the number of	partitions	defined	within
      * Kafka for the topic.
      * @param key Random number
      * @param a_numPartitions the number of available partitions for given topic to return a partition id.
