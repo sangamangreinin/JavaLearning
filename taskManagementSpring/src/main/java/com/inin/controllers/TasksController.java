@@ -5,16 +5,20 @@ package com.inin.controllers;
  */
 
 import com.inin.Error;
+import com.inin.controllers.dto.CommentRequest;
+import com.inin.controllers.dto.TaskRequest;
 import com.inin.domain.Comment;
 import com.inin.domain.Task;
 import com.inin.exceptions.TaskDoesNotExistException;
 import com.inin.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -32,7 +36,7 @@ public class TasksController {
 
     /**
      * Common exception for task controller, The task does not exist exception will get caught here
-     * @param e
+     * @param e exception
      * @return error response code for TaskDoesNotExistException
      */
     @ExceptionHandler(TaskDoesNotExistException.class)
@@ -44,14 +48,20 @@ public class TasksController {
 
     /**
      * Create Task / Draft task(if assignedId is not present) for user
-     * @param task
-     * @return the id of the newly created task
+     * creates a task, and returns the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created task
+     * @param taskRequest taskRequest object
+     * @return the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created task
      */
     @RequestMapping(method = RequestMethod.POST, path = "/tasks", consumes = "application/json")
-    public ResponseEntity createTask(@RequestBody Task task){
+    public ResponseEntity createTask(@RequestBody TaskRequest taskRequest, UriComponentsBuilder ucBuilder){
         try{
-            int id = taskService.createTask(task);
-            return new ResponseEntity(id, HttpStatus.CREATED);
+            int id = taskService.createTask(taskRequest);
+
+            //Location Header containing the locations of newly created task
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(ucBuilder.path("/task/{id}").buildAndExpand(id).toUri());
+
+            return new ResponseEntity(headers, HttpStatus.CREATED);
         }catch (DataAccessException e){
             return new ResponseEntity("Database server disconnected", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -59,7 +69,7 @@ public class TasksController {
 
     /**
      * Get list of all task for a particular user
-     * @param id
+     * @param id user id
      * @return the list of task by user id
      */
     @RequestMapping(method = RequestMethod.GET, path = "/users/{id}/tasks", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -88,14 +98,14 @@ public class TasksController {
 
     /**
      * add comment to a task
-     * @param comment
-     * @param taskId
+     * @param commentRequest comment on task in object
+     * @param taskId task id in int
      * @return the httpstatus if comment added successfully
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/tasks/{taskId}/comments", consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity addCommentToTask(@RequestBody Comment comment, @PathVariable int taskId){
+    public ResponseEntity addCommentToTask(@RequestBody CommentRequest commentRequest, @PathVariable int taskId){
         try {
-            taskService.addCommentToTask(taskId, comment);
+            taskService.addCommentToTask(taskId, commentRequest);
             return new ResponseEntity(HttpStatus.OK);
         }catch (DataAccessException e){
             return new ResponseEntity("Database server disconnected", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -104,7 +114,7 @@ public class TasksController {
 
     /**
      * Get list of comments on a particular task
-     * @param taskId
+     * @param taskId task id in int
      * @return list of comments
      */
     @RequestMapping(method = RequestMethod.GET, path = "/tasks/{taskId}/comments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -119,14 +129,14 @@ public class TasksController {
 
     /**
      * Update task status and postpone task date
-     * @param task
-     * @param taskId
+     * @param taskRequest task object
+     * @param taskId task id in int
      * @return the httpstatus if task updated successfully
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/tasks/{taskId}", consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity updateTask(@RequestBody Task task, @PathVariable int taskId){
+    public ResponseEntity updateTask(@RequestBody TaskRequest taskRequest, @PathVariable int taskId){
         try{
-            taskService.updateTask(taskId, task);
+            taskService.updateTask(taskId, taskRequest);
             return new ResponseEntity(HttpStatus.OK);
         }catch (DataAccessException e){
             return new ResponseEntity("Database server disconnected", HttpStatus.INTERNAL_SERVER_ERROR);

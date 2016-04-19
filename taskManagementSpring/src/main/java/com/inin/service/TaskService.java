@@ -4,6 +4,8 @@ package com.inin.service;
  * Created by root on 6/4/16.
  */
 
+import com.inin.controllers.dto.CommentRequest;
+import com.inin.controllers.dto.TaskRequest;
 import com.inin.dao.CommentDao;
 import com.inin.dao.TaskDao;
 import com.inin.domain.Comment;
@@ -34,20 +36,28 @@ public class TaskService {
 
     /**
      * craete a new task
-     * @param task
+     * @param taskRequest
      * @return id of newly created task
      * @throws IllegalArgumentException if the task object passed is null
      */
-    public int createTask(Task task){
-        if(task == null){
+    public int createTask(TaskRequest taskRequest){
+        if(taskRequest == null){
             throw new IllegalArgumentException("Task object passed was null");
         }
+        if(taskRequest.name == null || taskRequest.name == ""){
+            throw new IllegalArgumentException("Name attribute cannot be null or  the value is missing ");
+        }
+        if(taskRequest.description == null || taskRequest.description == ""){
+            throw new IllegalArgumentException("Description attribute cannot be null or  the value is missing ");
+        }
+        //if possible change this to builder pattern later
+        Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignee, taskRequest.assignedTo, taskRequest.startDate, taskRequest.dueDate);
         return taskDao.insert(task);
     }
 
     /**
      * get list of task for a particular user
-     * @param id
+     * @param id id if the user in int
      * @return the list of task assigned to a particular user
      * @throws IllegalArgumentException if the user id passed is negative or 0
      */
@@ -68,15 +78,19 @@ public class TaskService {
     /**
      * add comment to task
      * @param taskId
-     * @param comment
+     * @param commentRequest
      * @throws IllegalArgumentException if the comment object passed was null
      */
 
-    public void addCommentToTask(int taskId, Comment comment){
-        if(comment == null){
+    public void addCommentToTask(int taskId, CommentRequest commentRequest){
+        if(commentRequest == null){
             throw new IllegalArgumentException("Comment object passed was null");
         }
+        if(commentRequest.description == null || commentRequest.description == ""){
+            throw new IllegalArgumentException("Comment description attribute cannot be null or value is missing");
+        }
         isTaskExist(taskId);
+        Comment comment = new Comment(commentRequest.description, commentRequest.commentedBy);
         commentDao.insert(taskId, comment);
     }
 
@@ -95,7 +109,7 @@ public class TaskService {
 
     /**
      * get list of comments on a particular task
-     * @param taskId
+     * @param taskId task id in int
      * @return the list of comments
      */
     public List<Comment> getListOfComments(int taskId){
@@ -105,11 +119,15 @@ public class TaskService {
 
     /**
      * update task status and postpone task
-     * @param taskId
-     * @param task
+     * @param taskId task id in int
+     * @param taskRequest
      */
-    public void updateTask(int taskId, Task task){
+    public void updateTask(int taskId, TaskRequest taskRequest){
+        if(taskRequest == null){
+            throw new IllegalArgumentException("Task object passed was null");
+        }
         isTaskExist(taskId);
+        Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignee, taskRequest.assignedTo, taskRequest.startDate, taskRequest.dueDate);
         taskDao.updateTask(taskId, task);
     }
 }

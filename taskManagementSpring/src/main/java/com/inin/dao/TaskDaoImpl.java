@@ -6,6 +6,7 @@ package com.inin.dao;
 
 import com.inin.domain.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -28,11 +29,11 @@ public class TaskDaoImpl implements TaskDao{
 
     /**
      * insert/create a new task
-     * @param task
+     * @param task task object
      * @return the newly generated task id
      */
     public int insert(Task task){
-        String sqlStatement = "Insert into tasks (name, description, taskStatus,  assigneeId, assignedId, startDate, createdDate) values (?, ?, ?, ?, ?, ?, ?)";
+        String sqlStatement = "Insert into tasks (name, description, taskStatus,  assigneeId, assignedId, startDate, createdDate, dueDate) values (?, ?, ?, ?, ?, ?, ?, ?)";
         KeyHolder holder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -44,9 +45,12 @@ public class TaskDaoImpl implements TaskDao{
             ps.setInt(5,    task.getAssignedTo());
             ps.setObject(6, task.getTaskStartDate());
             ps.setObject(7, task.getTaskCreatedDate());
+            ps.setObject(8, task.getDueDate());
 
             return ps;
         }, holder);
+
+       // jdbcTemplate.update(sqlStatement, new BeanPropertyRowMapper<>(Task.class), holder);
 
         int newTaskId = holder.getKey().intValue();
 
@@ -55,22 +59,15 @@ public class TaskDaoImpl implements TaskDao{
 
     /**
      * find all task for a particular user
-     * @param id
+     * @param id user id
      * @return the list of task for a particular user
      */
     public List<Task> findAllTaskByUserId(int id){
-        return jdbcTemplate.query("Select * from tasks where assignedId = ?", new Object[] {id}, (resultSet, rownum) -> {
-            return new Task(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getString("description"),
-                    resultSet.getInt("taskStatus"),
-                    resultSet.getInt("assigneeId"),
-                    resultSet.getInt("assignedId"),
-                    resultSet.getDate("startDate").toLocalDate(),
-                    resultSet.getDate("createdDate").toLocalDate()
-            );
-        });
+        String sql = "Select * from tasks where assignedId = ?";
+        //BeanPropertyRowMapper maps each row of the resultset with a new instance of target class. THe target class should have a no-argument default constructor.
+        //It maps the column names from resultset to properties of target class using public setter methods. If column name does not match with property name, we need to provide
+        // a column alias matching the property name
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Task.class), id);
     }
 
     /**
@@ -78,18 +75,8 @@ public class TaskDaoImpl implements TaskDao{
      * @return the list of all draft task
      */
     public List<Task> getListOfAllDraftTask(){
-        return jdbcTemplate.query("Select * from tasks where assignedId = 0",  (resultSet, rownum) -> {
-            return new Task(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getString("description"),
-                    resultSet.getInt("taskStatus"),
-                    resultSet.getInt("assigneeId"),
-                    resultSet.getInt("assignedId"),
-                    resultSet.getDate("startDate").toLocalDate(),
-                    resultSet.getDate("createdDate").toLocalDate()
-            );
-        });
+        String sql = "Select * from tasks where assignedId = 0";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Task.class));
     }
 
     /**

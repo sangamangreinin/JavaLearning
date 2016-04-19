@@ -2,6 +2,7 @@ package com.inin.dao;
 
 import com.inin.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -21,6 +22,7 @@ public class UserDaoImpl implements UserDao{
      */
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
 
     /**
      * insert a new user
@@ -50,9 +52,8 @@ public class UserDaoImpl implements UserDao{
      * @return the user object
      */
     public User findById(int id){
-        return jdbcTemplate.queryForObject("Select id, name from users where id = ?", new Object[] {id}, ((resultSet, i) -> {
-            return new User(resultSet.getInt("id"), resultSet.getString("name"));
-        }));
+        String sql = "Select id, name, created from users where id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(User.class));
     }
 
 }

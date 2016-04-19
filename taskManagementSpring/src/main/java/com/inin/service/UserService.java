@@ -1,6 +1,7 @@
 package com.inin.service;
 
-import com.inin.dao.UserDaoImpl;
+import com.inin.controllers.dto.UserRequest;
+import com.inin.dao.UserDao;
 import com.inin.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +16,21 @@ public class UserService {
      * get bean of user dao
      */
     @Autowired
-    private UserDaoImpl userDaoImpl;
+    private UserDao userDao;
 
     /**
      * create a new user
-     * @param user
+     * @param userRequest
      * @return an id of newly created user
      * @throws IllegalArgumentException if the user object passed was null
      */
 
-    public int createUser(User user){
-        if(user == null){
+    public int createUser(UserRequest userRequest){
+        if(userRequest == null){
             throw new IllegalArgumentException("User object passed was null");
         }
-        return userDaoImpl.insert(user);
+
+        return userDao.insert(new User(userRequest.name));
     }
 
     /**
@@ -42,6 +44,6 @@ public class UserService {
         if(id <= 0 ){
             throw new IllegalArgumentException("User Id cannot be 0 or less than 0");
         }
-        return userDaoImpl.findById(id);
+        return userDao.findById(id);
     }
 }

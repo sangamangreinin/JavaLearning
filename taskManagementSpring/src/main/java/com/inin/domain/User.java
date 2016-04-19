@@ -34,11 +34,9 @@ public class User {
 
     /**
      * initialize the user object
-     * @param userId
      * @param name
      */
-    public User(int userId, String name) {
-        this.userId = userId;
+    public User(String name) {
         this.name = name;
         this.createdDate = LocalDate.now();
     }
@@ -51,6 +49,33 @@ public class User {
         return name;
     }
 
+    /**
+     *
+     * @param id user id to set in int
+     */
+
+    public void setId(int id) {
+        this.userId = id;
+    }
+
+    /**
+     *
+     * @param name user name to set in string
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     *
+     * @param created user created date to set in LocalDate
+     */
+
+    public void setCreated(LocalDate created) {
+        this.createdDate = created;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -59,4 +84,6 @@ public class User {
                 ", createdDate=" + createdDate +
                 '}';
     }
+
+    //Please override equals and hashcode method say you can define when two users are equal lets say if they have same name
 }

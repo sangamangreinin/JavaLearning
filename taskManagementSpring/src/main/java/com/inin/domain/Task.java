@@ -55,30 +55,32 @@ public class Task {
      */
     private LocalDate taskStartDate;
 
+    /**
+     * date when to end the task
+     */
+    private LocalDate dueDate;
+
     public Task() {
     }
 
     /**
      * Initialize the task object
-     * @param id
      * @param name
      * @param taskDescription
      * @param taskStatus
      * @param assignee
      * @param assignedTo
      * @param taskStartDate
-     * @param taskCreatedDate
      */
 
-    public Task(int id, String name, String taskDescription, int taskStatus, int assignee, int assignedTo, LocalDate taskStartDate, LocalDate taskCreatedDate) {
-        this.taskId             = id;
+    public Task(String name, String taskDescription, int taskStatus, int assignee, int assignedTo, LocalDate taskStartDate,  LocalDate dueDate) {
         this.taskName           = name;
         this.taskDescription    = taskDescription;
         this.taskStatus         = taskStatus;
         this.assignee           = assignee;
         this.assignedTo         = assignedTo;
-        this.taskCreatedDate    = taskCreatedDate;
         this.taskStartDate      = taskStartDate;
+        this.dueDate            = dueDate;
     }
 
     /**
@@ -153,6 +155,93 @@ public class Task {
         return LocalDate.now();
     }
 
+    /**
+     *
+     * @param taskId id to set in int
+     */
+    public void setId(int taskId) {
+        this.taskId = taskId;
+    }
+
+    /**
+     * @param taskName task name to set in string
+     */
+    public void setName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    /**
+     *
+     * @param taskDescription task description to set in string
+     */
+    public void setDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
+
+    /**
+     *
+     * @param taskStatus task status to set in int
+     */
+    public void setTaskStatus(int taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
+    /**
+     *
+     * @param assignee assignee id to set in int
+     */
+    public void setAssigneeId(int assignee) {
+        this.assignee = assignee;
+    }
+
+    /**
+     *
+     * @param assignedTo assigned to id to set in int
+     */
+    public void setAssignedId(int assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
+    /**
+     *
+     * @param comments list od comments to set in list
+     */
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    /**
+     *
+     * @param taskCreatedDate task created date to set in LocalDate
+     */
+    public void setCreatedDate(LocalDate taskCreatedDate) {
+        this.taskCreatedDate = taskCreatedDate;
+    }
+
+    /**
+     *
+     * @param taskStartDate task start date to set in LocalDate
+     */
+    public void setStartDate(LocalDate taskStartDate) {
+        this.taskStartDate = taskStartDate;
+    }
+
+    /**
+     *
+     * @return due date in LocalDate
+     */
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    /**
+     *
+     * @param dueDate task due date to set in LocalDate
+     */
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -165,6 +254,7 @@ public class Task {
                 ", comments=" + comments +
                 ", taskCreatedDate=" + taskCreatedDate +
                 ", taskStartDate=" + taskStartDate +
+                ", dueDate=" + dueDate +
                 '}';
     }
 }
