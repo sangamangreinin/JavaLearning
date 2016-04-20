@@ -50,7 +50,7 @@ public class User {
     }
 
     /**
-     *
+     * set user id
      * @param id user id to set in int
      */
 
@@ -59,7 +59,7 @@ public class User {
     }
 
     /**
-     *
+     * set user name
      * @param name user name to set in string
      */
 
@@ -68,7 +68,7 @@ public class User {
     }
 
     /**
-     *
+     * set created date
      * @param created user created date to set in LocalDate
      */
 
@@ -84,6 +84,4 @@ public class User {
                 ", createdDate=" + createdDate +
                 '}';
     }
-
-    //Please override equals and hashcode method say you can define when two users are equal lets say if they have same name
 }

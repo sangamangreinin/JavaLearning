@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 
 @RestController
+@RequestMapping(path = "/users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UsersController {
     /**
      * get bean for user service
@@ -26,17 +27,17 @@ public class UsersController {
 
     /**
      * creates a user, and returns the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created user
-     * @param userRequest
+     * @param userRequest user request object
      * @return the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created user
      */
-    @RequestMapping(method = RequestMethod.POST, path = "/users", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity createUser(@RequestBody UserRequest userRequest, UriComponentsBuilder ucBuilder){
         try{
             int id = userService.createUser(userRequest);
 
             //Location Header containing the locations of newly created user
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(id).toUri());
+            headers.setLocation(ucBuilder.path("/users/{id}").buildAndExpand(id).toUri());
 
             return new ResponseEntity(headers, HttpStatus.CREATED);
         }catch (DataAccessException e){
@@ -46,10 +47,10 @@ public class UsersController {
 
     /**
      * Get user by Id
-     * @param id
-     * @return the user object
+     * @param id the user id
+     * @return the httpstatus OK[200] , the user object
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/users/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getUserById(@PathVariable("id") int id){
         try {
             User foundUser = userService.findUserById(id);

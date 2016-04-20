@@ -4,7 +4,9 @@ package com.inin.service;
  * Created by root on 6/4/16.
  */
 
+import com.inin.Util;
 import com.inin.controllers.dto.CommentRequest;
+import com.inin.controllers.dto.QueryRequest;
 import com.inin.controllers.dto.TaskRequest;
 import com.inin.dao.CommentDao;
 import com.inin.dao.TaskDao;
@@ -41,53 +43,37 @@ public class TaskService {
      * @throws IllegalArgumentException if the task object passed is null
      */
     public int createTask(TaskRequest taskRequest){
-        if(taskRequest == null){
-            throw new IllegalArgumentException("Task object passed was null");
-        }
-        if(taskRequest.name == null || taskRequest.name == ""){
-            throw new IllegalArgumentException("Name attribute cannot be null or  the value is missing ");
-        }
-        if(taskRequest.description == null || taskRequest.description == ""){
-            throw new IllegalArgumentException("Description attribute cannot be null or  the value is missing ");
-        }
+        validateTask(taskRequest);
         //if possible change this to builder pattern later
-        Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignee, taskRequest.assignedTo, taskRequest.startDate, taskRequest.dueDate);
+        Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignee,
+                taskRequest.assignedTo, taskRequest.startDate, taskRequest.dueDate);
         return taskDao.insert(task);
     }
 
-    /**
-     * get list of task for a particular user
-     * @param id id if the user in int
-     * @return the list of task assigned to a particular user
-     * @throws IllegalArgumentException if the user id passed is negative or 0
-     */
-    public List<Task> getListOfTaskByUserId(int id){
-        if(id <= 0 ){
-            throw new IllegalArgumentException("User Id cannot be 0 or less than 0");
-        }
-        return taskDao.findAllTaskByUserId(id);
-    }
 
     /**
-     * get list of Draft task
+     * get list of  task depending on search criteria
      */
-    public List<Task> getListOfAllDraftTask(){
-        return taskDao.getListOfAllDraftTask();
+    public List<Task> query(QueryRequest queryRequest){
+        return taskDao.query(queryRequest);
     }
 
     /**
      * add comment to task
      * @param taskId
      * @param commentRequest
-     * @throws IllegalArgumentException if the comment object passed was null
+     * @throws IllegalArgumentException if the comment object passed was null or invalid argument
      */
 
     public void addCommentToTask(int taskId, CommentRequest commentRequest){
         if(commentRequest == null){
             throw new IllegalArgumentException("Comment object passed was null");
         }
-        if(commentRequest.description == null || commentRequest.description == ""){
+        if(Util.isInValidString(commentRequest.description)){
             throw new IllegalArgumentException("Comment description attribute cannot be null or value is missing");
+        }
+        if(Util.isInValidInt(commentRequest.commentedBy)){
+            throw new IllegalArgumentException("Invalid commentedBy id");
         }
         isTaskExist(taskId);
         Comment comment = new Comment(commentRequest.description, commentRequest.commentedBy);
@@ -98,7 +84,7 @@ public class TaskService {
      * check if task exist or not
      * @param id
      * @return true if exist else false
-     * @throws TaskDoesNotExistException if the specified does not exist
+     * @throws TaskDoesNotExistException if the specified task id does not exist
      */
     public boolean isTaskExist(int id){
          if(!(taskDao.isTaskExist(id))){
@@ -111,6 +97,7 @@ public class TaskService {
      * get list of comments on a particular task
      * @param taskId task id in int
      * @return the list of comments
+     * @throws TaskDoesNotExistException if the specified task id does not exist
      */
     public List<Comment> getListOfComments(int taskId){
         isTaskExist(taskId);
@@ -120,14 +107,43 @@ public class TaskService {
     /**
      * update task status and postpone task
      * @param taskId task id in int
-     * @param taskRequest
+     * @param taskRequest task request object
+     * @throws TaskDoesNotExistException if the specified task id does not exist
      */
     public void updateTask(int taskId, TaskRequest taskRequest){
+        validateTask(taskRequest);
+        isTaskExist(taskId);
+        Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignee,
+                taskRequest.assignedTo, taskRequest.startDate, taskRequest.dueDate);
+        taskDao.updateTask(taskId, task);
+    }
+
+    /**
+     * validate task attributes
+     * @param taskRequest task request object
+     */
+    public void validateTask(TaskRequest taskRequest){
         if(taskRequest == null){
             throw new IllegalArgumentException("Task object passed was null");
         }
-        isTaskExist(taskId);
-        Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignee, taskRequest.assignedTo, taskRequest.startDate, taskRequest.dueDate);
-        taskDao.updateTask(taskId, task);
+        if(Util.isInValidString(taskRequest.name)){
+            throw new IllegalArgumentException("name, may not be empty");
+        }
+        if(Util.isInValidString(taskRequest.description)){
+            throw new IllegalArgumentException("description, may not be empty");
+        }
+
+        if(taskRequest.status != 1){
+            if(Util.isInValidInt(taskRequest.assignedTo)){
+                throw new IllegalArgumentException("error assigned to required , assigned to  may not be 0 or less than 0");
+            }
+        }
+        if(Util.isInValidInt(taskRequest.assignee)){
+            throw new IllegalArgumentException("error assignee required , assignee to  may not be 0 or less than 0");
+        }
+        if(taskRequest.status <= 0 || taskRequest.status > 4){
+            throw new IllegalArgumentException("Invalid task status, should be either 1, 2 or 3 or cannot be zero");
+        }
     }
+
 }

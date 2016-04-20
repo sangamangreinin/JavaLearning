@@ -37,10 +37,8 @@ public class Comment {
 
      */
     public Comment(String description, int commentedBy ) {
-        this.commentId = commentId;
         this.description = description;
         this.commentedBy = commentedBy;
-        //this.commentDateTime = commentDateTime;
         this.commentDateTime = LocalDateTime.now();
     }
 
@@ -63,10 +61,6 @@ public class Comment {
     public int getCommentedBy() {
         return commentedBy;
     }
-
-   /* public LocalDateTime getCommentDateTime() {
-        return commentDateTime;
-    }*/
 
     public void setId(int commentId) {
         this.commentId = commentId;

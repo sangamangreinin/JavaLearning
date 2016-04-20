@@ -4,10 +4,14 @@ package com.inin.dao;
  * Created by root on 6/4/16.
  */
 
+import com.inin.Util;
+import com.inin.controllers.dto.QueryRequest;
 import com.inin.domain.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -26,6 +30,9 @@ public class TaskDaoImpl implements TaskDao{
      */
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     /**
      * insert/create a new task
@@ -50,38 +57,39 @@ public class TaskDaoImpl implements TaskDao{
             return ps;
         }, holder);
 
-       // jdbcTemplate.update(sqlStatement, new BeanPropertyRowMapper<>(Task.class), holder);
-
         int newTaskId = holder.getKey().intValue();
 
         return newTaskId;
     }
 
     /**
-     * find all task for a particular user
-     * @param id user id
-     * @return the list of task for a particular user
+     * search query to get list of task
+     * @return the list of task depending on filter criteria specified
      */
-    public List<Task> findAllTaskByUserId(int id){
-        String sql = "Select * from tasks where assignedId = ?";
+    public List<Task> query(QueryRequest queryRequest){
+        //The NamedParameterJdbcTemplate class helps you specify the named parameters instead of classic placeholder(?) argument
+        //Named parameters improves readability and are easier to maintain
+        //It functionality is similar to JdbcTemplate.
+        StringBuilder sql = new StringBuilder("select * from tasks where 1=1 ");
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        if (!Util.isInValidInt(queryRequest.status)) {
+            sql.append(" and taskStatus = :taskStatus");
+            parameters.addValue("taskStatus", queryRequest.status);
+        }
+        if (!Util.isInValidInt(queryRequest.assignedId)) {
+            sql.append(" and assignedId = :assignedId");
+            parameters.addValue("assignedId", queryRequest.assignedId);
+        }
+
         //BeanPropertyRowMapper maps each row of the resultset with a new instance of target class. THe target class should have a no-argument default constructor.
         //It maps the column names from resultset to properties of target class using public setter methods. If column name does not match with property name, we need to provide
         // a column alias matching the property name
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Task.class), id);
-    }
-
-    /**
-     * find all Draft task
-     * @return the list of all draft task
-     */
-    public List<Task> getListOfAllDraftTask(){
-        String sql = "Select * from tasks where assignedId = 0";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Task.class));
+        return namedParameterJdbcTemplate.query(sql.toString(), parameters,  new BeanPropertyRowMapper<>(Task.class));
     }
 
     /**
      * check if the particular task exist or not
-     * @param id
+     * @param id task id in int
      * @return the true if task exist else false
      */
     public boolean isTaskExist(int id) {
@@ -94,12 +102,11 @@ public class TaskDaoImpl implements TaskDao{
 
     /**
      * update task status and postpone date
-     * @param taskId
-     * @param task
+     * @param taskId task id in ints
+     * @param task the task object
      */
     public void updateTask(int taskId, Task task) {
-        jdbcTemplate.update("UPDATE tasks SET taskStatus = ?, startDate = ?  WHERE  id = ? ",
-                task.getTaskStatus(), task.getTaskStartDate(), taskId);
-
+        jdbcTemplate.update("UPDATE tasks SET taskStatus = ?, startDate = ? , dueDate = ? WHERE  id = ? ",
+                task.getTaskStatus(), task.getTaskStartDate(), task.getDueDate(), taskId);
     }
 }

@@ -10,13 +10,21 @@ import java.util.List;
 public class Task {
 
     /**
+     * task status in draft
+     */
+    public static final int DRAFT = 1;
+    /**
+     * task status in Assigned
+     */
+    public static final int ASSIGNED = 2;
+    /**
      * task status in progress
      */
-    public static final int INPROGRESS = 1;
+    public static final int INPROGRESS = 3;
     /**
      * task status complete
      */
-    public static final int COMPLETE = 2;
+    public static final int COMPLETE = 4;
 
     /**
      * id of task
@@ -156,7 +164,7 @@ public class Task {
     }
 
     /**
-     *
+     * set task id
      * @param taskId id to set in int
      */
     public void setId(int taskId) {
@@ -171,7 +179,7 @@ public class Task {
     }
 
     /**
-     *
+     * set task description
      * @param taskDescription task description to set in string
      */
     public void setDescription(String taskDescription) {
@@ -179,7 +187,7 @@ public class Task {
     }
 
     /**
-     *
+     * set task status
      * @param taskStatus task status to set in int
      */
     public void setTaskStatus(int taskStatus) {
@@ -187,7 +195,7 @@ public class Task {
     }
 
     /**
-     *
+     * set assignee
      * @param assignee assignee id to set in int
      */
     public void setAssigneeId(int assignee) {
@@ -195,7 +203,7 @@ public class Task {
     }
 
     /**
-     *
+     * set assigned id
      * @param assignedTo assigned to id to set in int
      */
     public void setAssignedId(int assignedTo) {
@@ -203,7 +211,7 @@ public class Task {
     }
 
     /**
-     *
+     * set comment on task
      * @param comments list od comments to set in list
      */
     public void setComments(List<Comment> comments) {
@@ -211,7 +219,7 @@ public class Task {
     }
 
     /**
-     *
+     * set task create date
      * @param taskCreatedDate task created date to set in LocalDate
      */
     public void setCreatedDate(LocalDate taskCreatedDate) {
@@ -219,7 +227,7 @@ public class Task {
     }
 
     /**
-     *
+     * set task start date
      * @param taskStartDate task start date to set in LocalDate
      */
     public void setStartDate(LocalDate taskStartDate) {
@@ -235,7 +243,7 @@ public class Task {
     }
 
     /**
-     *
+     * set task due date
      * @param dueDate task due date to set in LocalDate
      */
     public void setDueDate(LocalDate dueDate) {

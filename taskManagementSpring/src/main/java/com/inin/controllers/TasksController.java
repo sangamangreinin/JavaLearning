@@ -6,6 +6,7 @@ package com.inin.controllers;
 
 import com.inin.Error;
 import com.inin.controllers.dto.CommentRequest;
+import com.inin.controllers.dto.QueryRequest;
 import com.inin.controllers.dto.TaskRequest;
 import com.inin.domain.Comment;
 import com.inin.domain.Task;
@@ -36,7 +37,7 @@ public class TasksController {
 
     /**
      * Common exception for task controller, The task does not exist exception will get caught here
-     * @param e exception
+     * @param e exception object
      * @return error response code for TaskDoesNotExistException
      */
     @ExceptionHandler(TaskDoesNotExistException.class)
@@ -47,7 +48,7 @@ public class TasksController {
     }
 
     /**
-     * Create Task / Draft task(if assignedId is not present) for user
+     * Create Task / Draft task(if assignedId is present or not present and status is draft) for user
      * creates a task, and returns the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created task
      * @param taskRequest taskRequest object
      * @return the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created task
@@ -59,7 +60,7 @@ public class TasksController {
 
             //Location Header containing the locations of newly created task
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(ucBuilder.path("/task/{id}").buildAndExpand(id).toUri());
+            headers.setLocation(ucBuilder.path("/tasks/{id}").buildAndExpand(id).toUri());
 
             return new ResponseEntity(headers, HttpStatus.CREATED);
         }catch (DataAccessException e){
@@ -68,28 +69,13 @@ public class TasksController {
     }
 
     /**
-     * Get list of all task for a particular user
-     * @param id user id
-     * @return the list of task by user id
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/users/{id}/tasks", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity getListOfTaskByUserId(@PathVariable int id){
-        try {
-            List<Task> tasks = taskService.getListOfTaskByUserId(id);
-            return new ResponseEntity(tasks, HttpStatus.OK);
-        }catch (DataAccessException d){
-            return new ResponseEntity("Invalid userId",HttpStatus.NOT_FOUND);
-        }
-    }
-
-    /**
      * Get list of all Draft task
-     * @return the list of all draft task
+     * @return the httpstatus OK[200], the list of task depending on search criteria
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/tasks", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity getListOfDraftTask(){
+    @RequestMapping(method = RequestMethod.POST, path = "/tasks/query", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity getListQuery(@RequestBody QueryRequest queryRequest){
         try {
-            List<Task> tasks = taskService.getListOfAllDraftTask();
+            List<Task> tasks = taskService.query(queryRequest);
             return new ResponseEntity(tasks, HttpStatus.OK);
         }catch (DataAccessException e){
             return new ResponseEntity("No Draft Task found", HttpStatus.NOT_FOUND);
@@ -100,7 +86,7 @@ public class TasksController {
      * add comment to a task
      * @param commentRequest comment on task in object
      * @param taskId task id in int
-     * @return the httpstatus if comment added successfully
+     * @return the httpstatus OK[200] if comment added successfully
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/tasks/{taskId}/comments", consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity addCommentToTask(@RequestBody CommentRequest commentRequest, @PathVariable int taskId){
@@ -115,7 +101,7 @@ public class TasksController {
     /**
      * Get list of comments on a particular task
      * @param taskId task id in int
-     * @return list of comments
+     * @return the httpstatus OK[200], list of comments
      */
     @RequestMapping(method = RequestMethod.GET, path = "/tasks/{taskId}/comments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getListOfComments(@PathVariable int taskId){
@@ -131,7 +117,7 @@ public class TasksController {
      * Update task status and postpone task date
      * @param taskRequest task object
      * @param taskId task id in int
-     * @return the httpstatus if task updated successfully
+     * @return the httpstatus OK[200] if task updated successfully
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/tasks/{taskId}", consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity updateTask(@RequestBody TaskRequest taskRequest, @PathVariable int taskId){

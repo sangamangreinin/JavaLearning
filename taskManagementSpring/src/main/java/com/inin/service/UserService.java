@@ -29,6 +29,9 @@ public class UserService {
         if(userRequest == null){
             throw new IllegalArgumentException("User object passed was null");
         }
+        if(userRequest.name == null || userRequest.name == ""){
+            throw new IllegalArgumentException("error name required");
+        }
 
         return userDao.insert(new User(userRequest.name));
     }

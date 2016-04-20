@@ -1,5 +1,6 @@
 package com.inin.dao;
 
+import com.inin.controllers.dto.QueryRequest;
 import com.inin.domain.Task;
 
 import java.util.List;
@@ -10,9 +11,7 @@ import java.util.List;
 public interface TaskDao {
     int insert(Task task);
 
-    List<Task> findAllTaskByUserId(int id);
-
-    List<Task> getListOfAllDraftTask();
+    List<Task> query(QueryRequest queryRequest);
 
     boolean isTaskExist(int id);
 
