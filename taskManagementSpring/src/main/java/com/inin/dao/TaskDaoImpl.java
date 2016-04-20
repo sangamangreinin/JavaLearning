@@ -16,8 +16,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -40,25 +38,28 @@ public class TaskDaoImpl implements TaskDao{
      * @return the newly generated task id
      */
     public int insert(Task task){
-        String sqlStatement = "Insert into tasks (name, description, taskStatus,  assigneeId, assignedId, startDate, createdDate, dueDate) values (?, ?, ?, ?, ?, ?, ?, ?)";
-        KeyHolder holder = new GeneratedKeyHolder();
+        //The NamedParameterJdbcTemplate class helps you specify the named parameters instead of classic placeholder(?) argument.
+        //Named parameters improves readability and are easier to maintain.
+        //It functionality is similar to JdbcTemplate.
 
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, task.getTaskName());
-            ps.setString(2, task.getTaskDescription());
-            ps.setInt(3,    task.getTaskStatus());
-            ps.setInt(4,    task.getAssignee());
-            ps.setInt(5,    task.getAssignedTo());
-            ps.setObject(6, task.getTaskStartDate());
-            ps.setObject(7, task.getTaskCreatedDate());
-            ps.setObject(8, task.getDueDate());
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("name",           task.getTaskName())
+                .addValue("description",    task.getTaskDescription())
+                .addValue("taskStatus",     task.getTaskStatus())
+                .addValue("assigneeId",     task.getAssignee())
+                .addValue("assignedId",     task.getAssignedTo())
+                .addValue("startDate",      task.getTaskStartDate())
+                .addValue("createdDate",    task.getTaskCreatedDate())
+                .addValue("dueDate",        task.getDueDate());
 
-            return ps;
-        }, holder);
 
-        int newTaskId = holder.getKey().intValue();
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
+        namedParameterJdbcTemplate.update("Insert into tasks (name, description, taskStatus,  assigneeId, assignedId, startDate, createdDate, dueDate)"
+                        + "VALUES(:name, :description, :taskStatus, :assigneeId, :assignedId, :startDate, :createdDate, :dueDate)",
+                parameters, keyHolder, new String[]{"id"});
+
+        int newTaskId =  keyHolder.getKey().intValue();
         return newTaskId;
     }
 
@@ -67,8 +68,8 @@ public class TaskDaoImpl implements TaskDao{
      * @return the list of task depending on filter criteria specified
      */
     public List<Task> query(QueryRequest queryRequest){
-        //The NamedParameterJdbcTemplate class helps you specify the named parameters instead of classic placeholder(?) argument
-        //Named parameters improves readability and are easier to maintain
+        //The NamedParameterJdbcTemplate class helps you specify the named parameters instead of classic placeholder(?) argument.
+        //Named parameters improves readability and are easier to maintain.
         //It functionality is similar to JdbcTemplate.
         StringBuilder sql = new StringBuilder("select * from tasks where 1=1 ");
         MapSqlParameterSource parameters = new MapSqlParameterSource();

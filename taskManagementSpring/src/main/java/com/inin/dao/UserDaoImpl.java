@@ -4,6 +4,8 @@ import com.inin.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -23,6 +25,9 @@ public class UserDaoImpl implements UserDao{
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
 
     /**
      * insert a new user
@@ -31,18 +36,18 @@ public class UserDaoImpl implements UserDao{
      */
 
     public int insert(User user){
-        String sqlStatement = "Insert into users (name, created) values (?, ?)";
-        KeyHolder holder = new GeneratedKeyHolder();
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("name",           user.getName())
+                .addValue("created",        user.getCreatedDate());
 
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.getName());
-            ps.setObject(2, LocalDateTime.now());
-            return ps;
-        }, holder);
 
-        int newUserId = holder.getKey().intValue();
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
+        namedParameterJdbcTemplate.update("Insert into users (name, created)"
+                        + "VALUES(:name, :created)",
+                parameters, keyHolder, new String[]{"id"});
+
+        int newUserId =  keyHolder.getKey().intValue();
         return newUserId;
     }
 
