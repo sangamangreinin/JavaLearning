@@ -60,8 +60,8 @@ public class TaskService {
 
     /**
      * add comment to task
-     * @param taskId
-     * @param commentRequest
+     * @param taskId task id in int
+     * @param commentRequest comment request object
      * @throws IllegalArgumentException if the comment object passed was null or invalid argument
      */
 
@@ -82,7 +82,7 @@ public class TaskService {
 
     /**
      * check if task exist or not
-     * @param id
+     * @param id task id in int
      * @return true if exist else false
      * @throws TaskDoesNotExistException if the specified task id does not exist
      */

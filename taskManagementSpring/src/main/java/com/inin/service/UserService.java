@@ -1,5 +1,6 @@
 package com.inin.service;
 
+import com.inin.Util;
 import com.inin.controllers.dto.UserRequest;
 import com.inin.dao.UserDao;
 import com.inin.domain.User;
@@ -29,7 +30,7 @@ public class UserService {
         if(userRequest == null){
             throw new IllegalArgumentException("User object passed was null");
         }
-        if(userRequest.name == null || userRequest.name == ""){
+        if(Util.isInValidString(userRequest.name)){
             throw new IllegalArgumentException("error name required");
         }
 
