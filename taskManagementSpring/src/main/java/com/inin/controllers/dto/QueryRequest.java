@@ -7,7 +7,7 @@ public class QueryRequest {
     /**
      * user to whom the task is assigned
      */
-    public int assignedId;
+    public int assigneeId;
     /**
      * task status
      */

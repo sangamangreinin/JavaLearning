@@ -1,6 +1,6 @@
 package com.inin.dao;
 
-import com.inin.domain.User;
+import com.inin.model.User;
 
 /**
  * Created by root on 18/4/16.

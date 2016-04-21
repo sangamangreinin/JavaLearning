@@ -25,12 +25,12 @@ public class TaskRequest {
     /**
      * who has assigned the task
      */
-    public int assignee;
+    public int assignorId;
 
     /**
      * to whom the task is assigned
      */
-    public int assignedTo;
+    public int assigneeId;
 
     /**
      * date when to start the task

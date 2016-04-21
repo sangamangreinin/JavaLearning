@@ -10,8 +10,8 @@ import com.inin.controllers.dto.QueryRequest;
 import com.inin.controllers.dto.TaskRequest;
 import com.inin.dao.CommentDao;
 import com.inin.dao.TaskDao;
-import com.inin.domain.Comment;
-import com.inin.domain.Task;
+import com.inin.model.Comment;
+import com.inin.model.Task;
 import com.inin.exceptions.TaskDoesNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,16 +37,16 @@ public class TaskService {
     private CommentDao commentDao;
 
     /**
-     * craete a new task
+     * create a new task
      * @param taskRequest
      * @return id of newly created task
      * @throws IllegalArgumentException if the task object passed is null
      */
     public int createTask(TaskRequest taskRequest){
         validateTask(taskRequest);
-        //if possible change this to builder pattern later
-        Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignee,
-                taskRequest.assignedTo, taskRequest.startDate, taskRequest.dueDate);
+
+        Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignorId,
+                taskRequest.assigneeId, taskRequest.startDate, taskRequest.dueDate);
         return taskDao.insert(task);
     }
 
@@ -65,19 +65,11 @@ public class TaskService {
      * @throws IllegalArgumentException if the comment object passed was null or invalid argument
      */
 
-    public void addCommentToTask(int taskId, CommentRequest commentRequest){
-        if(commentRequest == null){
-            throw new IllegalArgumentException("Comment object passed was null");
-        }
-        if(Util.isInValidString(commentRequest.description)){
-            throw new IllegalArgumentException("Comment description attribute cannot be null or value is missing");
-        }
-        if(Util.isInValidInt(commentRequest.commentedBy)){
-            throw new IllegalArgumentException("Invalid commentedBy id");
-        }
+    public int addCommentToTask(int taskId, CommentRequest commentRequest){
+        validateComment(commentRequest);
         isTaskExist(taskId);
         Comment comment = new Comment(commentRequest.description, commentRequest.commentedBy);
-        commentDao.insert(taskId, comment);
+        return commentDao.insert(taskId, comment);
     }
 
     /**
@@ -111,10 +103,13 @@ public class TaskService {
      * @throws TaskDoesNotExistException if the specified task id does not exist
      */
     public void updateTask(int taskId, TaskRequest taskRequest){
-        validateTask(taskRequest);
         isTaskExist(taskId);
-        Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignee,
-                taskRequest.assignedTo, taskRequest.startDate, taskRequest.dueDate);
+        Task task = taskDao.findById(taskId);
+
+        task.setDueDate(taskRequest.dueDate);
+        task.setStartDate(taskRequest.startDate);
+        task.setTaskStatus(taskRequest.status);
+
         taskDao.updateTask(taskId, task);
     }
 
@@ -122,9 +117,9 @@ public class TaskService {
      * validate task attributes
      * @param taskRequest task request object
      */
-    public void validateTask(TaskRequest taskRequest){
+    private void validateTask(TaskRequest taskRequest){
         if(taskRequest == null){
-            throw new IllegalArgumentException("Task object passed was null");
+            throw new IllegalArgumentException("Task Request object passed was null");
         }
         if(Util.isInValidString(taskRequest.name)){
             throw new IllegalArgumentException("name, may not be empty");
@@ -132,18 +127,32 @@ public class TaskService {
         if(Util.isInValidString(taskRequest.description)){
             throw new IllegalArgumentException("description, may not be empty");
         }
-
         if(taskRequest.status != 1){
-            if(Util.isInValidInt(taskRequest.assignedTo)){
+            if(Util.isInValidInt(taskRequest.assigneeId)){
                 throw new IllegalArgumentException("error assigned to required , assigned to  may not be 0 or less than 0");
             }
         }
-        if(Util.isInValidInt(taskRequest.assignee)){
-            throw new IllegalArgumentException("error assignee required , assignee to  may not be 0 or less than 0");
+        if(Util.isInValidInt(taskRequest.assignorId)){
+            throw new IllegalArgumentException("error assignorId required , assignor to  may not be 0 or less than 0");
         }
         if(taskRequest.status <= 0 || taskRequest.status > 4){
-            throw new IllegalArgumentException("Invalid task status, should be either 1, 2 or 3 or cannot be zero");
+            throw new IllegalArgumentException("Invalid task status, should be either 1, 2 , 3 , 4 or cannot be zero");
         }
     }
 
+    /**
+     * validate comment attributes
+     * @param commentRequest comment request object
+     */
+    private void validateComment(CommentRequest commentRequest){
+        if(commentRequest == null){
+            throw new IllegalArgumentException("Comment Request object passed was null");
+        }
+        if(Util.isInValidString(commentRequest.description)){
+            throw new IllegalArgumentException("Comment description attribute cannot be null or value is missing");
+        }
+        if(Util.isInValidInt(commentRequest.commentedBy)){
+            throw new IllegalArgumentException("Invalid commentedBy id");
+        }
+    }
 }

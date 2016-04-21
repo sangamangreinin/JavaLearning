@@ -1,7 +1,8 @@
 package com.inin.dao;
 
 import com.inin.controllers.dto.QueryRequest;
-import com.inin.domain.Task;
+import com.inin.model.Task;
+import com.inin.model.User;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface TaskDao {
     boolean isTaskExist(int id);
 
     void updateTask(int taskId, Task task);
+
+    Task findById(int id);
 }

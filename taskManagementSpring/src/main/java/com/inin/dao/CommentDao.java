@@ -1,6 +1,6 @@
 package com.inin.dao;
 
-import com.inin.domain.Comment;
+import com.inin.model.Comment;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface CommentDao {
 
-    void insert(int taskId, Comment comment);
+    int insert(int taskId, Comment comment);
 
     List<Comment> findAll(int taskId);
 }
