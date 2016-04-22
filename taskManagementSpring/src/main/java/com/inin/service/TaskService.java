@@ -1,9 +1,10 @@
 package com.inin.service;
 
 /**
- * Created by root on 6/4/16.
+ * This class consist of all business logic related to task
  */
 
+import com.inin.Constant;
 import com.inin.Util;
 import com.inin.controllers.dto.CommentRequest;
 import com.inin.controllers.dto.QueryRequest;
@@ -43,8 +44,7 @@ public class TaskService {
      * @throws IllegalArgumentException if the task object passed is null
      */
     public int createTask(TaskRequest taskRequest){
-        validateTask(taskRequest);
-
+        validateTaskRequestCreate(taskRequest);
         Task task = new Task(taskRequest.name, taskRequest.description, taskRequest.status, taskRequest.assignorId,
                 taskRequest.assigneeId, taskRequest.startDate, taskRequest.dueDate);
         return taskDao.insert(task);
@@ -66,7 +66,7 @@ public class TaskService {
      */
 
     public int addCommentToTask(int taskId, CommentRequest commentRequest){
-        validateComment(commentRequest);
+        validateCommentRequest(commentRequest);
         isTaskExist(taskId);
         Comment comment = new Comment(commentRequest.description, commentRequest.commentedBy);
         return commentDao.insert(taskId, comment);
@@ -103,7 +103,9 @@ public class TaskService {
      * @throws TaskDoesNotExistException if the specified task id does not exist
      */
     public void updateTask(int taskId, TaskRequest taskRequest){
+        validateCommonTaskRequestForInsertAndUpdate(taskRequest);
         isTaskExist(taskId);
+
         Task task = taskDao.findById(taskId);
 
         task.setDueDate(taskRequest.dueDate);
@@ -115,36 +117,26 @@ public class TaskService {
 
     /**
      * validate task attributes
-     * @param taskRequest task request object
+     * @param taskRequest task request object which needs to be validate
      */
-    private void validateTask(TaskRequest taskRequest){
-        if(taskRequest == null){
-            throw new IllegalArgumentException("Task Request object passed was null");
-        }
+    private void validateTaskRequestCreate(TaskRequest taskRequest){
         if(Util.isInValidString(taskRequest.name)){
-            throw new IllegalArgumentException("name, may not be empty");
+            throw new IllegalArgumentException("Name, may not be empty");
         }
         if(Util.isInValidString(taskRequest.description)){
-            throw new IllegalArgumentException("description, may not be empty");
-        }
-        if(taskRequest.status != 1){
-            if(Util.isInValidInt(taskRequest.assigneeId)){
-                throw new IllegalArgumentException("error assigned to required , assigned to  may not be 0 or less than 0");
-            }
+            throw new IllegalArgumentException("Description, may not be empty");
         }
         if(Util.isInValidInt(taskRequest.assignorId)){
-            throw new IllegalArgumentException("error assignorId required , assignor to  may not be 0 or less than 0");
+            throw new IllegalArgumentException("Error assignorId required , assignor to may not be 0 or less than 0");
         }
-        if(taskRequest.status <= 0 || taskRequest.status > 4){
-            throw new IllegalArgumentException("Invalid task status, should be either 1, 2 , 3 , 4 or cannot be zero");
-        }
+        validateCommonTaskRequestForInsertAndUpdate(taskRequest);
     }
 
     /**
      * validate comment attributes
-     * @param commentRequest comment request object
+     * @param commentRequest comment request object which needs to be validate
      */
-    private void validateComment(CommentRequest commentRequest){
+    private void validateCommentRequest(CommentRequest commentRequest){
         if(commentRequest == null){
             throw new IllegalArgumentException("Comment Request object passed was null");
         }
@@ -153,6 +145,28 @@ public class TaskService {
         }
         if(Util.isInValidInt(commentRequest.commentedBy)){
             throw new IllegalArgumentException("Invalid commentedBy id");
+        }
+    }
+
+    /**
+     * Common validation for insert and update task
+     * @param taskRequest the task request object need to be validate
+     */
+    private void validateCommonTaskRequestForInsertAndUpdate(TaskRequest taskRequest){
+        if(Util.isInValidString(taskRequest.status)){
+            throw new IllegalArgumentException("Status, may not be empty");
+        }
+        if(!taskRequest.status.equals(Constant.DRAFT)){
+            if(Util.isInValidInt(taskRequest.assigneeId)){
+                throw new IllegalArgumentException("Error assignee to required , assigned to may not be 0 or less than 0");
+            }
+        }
+        if(!(taskRequest.status.equals(Constant.DRAFT) || taskRequest.status.equals(Constant.ASSIGNED) ||
+                taskRequest.status.equals(Constant.INPROGRESS) || taskRequest.status.equals(Constant.COMPLETE))){
+            throw new IllegalArgumentException("Invalid task status, should be either DRAFT, ASSIGNED , INPROGRESS , COMPLETE in string");
+        }
+        if(taskRequest.dueDate.isBefore(taskRequest.startDate)){
+            throw new IllegalArgumentException("Due date cannot be less than start date");
         }
     }
 }

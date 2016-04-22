@@ -20,7 +20,7 @@ public class UserService {
     private UserDao userDao;
 
     /**
-     * create a new user
+     * Create a new user
      * @param userRequest
      * @return an id of newly created user
      * @throws IllegalArgumentException if the user object passed was null

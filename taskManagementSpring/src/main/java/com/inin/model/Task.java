@@ -1,31 +1,17 @@
 package com.inin.model;
 
+import com.inin.Util;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
- * Created by root on 6/4/16.
+ * Model class for Task
  */
 
 public class Task {
-
-    /**
-     * task status in draft
-     */
-    public static final int DRAFT = 1;
-    /**
-     * task status in Assigned
-     */
-    public static final int ASSIGNED = 2;
-    /**
-     * task status in progress
-     */
-    public static final int INPROGRESS = 3;
-    /**
-     * task status complete
-     */
-    public static final int COMPLETE = 4;
-
     /**
      * id of task
      */
@@ -41,7 +27,7 @@ public class Task {
     /**
      * status of task
      */
-    private int taskStatus;
+    private String taskStatus;
     /**
      * who has assigned the task
      */
@@ -57,7 +43,7 @@ public class Task {
     /**
      * date when task was created
      */
-    private LocalDate taskCreatedDate;
+    private LocalDateTime taskCreatedDate;
     /**
      * date when to start the task
      */
@@ -75,14 +61,14 @@ public class Task {
      * Initialize the task object
      * @param name task name
      * @param taskDescription task description
-     * @param taskStatus task status
+     * @param taskStatus task status in string
      * @param assignorId assignor id
      * @param assigneeId assignee id
      * @param taskStartDate start date of task
      * @param dueDate due date of task
      */
 
-    public Task(String name, String taskDescription, int taskStatus, int assignorId, int assigneeId, LocalDate taskStartDate,  LocalDate dueDate) {
+    public Task(String name, String taskDescription, String taskStatus, int assignorId, int assigneeId, LocalDate taskStartDate,  LocalDate dueDate) {
         this.taskName           = name;
         this.taskDescription    = taskDescription;
         this.taskStatus         = taskStatus;
@@ -120,7 +106,7 @@ public class Task {
      * get task status
      * @return the task status ids
      */
-    public int getTaskStatus() {
+    public String getTaskStatus() {
         return taskStatus;
     }
 
@@ -152,16 +138,16 @@ public class Task {
      * get task start date
      * @return date of when to start task
      */
-    public LocalDate getTaskStartDate() {
-        return taskStartDate;
+    public String getTaskStartDate() {
+        return Util.formatLocalDate(taskStartDate);
     }
 
     /**
      * get task created date
      * @return the current date
      */
-    public LocalDate getTaskCreatedDate() {
-        return LocalDate.now();
+    public String getTaskCreatedDate() {
+        return Util.formatLocalDateTime(LocalDateTime.now());
     }
 
     /**
@@ -191,7 +177,7 @@ public class Task {
      * set task status
      * @param taskStatus task status to set in int
      */
-    public void setTaskStatus(int taskStatus) {
+    public void setTaskStatus(String taskStatus) {
         this.taskStatus = taskStatus;
     }
 
@@ -205,9 +191,9 @@ public class Task {
 
     /**
      * set assigned id
-     * @param assignedTo assigned to id to set in int
+     * @param assigneeId assigned to id to set in int
      */
-    public void setAssigneeId(int assignedTo) {
+    public void setAssigneeId(int assigneeId) {
         this.assigneeId = assigneeId;
     }
 
@@ -223,7 +209,7 @@ public class Task {
      * set task create date
      * @param taskCreatedDate task created date to set in LocalDate
      */
-    public void setCreatedDate(LocalDate taskCreatedDate) {
+    public void setCreatedDate(LocalDateTime taskCreatedDate) {
         this.taskCreatedDate = taskCreatedDate;
     }
 
@@ -236,11 +222,11 @@ public class Task {
     }
 
     /**
-     *
+     * get task due date
      * @return due date in LocalDate
      */
-    public LocalDate getDueDate() {
-        return dueDate;
+    public String getTaskDueDate() {
+        return  dueDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     /**

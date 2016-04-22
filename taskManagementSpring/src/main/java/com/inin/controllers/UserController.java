@@ -50,7 +50,7 @@ public class UserController {
      * @param id the user id
      * @return the httpstatus OK[200] , the user object
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getUserById(@PathVariable("id") int id){
         try {
             User foundUser = userService.findUserById(id);

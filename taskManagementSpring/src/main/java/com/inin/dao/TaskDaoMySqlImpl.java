@@ -50,7 +50,8 @@ public class TaskDaoMySqlImpl implements TaskDao{
                 .addValue("assigneeId",     task.getAssigneeId())
                 .addValue("startDate",      task.getTaskStartDate())
                 .addValue("createdDate",    task.getTaskCreatedDate())
-                .addValue("dueDate",        task.getDueDate());
+                .addValue("dueDate",        task.getTaskDueDate());
+
 
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -71,9 +72,9 @@ public class TaskDaoMySqlImpl implements TaskDao{
         //The NamedParameterJdbcTemplate class helps you specify the named parameters instead of classic placeholder(?) argument.
         //Named parameters improves readability and are easier to maintain.
         //It functionality is similar to JdbcTemplate.
-        StringBuilder sql = new StringBuilder("select * from tasks where 1=1 ");
+        StringBuilder sql = new StringBuilder("select * from tasks where 1 = 1 ");
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        if (!Util.isInValidInt(queryRequest.status)) {
+        if (!Util.isInValidString(queryRequest.status)) {
             sql.append(" and taskStatus = :taskStatus");
             parameters.addValue("taskStatus", queryRequest.status);
         }
@@ -108,9 +109,14 @@ public class TaskDaoMySqlImpl implements TaskDao{
      */
     public void updateTask(int taskId, Task task) {
         jdbcTemplate.update("UPDATE tasks SET taskStatus = ?, startDate = ? , dueDate = ? WHERE  id = ? ",
-                task.getTaskStatus(), task.getTaskStartDate(), task.getDueDate(), taskId);
+                task.getTaskStatus(), Util.getLocalDateFromString(task.getTaskStartDate()), Util.getLocalDateFromString(task.getTaskDueDate()), taskId);
     }
 
+    /**
+     * get the task by id
+     * @param id task id in int
+     * @return the task object of provided id
+     */
     public Task findById(int id){
         String sql = "Select * from tasks where id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(Task.class));

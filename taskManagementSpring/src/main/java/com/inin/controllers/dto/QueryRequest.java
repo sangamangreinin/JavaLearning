@@ -11,5 +11,5 @@ public class QueryRequest {
     /**
      * task status
      */
-    public int status;
+    public String status;
 }

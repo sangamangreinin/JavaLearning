@@ -2,7 +2,6 @@ package com.inin.dao;
 
 import com.inin.controllers.dto.QueryRequest;
 import com.inin.model.Task;
-import com.inin.model.User;
 
 import java.util.List;
 

@@ -20,7 +20,7 @@ public class TaskRequest {
     /**
      * status of task
      */
-    public int status;
+    public String status;
 
     /**
      * who has assigned the task

@@ -1,6 +1,12 @@
 package com.inin.model;
 
-import java.time.LocalDate;
+import com.inin.Util;
+
+import java.time.LocalDateTime;
+
+/**
+ * Model class for User
+ */
 
 public class User {
     /**
@@ -15,17 +21,17 @@ public class User {
      * user created date
      */
 
-    LocalDate createdDate;
+    LocalDateTime createdDate;
 
     public User() {
     }
 
     /**
      * get created date
-     * @return the localdate
+     * @return the created date in string format
      */
-    public LocalDate getCreatedDate() {
-        return createdDate;
+    public String getCreatedDate() {
+        return Util.formatLocalDateTime(createdDate);
     }
 
     public int getUserId() {
@@ -38,7 +44,7 @@ public class User {
      */
     public User(String name) {
         this.name = name;
-        this.createdDate = LocalDate.now();
+        this.createdDate = LocalDateTime.now();
     }
 
     /**
@@ -72,7 +78,7 @@ public class User {
      * @param created user created date to set in LocalDate
      */
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(LocalDateTime created) {
         this.createdDate = created;
     }
 

@@ -1,22 +1,26 @@
 package com.inin.model;
 
+import com.inin.Util;
+
 import java.time.LocalDateTime;
 
 /**
- * Created by root on 6/4/16.
- */
-
-/**
- *
+ * Model class for Comment
  */
 public class Comment {
     /**
      * id of the comment
      */
     private int commentId;
+
+    public String getCommentDateTime() {
+        return Util.formatLocalDateTime(commentDateTime);
+    }
+
     /**
      * comment description
      */
+
     private String description;
     /**
      * comment done by which user
