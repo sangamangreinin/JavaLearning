@@ -6,13 +6,19 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClient;
-import com.amazonaws.services.sqs.model.*;
+import com.amazonaws.services.sqs.model.CreateQueueRequest;
+import com.amazonaws.services.sqs.model.DeleteMessageRequest;
+import com.amazonaws.services.sqs.model.DeleteQueueRequest;
+import com.amazonaws.services.sqs.model.Message;
+import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
+import com.amazonaws.services.sqs.model.SendMessageRequest;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by root on 13/4/16.
+ * This sample demonstrates how to make basic requests to Amazon SQS using the
+ * AWS SDK for Java.
  */
 public class SimpleQueueServiceExample {
     public static void main(String[] args) {
@@ -46,12 +52,12 @@ public class SimpleQueueServiceExample {
             System.out.println();
 
             // List queues
-            /* System.out.println("Listing all queues in your account.\n");
+            System.out.println("Listing all queues in your account.\n");
             for (String queueUrl : sqs.listQueues().getQueueUrls()) {
                 if(queueUrl.equals(myQueueUrl)){
                     System.out.println(" QueueUrl: " + queueUrl);
                 }
-            }*/
+            }
 
 
             // Send a message
