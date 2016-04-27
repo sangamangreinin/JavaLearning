@@ -32,5 +32,4 @@ public class CommonExceptionHandler {
                 "being able to access the network.");
         System.out.println("Error Message: " + ace.getMessage());
     }
-
 }

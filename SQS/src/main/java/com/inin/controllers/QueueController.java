@@ -1,14 +1,12 @@
 package com.inin.controllers;
 
+import com.inin.controllers.dto.DeleteQueueRequest;
 import com.inin.controllers.dto.QueueRequest;
 import com.inin.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by root on 26/4/16.
@@ -25,5 +23,9 @@ public class QueueController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-
+    @RequestMapping(method = RequestMethod.DELETE, path = "/sqs/queues")
+    public ResponseEntity deleteQueue(@RequestBody DeleteQueueRequest deleteQueueRequest){
+        queueService.deleteQueue(deleteQueueRequest);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
