@@ -148,4 +148,17 @@ public class Message {
                 ", queueId=" + queueId +
                 '}';
     }
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+
+        if(obj == null || getClass() != obj.getClass() ) return false;
+
+        return  this.getId() == ((Message) obj).getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId();
+    }
 }

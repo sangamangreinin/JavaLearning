@@ -25,6 +25,7 @@ public class Queue {
     /**
      * date and time of queue creation
      */
+
     LocalDateTime createdDate;
 
     public Queue() {
@@ -41,6 +42,10 @@ public class Queue {
         this.producerId = producerId;
         this.consumerId = consumerId;
         this.createdDate = LocalDateTime.now();
+    }
+
+    public int getId() {
+        return id;
     }
 
     /**
@@ -113,5 +118,19 @@ public class Queue {
                 ", consumerId=" + consumerId +
                 ", createdDate=" + createdDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+
+        if(obj == null || getClass() != obj.getClass() ) return false;
+
+        return  this.getId() == ((Queue) obj).getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId();
     }
 }
