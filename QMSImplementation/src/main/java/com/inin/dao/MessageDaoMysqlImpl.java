@@ -30,10 +30,10 @@ public class MessageDaoMysqlImpl implements MessageDao{
      */
     public int insert(Message message) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
-                .addValue("message",      message.getMessage())
-                .addValue("queueId", message.getQueueId())
-                .addValue("isProcessed", message.isProcessed())
-                .addValue("createdDateTime",   message.getCreatedDateTime());
+                .addValue("message",            message.getMessage())
+                .addValue("queueId",            message.getQueueId())
+                .addValue("isProcessed",        message.isProcessed())
+                .addValue("createdDateTime",    message.getCreatedDateTime());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 

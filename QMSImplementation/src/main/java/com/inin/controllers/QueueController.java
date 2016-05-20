@@ -7,7 +7,6 @@ import com.inin.exceptions.QueueDoesNotExistException;
 import com.inin.model.Message;
 import com.inin.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
