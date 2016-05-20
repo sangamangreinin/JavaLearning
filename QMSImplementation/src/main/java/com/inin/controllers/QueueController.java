@@ -45,9 +45,9 @@ public class QueueController {
 
     /**
      * Create Queue for producer and consumer,
-     * and returns the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created task
+     * and returns the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created queue
      * @param queueRequest queueRequest object
-     * @return the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created task
+     * @return the HTTP 201[CREATED] along with a LocationHeader containing the locations of newly created queue
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity createQueue(@RequestBody QueueRequest queueRequest, UriComponentsBuilder ucBuilder){
