@@ -16,7 +16,7 @@ public class Message {
      */
     String message;
     /**
-     * mesage crated date and ttime
+     * message crated date and ttime
      */
     LocalDateTime createdDateTime;
     /**
@@ -27,6 +27,11 @@ public class Message {
      * queue where message is stored
      */
     int queueId;
+
+    /**
+     * date and time when the message was processed
+     */
+    LocalDateTime consumedDateTime;
 
     public Message() {
     }
@@ -115,6 +120,22 @@ public class Message {
      */
     public void setQueueId(int queueId) {
         this.queueId = queueId;
+    }
+
+    /**
+     * get the consumed date and time
+     * @return localdatetime when the message was consumed
+     */
+    public LocalDateTime getConsumedDateTime() {
+        return consumedDateTime;
+    }
+
+    /**
+     * set the message consumed date and time
+     * @param consumedDateTime message consumed date and time
+     */
+    public void setConsumedDateTime(LocalDateTime consumedDateTime) {
+        this.consumedDateTime = consumedDateTime;
     }
 
     @Override

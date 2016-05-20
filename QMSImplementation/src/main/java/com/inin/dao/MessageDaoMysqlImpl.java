@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -60,6 +61,6 @@ public class MessageDaoMysqlImpl implements MessageDao{
      * @param messageId message id in int
      */
     public void deleteById(int messageId){
-        jdbcTemplate.update("UPDATE messages SET isProcessed = ? WHERE  id = ? ", true, messageId);
+        jdbcTemplate.update("UPDATE messages SET isProcessed = ?, consumedDateTime = ? WHERE  id = ? ", true, LocalDateTime.now(), messageId);
     }
 }

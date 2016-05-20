@@ -1,6 +1,6 @@
 package com.inin.service;
 
-import com.inin.controllers.dto.UserRequest;
+import com.inin.controllers.dto.UserRegister;
 import com.inin.dao.UserDao;
 import com.inin.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +16,37 @@ public class UserService {
     UserDao userDao;
 
     /**
-     * Create a new user
-     * @param userRequest
-     * @return an id of newly created user
+     * Create a new producer
+     * @param userRegister
+     * @return an id of newly created producer
      * @throws IllegalArgumentException if the user object passed was null or invalid argument passed
      */
-    public int createUser(UserRequest userRequest){
-        validateUserRequest(userRequest);
-        return userDao.insert(new User(userRequest.name));
+    public int createProducer(UserRegister userRegister){
+        validateUserRegister(userRegister);
+        return userDao.insert(new User(userRegister.name));
+    }
+
+
+    /**
+     * Create a new consumer
+     * @param userRegister
+     * @return an id of newly created consumer
+     * @throws IllegalArgumentException if the user object passed was null or invalid argument passed
+     */
+    public int createConsumer(UserRegister userRegister){
+        validateUserRegister(userRegister);
+        return userDao.insert(new User(userRegister.name));
     }
 
     /**
      * validate user attributes
-     * @param userRequest user request object
+     * @param userRegister user request object
      */
-    private void validateUserRequest(UserRequest userRequest){
-        if(userRequest == null){
+    private void validateUserRegister(UserRegister userRegister){
+        if(userRegister == null){
             throw new IllegalArgumentException("User Request object passed was null");
         }
-        if(userRequest.name == ""){
+        if(userRegister.name == ""){
             throw new IllegalArgumentException("name cannot be empty");
         }
     }

@@ -52,10 +52,8 @@ public class QueueController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity createQueue(@RequestBody QueueRequest queueRequest, UriComponentsBuilder ucBuilder){
         int id =  queueService.createQueue(queueRequest);
-        //Location Header containing the locations of newly created queue
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/queues/{id}").buildAndExpand(id).toUri());
-
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
@@ -69,19 +67,17 @@ public class QueueController {
     @RequestMapping(method = RequestMethod.PUT, path = "/{queueId}/messages", consumes = "application/json")
     public ResponseEntity addMessageToQueue(@RequestBody MessageRequest messageRequest, @PathVariable int queueId, UriComponentsBuilder ucBuilder){
         int id =  queueService.addMessageToQueue(queueId, messageRequest);
-        //Location Header containing the locations of newly created message
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/messages/{id}").buildAndExpand(id).toUri());
-
         return new ResponseEntity(headers, HttpStatus.OK);
     }
 
     /**
-     * get the list of messages from a particular queueu
+     * get the list of messages from a particular queue
      * @param queueId id of queue in int
      * @return the list of messages
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/{queueId}/messages", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.GET, path = "/{queueId}/messages")
     public ResponseEntity getListOfMessages(@PathVariable int queueId){
         List<Message> messages = queueService.getListOfMessages(queueId);
         if(messages.isEmpty()){
@@ -96,7 +92,7 @@ public class QueueController {
      * @param messageId id of message in int
      * @return the Httpstatus OK [200] if the message was removed from queue successfully
      */
-    @RequestMapping(method = RequestMethod.PUT, path = "/{queueId}/messages/{messageId}", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{queueId}/messages/{messageId}")
     public ResponseEntity removeMessageFromQueue(@PathVariable int queueId, @PathVariable  int messageId){
         queueService.removeMessageFromQueue(queueId, messageId);
         return new ResponseEntity(HttpStatus.OK);
