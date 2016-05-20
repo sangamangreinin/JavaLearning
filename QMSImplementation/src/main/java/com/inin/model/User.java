@@ -84,5 +84,4 @@ public class User {
                 ", createdDate=" + createdDate +
                 '}';
     }
-    //make sure you override hashcode and equals method
 }

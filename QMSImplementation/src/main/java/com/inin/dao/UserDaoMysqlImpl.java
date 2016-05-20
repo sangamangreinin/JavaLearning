@@ -27,9 +27,8 @@ public class UserDaoMysqlImpl implements UserDao{
      * @return id of newly created user
      */
     public int insert(User user){
-        System.out.println("test dao insert");
         MapSqlParameterSource parameters = new MapSqlParameterSource()
-                .addValue("name",      user.getName())
+                .addValue("name",          user.getName())
                 .addValue("createdDate",   user.getCreatedDate());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
