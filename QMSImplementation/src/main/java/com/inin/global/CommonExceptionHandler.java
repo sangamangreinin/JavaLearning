@@ -4,7 +4,6 @@ import com.inin.Error;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,5 +49,4 @@ public class CommonExceptionHandler {
     public Error handleDataAccessExceptions(Exception e){
         return new Error(103, "Some error occurred");
     }
-
 }
