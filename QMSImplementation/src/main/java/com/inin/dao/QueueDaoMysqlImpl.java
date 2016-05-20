@@ -27,10 +27,10 @@ public class QueueDaoMysqlImpl implements QueueDao {
      */
     public int insert(Queue queue) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
-                .addValue("name",      queue.getName())
-                .addValue("producerId", queue.getProducerId())
-                .addValue("consumerId", queue.getConsumerId())
-                .addValue("createdDate",   queue.getCreatedDate());
+                .addValue("name",            queue.getName())
+                .addValue("producerId",      queue.getProducerId())
+                .addValue("consumerId",      queue.getConsumerId())
+                .addValue("createdDate",     queue.getCreatedDate());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 

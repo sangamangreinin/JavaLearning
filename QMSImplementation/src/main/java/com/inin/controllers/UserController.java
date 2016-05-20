@@ -3,7 +3,6 @@ package com.inin.controllers;
 import com.inin.controllers.dto.UserRequest;
 import com.inin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

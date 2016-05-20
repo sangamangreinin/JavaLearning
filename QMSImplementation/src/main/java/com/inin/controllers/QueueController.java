@@ -66,7 +66,7 @@ public class QueueController {
      * @param ucBuilder
      * @return the httpstatus OK[200] if message added successfully
      */
-    @RequestMapping(method = RequestMethod.PUT, path = "/{queueId}/messages", consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, path = "/{queueId}/messages", consumes = "application/json")
     public ResponseEntity addMessageToQueue(@RequestBody MessageRequest messageRequest, @PathVariable int queueId, UriComponentsBuilder ucBuilder){
         int id =  queueService.addMessageToQueue(queueId, messageRequest);
         //Location Header containing the locations of newly created message
@@ -83,7 +83,7 @@ public class QueueController {
      */
     @RequestMapping(method = RequestMethod.GET, path = "/{queueId}/messages", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getListOfMessages(@PathVariable int queueId){
-        List<Message> messages =  queueService.getListOfMessages(queueId);
+        List<Message> messages = queueService.getListOfMessages(queueId);
         if(messages.isEmpty()){
             return new ResponseEntity("No messages found", HttpStatus.NOT_FOUND);
         }
@@ -96,7 +96,7 @@ public class QueueController {
      * @param messageId id of message in int
      * @return the Httpstatus OK [200] if the message was removed from queue successfully
      */
-    @RequestMapping(method = RequestMethod.PUT, path = "/{queueId}/messages/{messageId}", consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, path = "/{queueId}/messages/{messageId}", consumes = "application/json")
     public ResponseEntity removeMessageFromQueue(@PathVariable int queueId, @PathVariable  int messageId){
         queueService.removeMessageFromQueue(queueId, messageId);
         return new ResponseEntity(HttpStatus.OK);
