@@ -2,6 +2,7 @@ package com.inin.service;
 
 import com.inin.controllers.dto.UserRegister;
 import com.inin.dao.UserDao;
+import com.inin.exceptions.UserDoesNotExistException;
 import com.inin.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,30 @@ public class UserService {
     public int createConsumer(UserRegister userRegister){
         validateUserRegister(userRegister);
         return userDao.insert(new User(userRegister.name));
+    }
+
+    /**
+     * Check if producer exist or not
+     * @param userId id of the user in int
+     * @return true if producer exist else false
+     */
+    public boolean isProducerExist(int userId){
+        if(!(userDao.isUserExist(userId))){
+            throw new UserDoesNotExistException("Producer with id " +userId+" does not exist.");
+        }
+        return true;
+    }
+
+    /**
+     * Check if consumer exist or not
+     * @param userId id of the user in int
+     * @return true if consumer exist else false
+     */
+    public boolean isConsumerExist(int userId){
+        if(!(userDao.isUserExist(userId))){
+            throw new UserDoesNotExistException("Consumer with id " +userId+" does not exist.");
+        }
+        return true;
     }
 
     /**

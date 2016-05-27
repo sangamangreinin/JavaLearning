@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Common exception for task and user controller, The illegal argument exception will get caught here
+ * Common exception for queue and user controller, The illegal argument exception will get caught here
  */
 @ControllerAdvice
 public class CommonExceptionHandler {

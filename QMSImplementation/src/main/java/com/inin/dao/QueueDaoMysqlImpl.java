@@ -41,6 +41,12 @@ public class QueueDaoMysqlImpl implements QueueDao {
         int newQueueId =  keyHolder.getKey().intValue();
         return newQueueId;
     }
+
+    /**
+     * check if queue exist
+     * @param id queue id in int
+     * @return true if exist else false
+     */
     public boolean isQueueExist(int id) {
         int count = jdbcTemplate.queryForObject("Select count(*) from queues where id = ?", new Object[]{id}, Integer.class);
         if(count > 0){

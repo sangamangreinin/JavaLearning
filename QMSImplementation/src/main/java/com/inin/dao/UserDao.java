@@ -8,4 +8,6 @@ import com.inin.model.User;
 
 public interface UserDao {
    int insert(User user);
+   boolean isUserExist(int id);
+
 }

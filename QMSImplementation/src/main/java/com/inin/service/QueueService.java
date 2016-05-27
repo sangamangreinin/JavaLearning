@@ -23,7 +23,10 @@ public class QueueService {
     QueueDao queueDao;
 
     @Autowired
-    private MessageDao messageDao;
+    MessageDao messageDao;
+
+    @Autowired
+    UserService userService;
 
     /**
      * create a new queue
@@ -33,6 +36,9 @@ public class QueueService {
      */
     public int createQueue(QueueRequest queueRequest){
         validateQueueRequest(queueRequest);
+        userService.isProducerExist(queueRequest.producerId);
+        userService.isConsumerExist(queueRequest.consumerId);
+
         return queueDao.insert(new Queue(queueRequest.name, queueRequest.producerId, queueRequest.consumerId));
     }
 
@@ -88,6 +94,9 @@ public class QueueService {
         }
         if(queueRequest.producerId <= 0){
             throw new IllegalArgumentException("Producer id should be greater than zero.");
+        }
+        if(queueRequest.producerId ==  queueRequest.consumerId){
+            throw new IllegalArgumentException("Producer and consumer should be different.");
         }
     }
 

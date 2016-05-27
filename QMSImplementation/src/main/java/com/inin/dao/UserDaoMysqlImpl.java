@@ -40,4 +40,17 @@ public class UserDaoMysqlImpl implements UserDao{
         int newUserId =  keyHolder.getKey().intValue();
         return newUserId;
     }
+
+    /**
+     * check if user exist
+     * @param id user id in int
+     * @return true if exist else false
+     */
+    public boolean isUserExist(int id) {
+        int count = jdbcTemplate.queryForObject("Select count(*) from users where id = ?", new Object[]{id}, Integer.class);
+        if(count > 0){
+            return true;
+        }
+        return false;
+    }
 }

@@ -4,6 +4,7 @@ import com.inin.Error;
 import com.inin.controllers.dto.MessageRequest;
 import com.inin.controllers.dto.QueueRequest;
 import com.inin.exceptions.QueueDoesNotExistException;
+import com.inin.exceptions.UserDoesNotExistException;
 import com.inin.model.Message;
 import com.inin.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,13 @@ public class QueueController {
     @ResponseBody
     public Error handleQueueDoesNotExistException(Exception e){
         return new Error(101, e.getMessage());
+    }
+
+    @ExceptionHandler(UserDoesNotExistException.class)
+    @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
+    @ResponseBody
+    public Error handleUserDoesNotExistException(Exception e){
+        return new Error(105, e.getMessage());
     }
 
     /**

@@ -52,7 +52,7 @@ public class MessageDaoMysqlImpl implements MessageDao{
      * @return list of messages
      */
     public List<Message> findAll(int queueId){
-        String sql = "Select * from messages where queueId = ? and isProcessed = 0";
+        String sql = "Select id, message, queueId, isProcessed, createdDateTime from messages where queueId = ? and isProcessed = 0";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Message.class), queueId);
     }
 
